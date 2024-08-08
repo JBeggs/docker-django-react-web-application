@@ -44,3 +44,19 @@ This combination supports rapid, flexible, and scalable web application developm
 
 
 By leveraging these technologies together, developers can enjoy a streamlined workflow that promotes efficiency, consistency, and quality in building modern web applications.
+
+
+### The plan
+
+- Setup a basic django application running in docker. Commit the changes.
+- Setup Django using React serving the front end
+- Start the Development.
+
+There are a few tasks that need to get out the way.
+
+local developemnt env and production.
+
+Almost the same
+
+For React prosuction a the built source will be served by Django
+
