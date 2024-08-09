@@ -1,0 +1,6 @@
+Django==4.2.3
+gunicorn==21.2.0
+psycopg2-binary==2.9.6
+dj-rest-auth[with_social]==4.0.0
+djangorestframework
+django-cors-headers

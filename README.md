@@ -58,5 +58,16 @@ local developemnt env and production.
 
 Almost the same
 
-For React prosuction a the built source will be served by Django
+React has it's own docker file 
+
+### Adding django backend framework
+
+docker-compose.yml has the images needed for postgres, django and react.
+
+#### Dev Installation
+
+Django
+
+- cd backend
+- 
 
