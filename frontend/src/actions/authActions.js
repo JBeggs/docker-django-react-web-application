@@ -2,15 +2,17 @@ import axios from "axios";
 import { SubmissionError } from "redux-form";
 import history from "../utils/historyUtils";
 import { actions as notifActions } from "redux-notifications";
-
-
 import { AuthTypes } from "../constants/actionTypes";
 import { AuthUrls } from "../constants/urls";
 import store from "../store";
 import { getUserToken } from "../utils/authUtils";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
+
 
 const { notifSend } = notifActions;
+axios.defaults.withCredentials = true;
+
+
 
 export function authLogin(token) {
     return {
@@ -21,18 +23,36 @@ export function authLogin(token) {
 
 export function loginUser(formValues, dispatch) {
         const loginUrl = AuthUrls.LOGIN;
+        // var bodyFormData = new FormData();
+        // bodyFormData.append('data', JSON.stringify(formValues));
+        const config = {
+            xsrfCookieName: "csrftoken",
+            xsrfHeaderName: "X-CSRFTOKEN",
+            withCredentials: true,
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "X-CSRFTOKEN": Cookies.get("csrftoken")
+              },
+        }
+        
+        return axios.post(loginUrl, formValues, config).then((response) => {
 
-        return axios.post(loginUrl, formValues).then((response) => {
-            // If request is good...
-            // Update state to indicate user is authenticated
             const token = response.data.key;
             dispatch(authLogin(token));
 
             localStorage.setItem("token", token);
-
+            localStorage.setItem("refresh", token);
             // redirect to the route "/"
             history.push("/");
+            window.location.reload();
+
         }).catch(error => {
+            dispatch(notifSend({
+                message: error.response.data.detail,
+                kind: "info",
+                dismissAfter: 5000
+            }));
             const processedError = processServerError(error);
             throw new SubmissionError(processedError);
         });
@@ -40,6 +60,7 @@ export function loginUser(formValues, dispatch) {
 
 export function logoutUser() {
     localStorage.removeItem("token");
+    localStorage.removeItem("refresh");
     return {
         type: AuthTypes.LOGOUT
     };
@@ -48,7 +69,17 @@ export function logoutUser() {
 export function signupUser(formValues) { //no-unused-vars
     const signupUrl = AuthUrls.SIGNUP;
 
-    return axios.post(signupUrl, formValues)
+    const config = {
+        xsrfCookieName: "csrftoken",
+        xsrfHeaderName: "X-CSRFTOKEN",
+        withCredentials: true,
+        headers: {
+            Accept: "application/json",
+            "X-CSRFTOKEN": Cookies.get("csrftoken")
+          },
+    }    
+
+    return axios.post(signupUrl, formValues, config)
         .then(() => {
             // If request is good...
             // you can login if email verification is turned off.
@@ -59,6 +90,7 @@ export function signupUser(formValues) { //no-unused-vars
             // email need to be verified, so don"t login and send user to signup_done page.
             // redirect to signup done page.
             history.push("/signup_done");
+            window.location.reload();
         })
         .catch((error) => {
             // If request is bad...
@@ -125,8 +157,16 @@ export function changePassword(formValues, dispatch) {
 
 export function resetPassword(formValues) {
     const resetPasswordUrl = AuthUrls.RESET_PASSWORD;
-
-    return axios.post(resetPasswordUrl, formValues)
+    const config = {
+        xsrfCookieName: "csrftoken",
+        xsrfHeaderName: "X-CSRFTOKEN",
+        withCredentials: true,
+        headers: {
+            Accept: "application/json",
+            "X-CSRFTOKEN": Cookies.get("csrftoken")
+          },
+    }   
+    return axios.post(resetPasswordUrl, formValues, config)
         .then(response => {
             // redirect to reset done page
             console.log(response)
@@ -143,8 +183,16 @@ export function confirmPasswordChange(formValues, dispatch, props) {
     const { uid, token } = props.match.params;
     const resetPasswordConfirmUrl = AuthUrls.RESET_PASSWORD_CONFIRM;
     const data = Object.assign(formValues, { uid, token });
-
-    return axios.post(resetPasswordConfirmUrl, data)
+    const config = {
+        xsrfCookieName: "csrftoken",
+        xsrfHeaderName: "X-CSRFTOKEN",
+        withCredentials: true,
+        headers: {
+            Accept: "application/json",
+            "X-CSRFTOKEN": Cookies.get("csrftoken")
+          },
+    }   
+    return axios.post(resetPasswordConfirmUrl, data, config)
         .then(response => {
             dispatch(notifSend({
                 message: "Password has been reset successfully, please log in",
@@ -165,8 +213,16 @@ export function activateUserAccount(formValues, dispatch, props) {
     const { key } = props.match.params;
     const activateUserUrl = AuthUrls.USER_ACTIVATION;
     const data = Object.assign(formValues, { key });
-
-    return axios.post(activateUserUrl, data)
+    const config = {
+        xsrfCookieName: "csrftoken",
+        xsrfHeaderName: "X-CSRFTOKEN",
+        withCredentials: true,
+        headers: {
+            Accept: "application/json",
+            "X-CSRFTOKEN": Cookies.get("csrftoken")
+          },
+    }   
+    return axios.post(activateUserUrl, data, config)
         .then(response => {
             dispatch(notifSend({
                 message: "Your account has been activated successfully, please log in",

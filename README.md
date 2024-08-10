@@ -68,6 +68,32 @@ docker-compose.yml has the images needed for postgres, django and react.
 
 Django
 
-- cd backend
-- 
+Django is completly setup using docker
+
+React application
+
+- cd frontend
+- npm install --force (the auth I'm usig uses react-redux)
+
+that's it
+
+run in the root of the project
+
+- cd ../
+- docker-compose build
+- docker-compose up -d
+
+to setp the basic application
+
+
+### Some Docker commands I need to remember
+
+docker-compose build
+docker-compose up -d
+
+docker ps
+docker image ls
+
+
+docker exec -it ff724a0c294e bash
 

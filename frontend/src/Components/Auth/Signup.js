@@ -26,7 +26,7 @@ class Signup extends Component {
 
                     <fieldset className="form-group">
                         <Field name="email" label="Email" component={renderField}
-                               type="text"/>
+                               type="text" validate={[required({message: "This field is required."})]}/>
                     </fieldset>
 
                     <fieldset className="form-group">
