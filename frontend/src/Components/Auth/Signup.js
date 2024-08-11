@@ -16,9 +16,10 @@ class Signup extends Component {
         const { handleSubmit, error } = this.props;
 
         return (
-            <div className="row justify-content-center">
+            <div className="container-fluid">
+            <div className="row justify-content-center px-2  gap-3">
                 <form
-                    className="col col-sm-4 card mt-5 p-2"
+                    className="col col-sm-8 col-md-6 col-lg-4 card mt-4 p-6"
                     onSubmit={handleSubmit}
                 >
                     <h4 className="text-md-center">Sign Up</h4>
@@ -53,6 +54,7 @@ class Signup extends Component {
                         <button action="submit" className="btn btn-primary">Sign Up</button>
                     </fieldset>
                 </form>
+            </div>
             </div>
         );
     }

@@ -18,10 +18,12 @@ class Login extends Component {
         const { handleSubmit, error } = this.props;
 
         return (
-            <div className="row justify-content-center">
+            <div className="">
+
+            <div className="row justify-content-center px-2  gap-3">
 
                 <form
-                    className="col col-sm-4 card mt-5 p-2"
+                    className="col col-sm-8 col-md-6 col-lg-4 card mt-4 p-6"
                     onSubmit={handleSubmit}
                 >
                     <h4 className="text-md-center">Please Log In</h4>
@@ -48,6 +50,7 @@ class Login extends Component {
                     <p>Not registered? <Link to="/signup">Signup Here!</Link></p>
                     <Link to="/reset_password">forgot password?</Link>
                 </form>
+            </div>
             </div>
         )
     }

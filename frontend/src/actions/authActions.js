@@ -12,8 +12,6 @@ import Cookies from "js-cookie";
 const { notifSend } = notifActions;
 axios.defaults.withCredentials = true;
 
-
-
 export function authLogin(token) {
     return {
         type: AuthTypes.LOGIN,
@@ -28,7 +26,6 @@ export function loginUser(formValues, dispatch) {
         const config = {
             xsrfCookieName: "csrftoken",
             xsrfHeaderName: "X-CSRFTOKEN",
-            withCredentials: true,
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

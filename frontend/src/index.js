@@ -1,4 +1,4 @@
-import "./App.css";
+
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { createRoot } from "react-dom/client";
@@ -10,6 +10,7 @@ import store from "./store";
 import history from "./utils/historyUtils";
 import { authLogin } from "./actions/authActions";
 import App from "./App";
+import { ThemeProvider } from "./Theme";
 
 const token = localStorage.getItem("token");
 
@@ -24,11 +25,17 @@ export const StoreContext = createContext();
 root.render(
 
   <Router history={history}>
-    <Provider store={store}>
+
+    <ThemeProvider>
+
+      <Provider store={store}>
       
-      <App />
-      <Notifs store={store} />
-    </Provider>
+        <App />
+      
+        <Notifs store={store} />
+
+      </Provider>
+    </ThemeProvider>
   </Router>
 
 );

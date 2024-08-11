@@ -1,21 +1,24 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import React from "react";
+
+import store from "./store";
 
 import AuthHeader from "./Components/Auth/Header";
 import MainContent from "./Components/MainContent";
+import HomeHero from "./Components/Hero/Home";
 
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
-import store from "./store";
+import loadContent from "./utils/loadContent";
 
-const theme = createTheme();
 
 export default function App (){
-    
+
+    loadContent("", "", dispatchEvent)
     return (
-        <ThemeProvider theme={theme}>
-            <div className="container">
-                <AuthHeader store={store} />
-                <MainContent store={store} />
-            </div>
-        </ThemeProvider>
+        <div>
+            <AuthHeader store={store} />
+            <HomeHero />
+            <MainContent store={store} />
+        </div>
     );
 }

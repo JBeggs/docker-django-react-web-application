@@ -1,7 +1,35 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { ThemeContext } from "../../Theme";
+import $ from "jquery"
+
+
+const ThemeHeader = () => {
+    const { theme, toggleTheme } = useContext(ThemeContext);
+  
+    function onClick (){
+        const _attr = $('html').attr('data-bs-theme');
+        const new_Attr = _attr === 'light' ? 'dark' : 'light';
+        $("html").removeAttr(_attr);
+        $("html").attr({"data-bs-theme": new_Attr});
+
+    }
+
+    return (
+      <div className="header-container">
+        <div className="header-toggle-buttons">
+            <button  onClick={() => {
+                  toggleTheme();
+                  onClick();
+                }}>
+                    {theme}
+            </button>
+        </div>
+      </div>
+    );
+  };
 
 class AuthHeader extends Component {
 
@@ -10,6 +38,7 @@ class AuthHeader extends Component {
     };
 
     renderLinks() {
+
         if (this.props.authenticated) {
             return (
                 [
@@ -37,13 +66,20 @@ class AuthHeader extends Component {
     }
 
     render() {
+        
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg">
                 <Link to="/" className="navbar-brand">Auth</Link>
                 <ul className="navbar-nav">
+                    <li className="nav-item" key="signup">
+                        <div className="header-toggle-buttons">
+                            <ThemeHeader />
+                        </div>
+                    </li>
                     {this.renderLinks()}
                 </ul>
             </nav>
+            
         )
     }
 }
