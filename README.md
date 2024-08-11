@@ -97,3 +97,13 @@ docker image ls
 
 docker exec -it ff724a0c294e bash
 
+### Getting there
+
+# In this round I'm going to add content and some style for the front end.
+
+- Choose a frame work, bootstrap or tailwind? Not lookning good for tailwind if I need to buy it.
+- Add some models in the backend to store page content
+- Add Models for Blog content
+
+
+
