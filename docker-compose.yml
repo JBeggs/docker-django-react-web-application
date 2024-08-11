@@ -1,7 +1,9 @@
 services:
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend/:/usr/src/backend/
@@ -18,7 +20,7 @@ services:
       dockerfile: Dockerfile
 
     ports:
-      - '3000:3000'
+      - "3000:3000"
 
     volumes:
       - ./frontend:/app/frontend
