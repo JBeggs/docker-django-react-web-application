@@ -58,8 +58,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
-    # "rest_auth",
-    # "rest_auth.registration",
     "dj_rest_auth",
     "rest_framework_simplejwt.token_blacklist",
     
@@ -67,9 +65,11 @@ INSTALLED_APPS = [
     "allauth.account",
 
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.github",
-    "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.linkedin_oauth2",
+
+    "content.apps.ContentConfig",
+    # "allauth.socialaccount.providers.github",
+    # "allauth.socialaccount.providers.google",
+    # "allauth.socialaccount.providers.linkedin_oauth2",
 
 ]
 

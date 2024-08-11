@@ -8,5 +8,6 @@ export const AuthUrls = {
     RESET_PASSWORD_CONFIRM: `${ROOT_URL}api-auth/password/reset/confirm/`,
     USER_ACTIVATION: `${ROOT_URL}api-auth/registration/verify-email/`,
     USER_PROFILE: `${ROOT_URL}api-auth/user/`,
+    LOAD_CONTENT: `${ROOT_URL}api/info/`,
     UPDATE_CONTENT: `${ROOT_URL}update/page/`,
 };

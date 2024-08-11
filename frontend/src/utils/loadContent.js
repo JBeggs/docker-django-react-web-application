@@ -9,19 +9,20 @@ import { SubmissionError } from "redux-form";
 const { notifSend } = notifActions;
 
 
-export default function loadContent(page=null, field=null, dispatch) {
+export default function loadContent(page=null, field=null, image=null) {
 
-    const updateURL = AuthUrls.UPDATE_CONTENT;
-    const image = null;
+
+    alert(process.env.REACT_APP_URL);
+    const loadURL = AuthUrls.LOAD_CONTENT;
 
     const contentValues = {
-        // field : field,
-        // page : page,
+        field : field,
+        page : page,
     }
 
-    // if (image){
-    //     contentValues['image'] = image
-    // }
+    if (image){
+        contentValues['image'] = image
+    }
 
     const config = {
         // xsrfCookieName: "csrftoken",
@@ -33,29 +34,19 @@ export default function loadContent(page=null, field=null, dispatch) {
             // "X-CSRFTOKEN": Cookies.get("csrftoken")
           },
     }
-    alert(updateURL);
-    return axios.post(updateURL, contentValues, config).then((response) => {
 
-        localStorage.setItem(" test", "lekka");
-        history.push("/");
-        window.location.reload();
+    return axios.post(loadURL, contentValues, config).then((response) => {
+
+        localStorage.setItem("home_title", response.data.home[0].title);
+        localStorage.setItem("home_description", response.data.home[0].title_description);
+        localStorage.setItem("home_paragraph_1", response.data.home[0].paragraph_1);
+        localStorage.setItem("home_paragraph_2", response.data.home[0].paragraph_2);
+        localStorage.setItem("home_paragraph_3", response.data.home[0].paragraph_3);
+        localStorage.setItem("home_paragraph_4", response.data.home[0].paragraph_4);
+        localStorage.setItem("home_paragraph_5", response.data.home[0].paragraph_5);
+        localStorage.setItem("home_hero_image", response.data.home[0].hero_image);
 
     }).catch(error => {
         alert(error);
     });
-}
-
-function processServerError(error) {
-    return  Object.keys(error).reduce(function(newDict, key) {
-        if (key === "non_field_errors") {
-            newDict["_error"].push(error[key]);
-        } else if (key === "token") {
-            // token sent with request is invalid
-            newDict["_error"].push("The link is not valid any more.");
-        } else {
-            newDict[key] = error[key];
-        }
-
-        return newDict
-    }, {"_error": []});
 }
