@@ -11,3 +11,4 @@ dj-rest-auth==6.0.0
 django-allauth==0.55.0
 cryptography
 pillow==10.4.0
+lorem
