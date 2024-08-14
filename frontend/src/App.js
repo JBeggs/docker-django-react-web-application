@@ -16,7 +16,6 @@ export default function App (){
     loadContent("", "", dispatchEvent)
     return (
         <div>
-            <AuthHeader store={store} />
             <HomeHero />
             <MainContent store={store} />
         </div>

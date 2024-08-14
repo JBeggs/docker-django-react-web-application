@@ -1,5 +1,3 @@
-
-
 import { BrowserRouter as Router } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -29,11 +27,8 @@ root.render(
     <ThemeProvider>
 
       <Provider store={store}>
-      
         <App />
-      
         <Notifs store={store} />
-
       </Provider>
     </ThemeProvider>
   </Router>
