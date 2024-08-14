@@ -1,23 +1,19 @@
 import "./Articles.css";
 import React from 'react';
+import { format } from "date-fns";
+
 
 
 export default function Articles() {
 
-    const saved_image = localStorage.getItem("home_hero_image")
-    let hero_image = "";
-
-    if(!saved_image){
-      hero_image = process.env.REACT_APP_BACKEND_URL + saved_image;
-    } else {
-      hero_image = process.env.PUBLIC_URL + '/images/home/hero.jpg';
+    function format_date(date) {
+        var date = new Date(date);
+        var formattedDate = format(date, "MMMM do, yyyy H:mma");
+        
+        return formattedDate;
     }
-    const myStyle = {
-      backgroundImage: `url(${
-        hero_image
-      })`,
-      height: 400,
-    };
+
+    const articles = JSON.parse(localStorage.getItem("articles"));
 
     return (
       <div>
@@ -27,28 +23,29 @@ export default function Articles() {
                     <h2 className="section-heading text-uppercase">Article timeline</h2>
                     <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
+
                 <ul className="timeline">
-                    <li>
-                        <div className="timeline-image"><img className="rounded-circle img-fluid" src={hero_image} alt="..." /></div>
-                        <div className="timeline-panel">
-                            <div className="timeline-heading">
-                                <h4>2009-2011</h4>
-                                <h4 className="subheading">Our Humble Beginnings</h4>
+
+                    {articles.map((article, index) => (
+
+                        <li className={index % 2 === 0 ? 'timeline-inverted' : null}>
+                            <div className="timeline-image">
+                                <img 
+                                    className="rounded-circle img-fluid" 
+                                    src={article.hero_image !== "" ? process.env.REACT_APP_BACKEND_URL + "/media/" + article.hero_image : process.env.REACT_APP_PUBLIC_HTML + '/images/home/hero.jpg'} 
+                                    alt={article.title} 
+                                />
                             </div>
-                            <div className="timeline-body"><p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                        </div>
-                    </li>
-                    <li className="timeline-inverted">
-                        <div className="timeline-image"><img className="rounded-circle img-fluid" src={hero_image} alt="..." /></div>
-                        <div className="timeline-panel">
-                            <div className="timeline-heading">
-                                <h4>March 2011</h4>
-                                <h4 className="subheading">An Agency is Born</h4>
+                            <div className="timeline-panel">
+                                <div className="timeline-heading">
+                                    <p>{format_date(article.created_at)}</p>
+                                    <h4 className="subheading">{article.title}</h4>
+                                </div>
+                                <div className="timeline-body"><p className="text-muted">{article.title_description}</p></div>
                             </div>
-                            <div className="timeline-body"><p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                        </div>
-                    </li>
-                    
+                        </li>
+                    ))}
+
                     <li className="timeline-inverted">
                         <div className="timeline-image">
                             <h4>

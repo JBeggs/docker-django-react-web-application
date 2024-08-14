@@ -4,7 +4,9 @@ import RequireAuth from "./Auth/RequireAuth";
 import Modal from 'react-modal';
 
 import HomePage from "../Pages/Home";
-import Articles from "../Pages/Articles";
+import ArticlesPage from "../Pages/Articles/Article.js";
+import ArticleDetail from "../Pages/Articles/ArticleDetail.js";
+
 import Login from "./Auth/Login";
 import Logout from "./Auth/Logout";
 import Signup from "./Auth/Signup";
@@ -16,6 +18,8 @@ import PasswordChange from "./Auth/PasswordChange";
 import PasswordReset from "./Auth/PasswordReset";
 import PasswordResetDone from "./Auth/PasswordResetDone";
 import PasswordResetConfirm from "./Auth/PasswordResetConfirm";
+
+
 // import NoMatch from "./NoMatch";
 
 function MainContent(){
@@ -25,7 +29,9 @@ function MainContent(){
         <div>
             <Routes>
                 <Route exact path="/" element={<HomePage />}/>
-                <Route path="/articles" element={<Articles/>}/>
+                <Route path="/articles" element={<ArticlesPage/>}/>
+                <Route path="/article/:slug" element={<ArticleDetail />} />
+
                 <Route path="/login" element={<Login />}/>
                 <Route path="/logout" element={<Logout />}/>
                 <Route path="/signup" element={<Signup />}/>

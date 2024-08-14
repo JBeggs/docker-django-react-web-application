@@ -28,9 +28,9 @@ export default function saveContent(id, value=null, field=null, page=null, image
     }
 
     return axios.put(updateURL, contentValues, config).then((response) => {
-        setTimeout(() => {
-            window.location.reload();
-          }, 5000);
+        // setTimeout(() => {
+        //     window.location.reload();
+        //   }, 5000);
         
 
     }).catch(error => {
