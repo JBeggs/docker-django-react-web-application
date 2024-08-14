@@ -21,7 +21,7 @@ class PageContent(models.Model):
         ('blog', 'Blog'),
         # add more options here
     ]
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, blank=True, null=True)
     page = models.CharField(max_length=200, choices=PAGE_CHOICES, blank=True)
     title = models.CharField(max_length=200, blank=True)
     title_description = models.TextField(_('Title Description'), blank=True)

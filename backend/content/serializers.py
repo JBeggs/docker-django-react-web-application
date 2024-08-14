@@ -15,7 +15,7 @@ class PageContentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = PageContent
-        fields = ['creator', 'name', 'page', 'title', 'title_description', 'paragraph_1', 'paragraph_2', 'paragraph_3', 'paragraph_4', 'paragraph_5', 'file', 'created_at', 'updated_at', 'active']
+        fields = ['id', 'creator', 'name', 'page', 'title', 'title_description', 'hero_image', 'paragraph_1', 'paragraph_2', 'paragraph_3', 'paragraph_4', 'paragraph_5', 'file', 'created_at', 'updated_at', 'active']
 
     def create(self, validated_data):
 
@@ -46,7 +46,7 @@ class PageContentSerializer(serializers.ModelSerializer):
 class PageGallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = PageGallery
-        fields = ['page', 'name', 'image', 'description', 'thumbnail']
+        fields = ['id', 'page', 'name', 'image', 'description', 'thumbnail']
 
     def create(self, validated_data):
 

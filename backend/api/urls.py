@@ -10,10 +10,11 @@ from content.views import PageContentViewSet, PageGalleryViewSet
 admin.autodiscover()
 
 router = DefaultRouter()
-router.register(r'pagecontent', PageContentViewSet)
+router.register(r'update/page', PageContentViewSet)
 router.register(r'pagegallery', PageGalleryViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
     path(r'info/',      site_info, name='build'),
+    # path(r'update/page/',      site_info, name='build'),
 ]

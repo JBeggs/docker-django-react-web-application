@@ -8,12 +8,15 @@ from content.models import PageContent, PageGallery
 @csrf_exempt
 def site_info(request, *args, **kwargs):
     home = list(PageContent.objects.filter(page="home").values())
-    home_gallery = list(PageGallery.objects.filter(page__page="home", active=True).values())
+    home_gallery = list(PageGallery.objects.filter(page__page="home").values())
+    about = list(PageContent.objects.filter(page="about").values())
+    about_gallery = list(PageGallery.objects.filter(page__page="about").values())
     return JsonResponse(
         {
             'csrf_token': get_token(request),
             'home':home,
             'home_gallery':home_gallery,
-            
+            'about':about,
+            'about_gallery':about_gallery,
         }
     )
