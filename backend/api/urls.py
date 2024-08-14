@@ -5,13 +5,15 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from api.views import site_info
-from content.views import PageContentViewSet, PageGalleryViewSet
+from content.views import PageContentViewSet, PageGalleryViewSet, ArticlesViewSet, ArticleGalleryViewSet
 
 admin.autodiscover()
 
 router = DefaultRouter()
 router.register(r'update/page', PageContentViewSet)
-router.register(r'pagegallery', PageGalleryViewSet)
+router.register(r'update/pagegallery', PageGalleryViewSet)
+router.register(r'update/article', ArticlesViewSet)
+router.register(r'update/articlegallery', ArticleGalleryViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

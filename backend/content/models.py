@@ -18,7 +18,7 @@ class PageContent(models.Model):
         ('home', 'Home'),
         ('about', 'About'),
         ('contact', 'Contact'),
-        ('blog', 'Blog'),
+        ('article', 'Article'),
         # add more options here
     ]
     name = models.CharField(max_length=200, blank=True, null=True)
@@ -86,14 +86,21 @@ class Articles(models.Model):
 
     name = models.CharField(max_length=200, blank=True, null=True)
     title = models.CharField(max_length=200, blank=True)
+    slug = models.SlugField(default="", null=False)
     title_description = models.TextField(_('Title Description'), blank=True)
     hero_image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
 
+    header_1 = models.CharField(max_length=200, blank=True)
     paragraph_1 = models.TextField(_('paragraph'), blank=True)
+    header_2 = models.CharField(max_length=200, blank=True)
     paragraph_2 = models.TextField(_('paragraph'), blank=True)
+    header_3 = models.CharField(max_length=200, blank=True)
     paragraph_3 = models.TextField(_('paragraph'), blank=True)
+    header_4 = models.CharField(max_length=200, blank=True)
     paragraph_4 = models.TextField(_('paragraph'), blank=True)
+    header_5 = models.CharField(max_length=200, blank=True)
     paragraph_5 = models.TextField(_('paragraph'), blank=True)
+
     
     file = models.FileField(upload_to=page_file_path, blank=True, null=True)
     active     = models.BooleanField(default=True)
