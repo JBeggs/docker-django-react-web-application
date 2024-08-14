@@ -6,30 +6,30 @@ import { ThemeContext } from "../../Theme";
 import $ from "jquery"
 
 
-const ThemeHeader = () => {
-    const { theme, toggleTheme } = useContext(ThemeContext);
+// const ThemeHeader = () => {
+//     const { theme, toggleTheme } = useContext(ThemeContext);
   
-    function onClick (){
-        const _attr = $('html').attr('data-bs-theme');
-        const new_Attr = _attr === 'light' ? 'dark' : 'light';
-        $("html").removeAttr(_attr);
-        $("html").attr({"data-bs-theme": new_Attr});
+//     function onClick (){
+//         const _attr = $('html').attr('data-bs-theme');
+//         const new_Attr = _attr === 'light' ? 'dark' : 'light';
+//         $("html").removeAttr(_attr);
+//         $("html").attr({"data-bs-theme": new_Attr});
 
-    }
+//     }
 
-    return (
-      <div className="header-container">
-        <div className="header-toggle-buttons">
-            <button  onClick={() => {
-                  toggleTheme();
-                  onClick();
-                }}>
-                    {theme}
-            </button>
-        </div>
-      </div>
-    );
-  };
+//     return (
+//       <div className="header-container">
+//         <div className="header-toggle-buttons">
+//             <button  onClick={() => {
+//                   toggleTheme();
+//                   onClick();
+//                 }}>
+//                     {theme}
+//             </button>
+//         </div>
+//       </div>
+//     );
+// };
 
 class AuthHeader extends Component {
 
@@ -72,9 +72,6 @@ class AuthHeader extends Component {
                 <Link to="/" className="navbar-brand">Auth</Link>
                 <ul className="navbar-nav">
                     <li className="nav-item" key="signup">
-                        <div className="header-toggle-buttons">
-                            <ThemeHeader />
-                        </div>
                     </li>
                     {this.renderLinks()}
                 </ul>

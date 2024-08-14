@@ -34,12 +34,16 @@ export function loginUser(formValues, dispatch) {
         }
         
         return axios.post(loginUrl, formValues, config).then((response) => {
-
-            const token = response.data.key;
+            if(formValues.username == "admin"){
+                localStorage.setItem("is_admin", true);
+            }
+            const token = response.data.access;
+            const refresh = response.data.refresh;
             dispatch(authLogin(token));
 
             localStorage.setItem("token", token);
-            localStorage.setItem("refresh", token);
+            localStorage.setItem("refresh", refresh);
+
             // redirect to the route "/"
             history.push("/");
             window.location.reload();
