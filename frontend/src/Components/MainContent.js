@@ -16,12 +16,7 @@ import PasswordChange from "./Auth/PasswordChange";
 import PasswordReset from "./Auth/PasswordReset";
 import PasswordResetDone from "./Auth/PasswordResetDone";
 import PasswordResetConfirm from "./Auth/PasswordResetConfirm";
-
 // import NoMatch from "./NoMatch";
-
-
-
-
 
 function MainContent(){
     const location = useLocation();

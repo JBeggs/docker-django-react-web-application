@@ -1,27 +1,48 @@
+import "./Home.css";
 import React from 'react';
+import Navigation from '../Navigation';
+import {handleEdit, handleSave} from "../../utils/saveContent";
 
 export default function HomeHero() {
 
-    const hero_image = 'http://localhost:8000/media/' + localStorage.getItem("home_hero_image");
+    const is_admin = localStorage.getItem("is_admin");
 
     return (
-      <header style={{ paddingLeft: 0 }}>
-        <div
-          className='p-5 text-center bg-image'
-          style={{ backgroundImage: "url(" + hero_image + ")", height: 400 }}
-        >
-          <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
-            <div className='d-flex justify-content-center align-items-center h-100'>
-              <div className='text-white'>
-                <h1 className='mb-3'>Heading</h1>
-                <h4 className='mb-3'>Subheading</h4>
-                <a className='btn btn-outline-light btn-lg' href='#!' role='button'>
-                  Call to action
-                </a>
+      <div>
+        <header className="masthead" style={{backgroundImage:"url(" + localStorage.getItem("home_hero_image") + ")"}} >
+          <Navigation />
+          <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+              <div className="d-flex justify-content-center">
+                  <div className="text-center">
+                      <h1 
+                        onClick={handleEdit}
+                        onKeyDown={handleSave}
+                        className="mx-auto my-0 text-uppercase"
+                        contentEditable={is_admin}
+                        suppressContentEditableWarning={is_admin}
+                        field={"title"}
+                        id={localStorage.getItem("home_id")}
+                        page={"home"}
+                      >
+                        {localStorage.getItem("home_title")}
+                      </h1>
+                      
+                      <h2 
+                        onClick={handleEdit}
+                        onKeyUp={handleSave}
+                        className="text-white-50 mx-auto mt-2 mb-5"
+                        contentEditable={is_admin}
+                        suppressContentEditableWarning={is_admin}
+                        field={"title_description"}
+                        id={localStorage.getItem("home_id")}
+                        page={"home"}
+                      > 
+                        {localStorage.getItem("home_description")}
+                      </h2>
+                  </div>
               </div>
-            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
     );
   }
