@@ -10,4 +10,6 @@ export const AuthUrls = {
     USER_PROFILE: `${ROOT_URL}/api-auth/user/`,
     LOAD_CONTENT: `${ROOT_URL}/api/info/`,
     UPDATE_CONTENT: `${ROOT_URL}/api/update/page/`,
+    UPDATE_ARTICLE: `${ROOT_URL}/api/update/article/`,
+    UPDATE_GALLERY: `${ROOT_URL}/api/update/articlegallery/`,
 };

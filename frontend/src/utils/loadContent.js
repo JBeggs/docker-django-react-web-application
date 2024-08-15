@@ -76,6 +76,12 @@ export default function loadContent(page=null, field=null, image=null) {
             localStorage.setItem("article_name", article_data.name);
             localStorage.setItem("article_title", article_data.title);
             localStorage.setItem("article_description", article_data.title_description);
+            localStorage.setItem("article_header_1", article_data.header_1);
+            localStorage.setItem("article_header_2", article_data.header_2);
+            localStorage.setItem("article_header_3", article_data.header_3);
+            localStorage.setItem("article_header_4", article_data.header_4);
+            localStorage.setItem("article_header_5", article_data.header_5);
+
             localStorage.setItem("article_paragraph_1", article_data.paragraph_1);
             localStorage.setItem("article_paragraph_2", article_data.paragraph_2);
             localStorage.setItem("article_paragraph_3", article_data.paragraph_3);
@@ -87,8 +93,9 @@ export default function loadContent(page=null, field=null, image=null) {
                 localStorage.setItem("article_hero_image", process.env.REACT_APP_BACKEND_URL + "/media/" + article_data.hero_image);
             }
         };
-
+        localStorage.setItem("csrf_token", response.data.csrf_token);
         localStorage.setItem("articles", JSON.stringify(response.data.articles));
+        localStorage.setItem("articles_gallery", JSON.stringify(response.data.articles_gallery));
 
     }).catch(error => {
         alert(error);

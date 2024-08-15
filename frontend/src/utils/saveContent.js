@@ -2,7 +2,7 @@ import axios from "axios";
 import { AuthUrls } from "../constants/urls";
 
 
-export default function saveContent(id, value=null, field=null, page=null, image=null) {
+function saveContent(id, value=null, field=null, page=null, image=null) {
     
     const updateURL = AuthUrls.UPDATE_CONTENT + id + "/";
 
@@ -15,7 +15,7 @@ export default function saveContent(id, value=null, field=null, page=null, image
     }
 
     if (image){
-        contentValues['image'] = image
+        contentValues["image"] = image
     }
 
     const config = {
@@ -38,35 +38,86 @@ export default function saveContent(id, value=null, field=null, page=null, image
     });
 }
 
+
+export function saveArticle(id, value=null, field=null, image=null) {
+    
+    const updateURL = AuthUrls.UPDATE_ARTICLE + id + "/";
+
+    const contentValues = {
+        [field] : value,
+        id : id,
+        creator: "admin",
+    }
+
+    if (image){
+        contentValues["image"] = image
+    }
+
+    const config = {
+        withCredentials: true,
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer: " +  localStorage.getItem("token"),
+          },
+    }
+
+    return axios.put(updateURL, contentValues, config).then((response) => {
+
+
+    }).catch(error => {
+        alert(error);
+    });
+}
+
 export const handleEdit = (e) => {
 
-    let change = document.getElementsByClassName('editing')
+    let change = document.getElementsByClassName("editing")
     if(change.length > 0){
       change[0].className = change[0].className.replace(" editing", "");
     }
     e.target.className = e.target.className  + " editing";
-  };
+};
 
-  export const handleSave = (e) => {
-      if(e.key === 'Enter'){
+export const handleSave = (e) => {
 
+    const strip=(text) =>{
+        return (new DOMParser()?.parseFromString(text,"text/html"))
+        ?.body?.textContent
+    }
 
-        const strip=(text) =>{
-            return (new DOMParser()?.parseFromString(text,"text/html"))
-            ?.body?.textContent
-        }
+    const value = strip(document.getElementsByClassName("editing")[0].innerHTML);
+    document.getElementsByClassName("editing")[0].innerHTML = value;
+    e.target.className = e.target.className.replace(" editing", "");
 
-        const value = strip(document.getElementsByClassName('editing')[0].innerHTML);
-        document.getElementsByClassName('editing')[0].innerHTML = value;
-        e.target.className = e.target.className.replace(" editing", "");
+    saveContent(
+        e.target.getAttribute("id"), 
+        value, 
+        e.target.getAttribute("field"),
+        e.target.getAttribute("page"),
 
-        saveContent(
-            e.target.getAttribute('id'), 
-            value, 
-            e.target.getAttribute('field'),
-            e.target.getAttribute('page'),
+    );
+    //window.location.reload();
+};
 
-        );
-        //window.location.reload();
-      }
-  };
+export const handleArticleSave = (e) => {
+
+    const strip=(text) =>{
+        return (new DOMParser()?.parseFromString(text,"text/html"))
+        ?.body?.textContent
+    }
+
+    const value = strip(document.getElementsByClassName("editing")[0].innerHTML);
+    document.getElementsByClassName("editing")[0].innerHTML = value;
+    e.target.className = e.target.className.replace(" editing", "");
+
+    saveArticle(
+        e.target.getAttribute("id"), 
+        value, 
+        e.target.getAttribute("field"),
+        e.target.getAttribute("page"),
+
+    );
+    //window.location.reload();
+
+};
