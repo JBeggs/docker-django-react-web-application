@@ -61,6 +61,7 @@ export function loginUser(formValues, dispatch) {
 export function logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("refresh");
+    history.push("/")
     return {
         type: AuthTypes.LOGOUT
     };
@@ -174,6 +175,7 @@ export function resetPassword(formValues) {
         }).catch((error) => {
             // If request is bad...
             // Show an error to the user
+            alert(error.response.data);
             const processedError = processServerError(error.response.data);
             throw new SubmissionError(processedError);
         });

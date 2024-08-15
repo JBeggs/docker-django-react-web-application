@@ -1,6 +1,5 @@
-import "../Articles/ArticleDetail.css";
+import "./Css/Login.css";
 import React, { Component } from "react";
-import Modal from 'react-modal';
 import { reduxForm, Field, propTypes } from "redux-form";
 import { Link } from "react-router-dom";
 import { required } from "redux-form-validators"
@@ -18,60 +17,46 @@ class Login extends Component {
     render() {
         const { handleSubmit, error } = this.props;
     
-        const customStyles = {
-          content: {
-            top: '50%',
-            left: '50%',
-            inset : "50% 50px 30px 50%;",
-            //right: 'auto',
-            // bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            background: "none",
-            overflow: 'none',
-          },
-        };
+
         return (
-            <Modal
-                isOpen={true}
+            <form
+            onSubmit={handleSubmit}
+        >
 
-                style={customStyles}
-                contentLabel="Login Modal"
-                >
-                    <div className="container">
-                        <div className="row justify-content-center px-2  gap-3">
+            <div className="section text-center">
+                <h4 className="mb-4 pb-3">Log In</h4>
+                <div className="form-group">				
 
-                        <form
-                            className="col col-sm-8 col-md-6 col-lg-4 card mt-4 p-6"
-                            onSubmit={handleSubmit}
-                        >
-                            <h4 className="text-md-center">Please Log In</h4>
-                            <hr/>
+                    <Field 
+                        placeholder="Your Username"
+                        name="username"
+                        component={renderField}
+                        type="text"
+                        validate={[required({message: "This field is required."})]}
+                    />
+                    <i className="input-icon uil uil-at"></i>
 
-                            <fieldset className="form-group">
-                                <Field name="username" label="Username" component={renderField}
-                                    type="text" validate={[required({message: "This field is required."})]}
-                                />
-                            </fieldset>
+                </div>	
+                <div className="form-group mt-2">
+                    <Field
+                        placeholder="Your Password"
+                        name="password"
+                        component={renderField}
+                        type="password"
+                        validate={[required({message: "This field is required."})]}
+                    />
+                    <i className="input-icon uil uil-lock-alt"></i>
+                </div>
 
 
-                            <fieldset className="form-group">
-                                <Field name="password" label="Password" component={renderField}
-                                    type="password"  validate={[required({message: "This field is required."})]}
-                                />
-                            </fieldset>
+                <fieldset className="form-group">
+                    { renderError(error) }
+                    <button action="submit" className="btn mt-4">Login</button>
+                </fieldset>
+                <Link  className="link" to="/reset_password">forgot password?</Link>
 
-                            <fieldset className="form-group">
-                                { renderError(error) }
-                                <button action="submit" className="btn btn-primary">Login</button>
-                            </fieldset>
-
-                            <p>Not registered? <Link to="/signup">Signup Here!</Link></p>
-                            <Link to="/reset_password">forgot password?</Link>
-                        </form>
-                        </div>
-                    </div>
-            </Modal>
+            </div>
+        </form>
         )
     }
 }

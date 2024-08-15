@@ -621,7 +621,7 @@
   .section {
     color: var(--default-color);
     background-color: var(--background-color);
-    padding: 60px 0;
+    padding: 24px 0;
     scroll-margin-top: 77px;
     overflow: clip;
   }

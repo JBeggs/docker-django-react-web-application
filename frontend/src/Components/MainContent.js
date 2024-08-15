@@ -7,7 +7,7 @@ import HomePage from "../Pages/Home";
 import ArticlesPage from "../Pages/Articles/ArticlesPage.js";
 import ArticleDetailPage from "../Pages/Articles/ArticleDetailPage.js";
 
-import Login from "./Auth/Login";
+import Control from "./Auth/Control";
 import Logout from "./Auth/Logout";
 import Signup from "./Auth/Signup";
 import SignupDone from "./Auth/SignupDone";
@@ -33,7 +33,7 @@ function MainContent(){
                 <Route path="/articles" element={<ArticlesPage/>}/>
                 <Route path="/article/:slug" element={<ArticleDetailPage />} />
 
-                <Route path="/login" element={<Login />}/>
+                <Route path="/login" element={<Control />}/>
                 <Route path="/logout" element={<Logout />}/>
                 <Route path="/signup" element={<Signup />}/>
                 <Route path="/account/confirm-email/:key" element={<AccountActivation />}/>

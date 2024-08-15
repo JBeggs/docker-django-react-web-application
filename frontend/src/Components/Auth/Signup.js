@@ -29,53 +29,51 @@ class Signup extends Component {
           },
         };
         return (
-            <Modal
-                isOpen={true}
-
-                style={customStyles}
-                contentLabel="Example Modal"
-                >
-                <div className="container-fluid">
-                    <div className="row justify-content-center px-2  gap-3">
-                        <form
-                            className="col col-sm-8 col-md-6 col-lg-4 card mt-4 p-6"
-                            onSubmit={handleSubmit}
-                        >
-                            <h4 className="text-md-center">Sign Up</h4>
-                            <hr/>
-
-                            <fieldset className="form-group">
-                                <Field name="email" label="Email" component={renderField}
-                                    type="text" validate={[required({message: "This field is required."})]}/>
-                            </fieldset>
-
-                            <fieldset className="form-group">
-                                <Field name="username" label="Username" component={renderField}
-                                    type="text" validate={[required({message: "This field is required."})]}
-                                />
-                            </fieldset>
-
-                            <fieldset className="form-group">
-                                <Field name="password1" label="Password" component={renderField}
-                                    type="password" validate={[required({message: "This field is required."})]}
-                                />
-                            </fieldset>
-
-                            <fieldset className="form-group">
-                                <Field name="password2" label="Confirm Password" component={renderField}
-                                    type="password" validate={[required({message: "This field is required."})]}
-                                />
-                            </fieldset>
-
-                            { renderError(error) }
-
-                            <fieldset className="form-group">
-                                <button action="submit" className="btn btn-primary">Sign Up</button>
-                            </fieldset>
-                        </form>
+            <form
+                className=""
+                onSubmit={handleSubmit}
+            >
+                <div className="section text-center">
+                    <h4 className="">Sign Up</h4>
+                    <div className="form-group">
+                        <fieldset className="form-group">
+                            <Field name="email" placeholder="Email" component={renderField}
+                                type="text" validate={[required({message: "This field is required."})]}/>
+                        </fieldset>
+                        <i className="input-icon uil uil-user"></i>
+                    </div>	
+                    <div className="form-group mt-2">
+                        <fieldset className="form-group">
+                            <Field name="username" placeholder="Username" component={renderField}
+                                type="text" validate={[required({message: "This field is required."})]}
+                            />
+                        </fieldset>
+                        <i className="input-icon uil uil-at"></i>
+                    </div>	
+                    <div className="form-group mt-2">
+                        <fieldset className="form-group">
+                            <Field name="password1" placeholder="Password" component={renderField}
+                                type="password" validate={[required({message: "This field is required."})]}
+                            />
+                        </fieldset>
+                        <i className="input-icon uil uil-lock-alt"></i>
                     </div>
+                    <div className="form-group mt-2">
+                        <fieldset className="form-group">
+                            <Field name="password2" placeholder="Confirm Password" component={renderField}
+                                type="password" validate={[required({message: "This field is required."})]}
+                            />
+                        </fieldset>
+                        <i className="input-icon uil uil-lock-alt"></i>
+                    </div>
+
+                        { renderError(error) }
+
+                    <fieldset className="form-group">
+                        <button action="submit" className="btn mt-4">Sign Up</button>
+                    </fieldset>
                 </div>
-            </Modal>
+            </form>
         );
     }
 }
