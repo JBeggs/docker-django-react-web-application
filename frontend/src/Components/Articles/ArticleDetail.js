@@ -3,7 +3,7 @@ import React from 'react';
 import { format } from "date-fns";
 import { useParams } from "react-router-dom";
 import {handleEdit, handleArticleSave} from "../../utils/saveContent";
-import Upload from "../../utils/fileUpload";
+import { UploadGalleryImage }  from "../../Components/FileUploads";
 
 
 export default function ArticleDetail() {
@@ -12,15 +12,19 @@ export default function ArticleDetail() {
     const articles = JSON.parse(localStorage.getItem("articles"));
     const article_gallery = JSON.parse(localStorage.getItem("articles_gallery"));
     const is_admin = localStorage.getItem("is_admin");
+    const article = filterBySlug();
+    const gallery = filterGalleryByID(article.id);
 
     function filterBySlug() {
         return articles.filter(article => article.slug === slug)[0];
     }
 
-    function filterByID(id) {
-        return article_gallery.filter(gallery => gallery.id === id);
+    function filterGalleryByID(id) {
+        return article_gallery.filter(gallery => gallery.article_id === id);
     }
-
+    function filterImageByID(id) {
+        return gallery.filter(image => image.id === id);
+    }
     function format_date(date) {
         var date = new Date(date);
         var formattedDate = format(date, "MMMM do, yyyy H:mma");
@@ -28,11 +32,13 @@ export default function ArticleDetail() {
         return formattedDate;
     }
 
-    const article = filterBySlug();
-
-    const gallery = filterByID(article.id);
-    alert(JSON.stringify(gallery));
+    const image_1 = filterImageByID(1)[0];
+    const image_2 = filterImageByID(2)[0];
+    alert(JSON.stringify(image_1));
+    alert(JSON.stringify(image_2));
     const article_id = article.id;
+    const is_owner = article.creator__username ===  localStorage.getItem("username")
+    const can_edit = is_admin || is_owner;
 
     return (
         <div className="container">
@@ -47,10 +53,11 @@ export default function ArticleDetail() {
     
                     <div className="post-img">
                         <img 
-                            src={gallery.length > 0 ? process.env.REACT_APP_BACKEND_URL + "/media/" + gallery[0].image : process.env.REACT_APP_PUBLIC_HTML + '/images/home/hero.jpg'}
-                            alt={gallery.length > 0 && gallery[0].description}
+                            src={image_1 && image_1.image ? process.env.REACT_APP_BACKEND_URL + "/media/" + image_1.image : process.env.REACT_APP_PUBLIC_HTML + '/images/home/hero.jpg'}
+                            alt={image_1 && image_1.description}
                             className="img-fluid" 
                         />
+                        {can_edit && <UploadGalleryImage article_id={article_id} gallery_id={image_1 && image_1.id} />}
                     </div>
     
                     <h2 
@@ -141,11 +148,11 @@ export default function ArticleDetail() {
                             {article.header_5}
                         </p>
                         <img 
-                            src={gallery.length > 1 ? process.env.REACT_APP_BACKEND_URL + "/media/" + gallery[1].image : process.env.REACT_APP_PUBLIC_HTML + '/images/home/hero.jpg'}
-                            alt={gallery.length > 1 && gallery[1].description}
+                            src={image_2 && image_2.image ? process.env.REACT_APP_BACKEND_URL + "/media/" + image_2.image : process.env.REACT_APP_PUBLIC_HTML + '/images/home/hero.jpg'}
+                            alt={image_2 && image_2.description}
                             className="img-fluid"
                         />
-                        {gallery.length > 1 && <Upload article_id={article_id} />}
+                        {can_edit && <UploadGalleryImage article_id={article_id} gallery_id={image_2 && image_2.id} />}
                         <h3
                             onClick={handleEdit}
                             onBlur={handleArticleSave}
@@ -188,38 +195,38 @@ export default function ArticleDetail() {
     
 
                 <section id="comment-form" className="comment-form section">
-                <div className="container">
-    
-                    <form action="">
-    
-                    <h4>Post Comment</h4>
-                    <p>Your email address will not be published. Required fields are marked * </p>
-                    <div className="row">
-                        <div className="col-md-6 form-group">
-                        <input name="name" type="text" className="form-control" placeholder="Your Name*" />
+                    <div className="container">
+        
+                        <form action="">
+        
+                        <h4>Post Comment</h4>
+                        <p>Your email address will not be published. Required fields are marked * </p>
+                        <div className="row">
+                            <div className="col-md-6 form-group">
+                            <input name="name" type="text" className="form-control" placeholder="Your Name*" />
+                            </div>
+                            <div className="col-md-6 form-group">
+                            <input name="email" type="text" className="form-control" placeholder="Your Email*"/>
+                            </div>
                         </div>
-                        <div className="col-md-6 form-group">
-                        <input name="email" type="text" className="form-control" placeholder="Your Email*"/>
+                        <div className="row">
+                            <div className="col form-group">
+                            <input name="website" type="text" className="form-control" placeholder="Your Website"/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col form-group">
-                        <input name="website" type="text" className="form-control" placeholder="Your Website"/>
+                        <div className="row">
+                            <div className="col form-group">
+                            <textarea name="comment" className="form-control" placeholder="Your Comment*"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="col form-group">
-                        <textarea name="comment" className="form-control" placeholder="Your Comment*"></textarea>
+        
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-primary">Post Comment</button>
                         </div>
+        
+                        </form>
+        
                     </div>
-    
-                    <div className="text-center">
-                        <button type="submit" className="btn btn-primary">Post Comment</button>
-                    </div>
-    
-                    </form>
-    
-                </div>
                 </section>
     
             </div>

@@ -56,11 +56,7 @@ export default function ArticlesHome() {
                                 </ul>
                             </li>
                         </ul>
-                    
                     ))}
-
-
-                    
                 </div>
             </div>
         </section>

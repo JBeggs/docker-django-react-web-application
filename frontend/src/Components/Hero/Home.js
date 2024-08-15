@@ -2,6 +2,7 @@ import "./Home.css";
 import React from 'react';
 import Navigation from '../Navigation';
 import {handleEdit, handleSave} from "../../utils/saveContent";
+import { UploadHeroImage } from "../../Components/FileUploads";
 
 export default function HomeHero() {
 
@@ -16,7 +17,7 @@ export default function HomeHero() {
                   <div className="text-center">
                       <h1 
                         onClick={handleEdit}
-                        onKeyDown={handleSave}
+                        onBlur={handleSave}
                         className="mx-auto my-0 text-uppercase"
                         contentEditable={is_admin}
                         suppressContentEditableWarning={is_admin}
@@ -42,6 +43,7 @@ export default function HomeHero() {
                   </div>
               </div>
           </div>
+          <UploadHeroImage page="1" />
         </header>
       </div>
     );

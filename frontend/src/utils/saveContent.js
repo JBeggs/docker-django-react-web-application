@@ -86,17 +86,19 @@ export const handleSave = (e) => {
         ?.body?.textContent
     }
 
-    const value = strip(document.getElementsByClassName("editing")[0].innerHTML);
-    document.getElementsByClassName("editing")[0].innerHTML = value;
-    e.target.className = e.target.className.replace(" editing", "");
-
-    saveContent(
-        e.target.getAttribute("id"), 
-        value, 
-        e.target.getAttribute("field"),
-        e.target.getAttribute("page"),
-
-    );
+    if(document.getElementsByClassName("editing").length > 0 ){
+        const content = strip(document.getElementsByClassName("editing")[0].innerHTML);
+        document.getElementsByClassName("editing")[0].innerHTML = content;
+        e.target.className = e.target.className.replace(" editing", "");
+    
+        saveContent(
+            e.target.getAttribute("id"), 
+            content, 
+            e.target.getAttribute("field"),
+            e.target.getAttribute("page"),
+    
+        );
+    }
     //window.location.reload();
 };
 
@@ -106,18 +108,19 @@ export const handleArticleSave = (e) => {
         return (new DOMParser()?.parseFromString(text,"text/html"))
         ?.body?.textContent
     }
+    if(document.getElementsByClassName("editing").length > 0 ){
+        const content = strip(document.getElementsByClassName("editing")[0].innerHTML);
+        document.getElementsByClassName("editing")[0].innerHTML = content;
+        e.target.className = e.target.className.replace(" editing", "");
+        
+        saveArticle(
+            e.target.getAttribute("id"), 
+            content, 
+            e.target.getAttribute("field"),
+            e.target.getAttribute("page"),
 
-    const value = strip(document.getElementsByClassName("editing")[0].innerHTML);
-    document.getElementsByClassName("editing")[0].innerHTML = value;
-    e.target.className = e.target.className.replace(" editing", "");
-
-    saveArticle(
-        e.target.getAttribute("id"), 
-        value, 
-        e.target.getAttribute("field"),
-        e.target.getAttribute("page"),
-
-    );
+        );
+    }
     //window.location.reload();
 
 };

@@ -1,7 +1,7 @@
 import "./About.css";
 import React, { Component } from "react";
 import { handleEdit, handleSave } from "../../utils/saveContent";
-// import Upload from "../../utils/fileUpload";
+import { UploadHeroImage } from "../../Components/FileUploads";
 
 function About() {
 
@@ -14,7 +14,7 @@ function About() {
                         <h2 
                          className="text-white mb-4"
                          onClick={handleEdit}
-                         onKeyDown={handleSave}
+                         onBlur={handleSave}
                          contentEditable={is_admin}
                          suppressContentEditableWarning={is_admin}
                          field={"paragraph_1"}
@@ -22,11 +22,11 @@ function About() {
                          page={"home"}
                         >
                           {localStorage.getItem("home_paragraph_1")}
-                        </h2>
+                        </h2>test
                         <p 
                           className="text-white-50"
                           onClick={handleEdit}
-                          onKeyDown={handleSave}
+                          onBlur={handleSave}
                           contentEditable={is_admin}
                           suppressContentEditableWarning={is_admin}
                           field={"paragraph_2"}
@@ -40,8 +40,9 @@ function About() {
                 <img 
                   className="img-fluid" 
                   src={localStorage.getItem("about_hero_image")} 
-                  alt="..." 
+                  alt={localStorage.getItem("about_name")}
                 />
+                {is_admin && <UploadHeroImage page="2" />}
                 {/* <Upload 
                   id={localStorage.setItem("about_id")} 
                   field={"hero_image"}

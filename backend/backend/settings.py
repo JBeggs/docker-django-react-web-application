@@ -33,6 +33,9 @@ DEBUG = bool(os.environ.get("DEBUG", default=0))
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(" ")
 
+ESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
 CORS_ALLOW_ALL_ORIGINS = True  
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
@@ -48,7 +51,6 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -188,7 +190,6 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.FileUploadParser",
     ]
 }
-
 
 AXES_USERNAME_CALLABLE = lambda request, credentials: request.data["username"]
 

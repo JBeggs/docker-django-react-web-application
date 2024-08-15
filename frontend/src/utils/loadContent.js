@@ -33,7 +33,11 @@ export default function loadContent(page=null, field=null, image=null) {
     return axios.post(loadURL, contentValues, config).then((response) => {
 
 
-
+        if(window.location.pathname === "/"){
+            localStorage.setItem("page_name", response.data.home[0].name);
+        } else {
+            localStorage.setItem("page_name", response.data.articlepage[0].name);
+        };
         if(response.data.home != ""){
             const home_data = response.data.home[0];
             localStorage.setItem("home_id", home_data.id);

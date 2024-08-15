@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import { AuthUrls } from "../constants/urls";
+import { AuthUrls } from "../../constants/urls";
 
 
-function UploadGalleryImage(props) {
+export function UploadGalleryImage(props) {
 
   const {article_id, gallery_id} =  props;
   const [file, setFile] = useState()
@@ -75,8 +75,6 @@ function UploadGalleryImage(props) {
     </div>
   );
 }
-
-export default UploadGalleryImage;
 
 
 export function UploadHeroImage(props) {
