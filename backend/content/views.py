@@ -45,7 +45,8 @@ class ArticlesViewSet(viewsets.ModelViewSet):
         queryset = filter.filter_queryset(request, Articles.objects.all(), self) 
         serializer = ArticleSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
-        
+
+
 class ArticleGalleryViewSet(viewsets.ModelViewSet):
     search_fields = ["article__id"]
     queryset = ArticleGallery.objects.all()

@@ -26,12 +26,14 @@ class PageContent(models.Model):
     title = models.CharField(max_length=200, blank=True)
     title_description = models.TextField(_('Title Description'), blank=True)
     hero_image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
+    
     paragraph_1 = models.TextField(_('paragraph'), blank=True)
     paragraph_2 = models.TextField(_('paragraph'), blank=True)
     paragraph_3 = models.TextField(_('paragraph'), blank=True)
     paragraph_4 = models.TextField(_('paragraph'), blank=True)
     paragraph_5 = models.TextField(_('paragraph'), blank=True)
-    
+    paragraph_6 = models.TextField(_('paragraph'), blank=True)
+    paragraph_7 = models.TextField(_('paragraph'), blank=True)
     file = models.FileField(upload_to=page_file_path, blank=True, null=True)
     active     = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -100,7 +102,8 @@ class Articles(models.Model):
     paragraph_4 = models.TextField(_('paragraph'), blank=True)
     header_5 = models.CharField(max_length=200, blank=True)
     paragraph_5 = models.TextField(_('paragraph'), blank=True)
-
+    paragraph_6 = models.TextField(_('paragraph'), blank=True)
+    paragraph_7 = models.TextField(_('paragraph'), blank=True)
     
     file = models.FileField(upload_to=page_file_path, blank=True, null=True)
     active     = models.BooleanField(default=True)
@@ -133,7 +136,7 @@ class ArticleGallery(models.Model):
 
     def save(self):
         create_thumbnail(self.image, self.thumbnail, 200, 200)
-        super(PageGallery, self).save()
+        super(ArticleGallery, self).save()
 
     @property
     def short_description(self):

@@ -45,6 +45,8 @@ class Command(BaseCommand):
             article.paragraph_3 = lorem.paragraph()
             article.paragraph_4 = lorem.paragraph()
             article.paragraph_5 = lorem.paragraph()
+            article.paragraph_6 = lorem.paragraph()
+            article.paragraph_7 = lorem.paragraph()
             article.header_1 = lorem.text()[:25]
             article.header_2 = lorem.text()[:25]
             article.header_3 = lorem.text()[:25]
