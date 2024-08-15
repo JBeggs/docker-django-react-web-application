@@ -4,8 +4,8 @@ import RequireAuth from "./Auth/RequireAuth";
 import Modal from 'react-modal';
 
 import HomePage from "../Pages/Home";
-import ArticlesPage from "../Pages/Articles/Article.js";
-import ArticleDetail from "../Pages/Articles/ArticleDetail.js";
+import ArticlesPage from "../Pages/Articles/ArticlesPage.js";
+import ArticleDetailPage from "../Pages/Articles/ArticleDetailPage.js";
 
 import Login from "./Auth/Login";
 import Logout from "./Auth/Logout";
@@ -29,8 +29,9 @@ function MainContent(){
         <div>
             <Routes>
                 <Route exact path="/" element={<HomePage />}/>
+
                 <Route path="/articles" element={<ArticlesPage/>}/>
-                <Route path="/article/:slug" element={<ArticleDetail />} />
+                <Route path="/article/:slug" element={<ArticleDetailPage />} />
 
                 <Route path="/login" element={<Login />}/>
                 <Route path="/logout" element={<Logout />}/>

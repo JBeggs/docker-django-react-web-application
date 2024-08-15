@@ -40,10 +40,9 @@ export function loginUser(formValues, dispatch) {
             const token = response.data.access;
             const refresh = response.data.refresh;
             dispatch(authLogin(token));
-
+            localStorage.setItem("username", formValues.username);
             localStorage.setItem("token", token);
             localStorage.setItem("refresh", refresh);
-
             // redirect to the route "/"
             history.push("/");
             window.location.reload();
