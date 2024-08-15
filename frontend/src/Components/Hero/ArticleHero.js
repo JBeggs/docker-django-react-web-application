@@ -29,7 +29,7 @@ export default function HomeHero() {
                       
                       <h2 
                         onClick={handleEdit}
-                        onKeyUp={handleSave}
+                        onBlur={handleSave}
                         className="text-white-50 mx-auto mt-2 mb-5"
                         contentEditable={is_admin}
                         suppressContentEditableWarning={is_admin}
