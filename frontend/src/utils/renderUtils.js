@@ -2,7 +2,7 @@ import React from "react";
 
 export const renderField = ({ placeholder, input, label, type, meta: { touched, error } }) => (
     <div>
-        <label>{label}</label>
+        
         <div>
             <input className="form-style" {...input} type={type} placeholder={[placeholder]} />
         </div>
