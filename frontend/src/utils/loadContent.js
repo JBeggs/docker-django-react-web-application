@@ -102,6 +102,6 @@ export default function loadContent(page=null, field=null, image=null) {
         localStorage.setItem("articles_gallery", JSON.stringify(response.data.articles_gallery));
 
     }).catch(error => {
-        alert(error);
+        //alert(error);
     });
 }

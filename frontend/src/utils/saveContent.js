@@ -34,7 +34,7 @@ function saveContent(id, value=null, field=null, page=null, image=null) {
         
 
     }).catch(error => {
-        alert(error);
+        //alert(error);
     });
 }
 
@@ -66,7 +66,7 @@ export function saveArticle(id, value=null, field=null, image=null) {
 
 
     }).catch(error => {
-        alert(error);
+        //alert(error);
     });
 }
 
