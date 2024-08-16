@@ -262,3 +262,8 @@
     height:156px;
   }
 }
+
+.text-muted {
+	--bs-text-opacity: 1;
+	color: rgb(58, 56, 56) !important;
+}
