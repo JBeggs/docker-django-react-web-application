@@ -34,8 +34,7 @@ export default function ArticleDetail() {
 
     const image_1 = filterImageByID(1)[0];
     const image_2 = filterImageByID(2)[0];
-    alert(JSON.stringify(image_1));
-    alert(JSON.stringify(image_2));
+
     const article_id = article.id;
     const is_owner = article.creator__username ===  localStorage.getItem("username")
     const can_edit = is_admin || is_owner;
@@ -57,7 +56,7 @@ export default function ArticleDetail() {
                             alt={image_1 && image_1.description}
                             className="img-fluid" 
                         />
-                        {can_edit && <UploadGalleryImage article_id={article_id} gallery_id={image_1 && image_1.id} />}
+                        {can_edit || is_admin && <UploadGalleryImage article_id={article_id} gallery_id={image_1 && image_1.id} />}
                     </div>
     
                     <h2 
@@ -152,7 +151,7 @@ export default function ArticleDetail() {
                             alt={image_2 && image_2.description}
                             className="img-fluid"
                         />
-                        {can_edit && <UploadGalleryImage article_id={article_id} gallery_id={image_2 && image_2.id} />}
+                        {can_edit || is_admin && <UploadGalleryImage article_id={article_id} gallery_id={image_2 && image_2.id} />}
                         <h3
                             onClick={handleEdit}
                             onBlur={handleArticleSave}
@@ -221,7 +220,7 @@ export default function ArticleDetail() {
                         </div>
         
                         <div className="text-center">
-                            <button type="submit" className="btn btn-primary">Post Comment</button>
+                            <button type="submit">Post Comment</button>
                         </div>
         
                         </form>
