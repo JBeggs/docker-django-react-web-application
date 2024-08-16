@@ -1,7 +1,7 @@
 from django.template.defaultfilters import slugify
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
-from django-allauth.models import Site  
+from django.contrib.sites.models import Site
 from content.models import PageContent, Articles
 import lorem
 
