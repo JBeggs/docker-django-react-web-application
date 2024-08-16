@@ -16,7 +16,7 @@ class HomePage extends Component {
           <meta id="meta-description" name="description" content="Some description." />
         </MetaTags>
         <HomeHero />
-        <About />
+        {/* <About /> */}
         <ArticlesHome />
         <Contact />
       </div>

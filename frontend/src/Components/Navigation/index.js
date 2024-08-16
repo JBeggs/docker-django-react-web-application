@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import $ from "jquery";
 
 class Navigation extends Component {
 
@@ -29,11 +29,9 @@ class Navigation extends Component {
             return (
                 [
                     <li className="nav-item" key="login">
-                        <Link className="nav-link" to="/login">Login</Link>
+                        <Link className="nav-link" to="/login">Login / Signup</Link>
                     </li>,
-                    <li className="nav-item" key="signup">
-                        <Link className="nav-link" to="/signup">Sign Up</Link>
-                    </li>
+
                 ]
             );
         }
@@ -51,6 +49,7 @@ class Navigation extends Component {
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <i className="fas fa-bars"></i>
                     </button>
+
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item"><a className="nav-link" href="/">Home</a></li>
@@ -60,6 +59,7 @@ class Navigation extends Component {
                         </ul>
                     </div>
                 </div>
+                
             </nav>
         // </div>
         )

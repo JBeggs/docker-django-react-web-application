@@ -8,7 +8,6 @@ import store from "./store";
 import history from "./utils/historyUtils";
 import { authLogin } from "./actions/authActions";
 import App from "./App";
-import { ThemeProvider } from "./Theme";
 
 const token = localStorage.getItem("token");
 
@@ -23,14 +22,10 @@ export const StoreContext = createContext();
 root.render(
 
   <Router history={history}>
-
-    <ThemeProvider>
-
       <Provider store={store}>
         <App />
         <Notifs store={store} />
       </Provider>
-    </ThemeProvider>
   </Router>
 
 );

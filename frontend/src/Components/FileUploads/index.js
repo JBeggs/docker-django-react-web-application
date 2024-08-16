@@ -115,14 +115,15 @@ export function UploadHeroImage(props) {
   }
 
   return (
-    <div className="row mb-4">
+    <div className="label">
+
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <h1>File Upload</h1>
         <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
-        <div className="form-group">
+        <div className="">
             <input type="file" onChange={handleChange} />
         </div>
-        <div className="form-group">
+        <div className="">
             <label for="name">Image Name:</label>
             <input type="text" className="form-control" id="name" />
         </div>
@@ -130,6 +131,7 @@ export function UploadHeroImage(props) {
         <button type="submit">Upload</button><br />
         <progress value={uploadProgress} max="100"></progress>
       </form>
-    </div>
+      </div>
+ 
   );
 };
