@@ -1,5 +1,6 @@
 import "./Home.css";
-import React from 'react';
+import React, { useState } from 'react';
+
 import Navigation from '../Navigation';
 import {handleEdit, handleSave} from "../../utils/saveContent";
 import { UploadHeroImage } from "../../Components/FileUploads";
@@ -7,6 +8,7 @@ import { UploadHeroImage } from "../../Components/FileUploads";
 export default function HomeHero() {
 
     const is_admin = localStorage.getItem("is_admin");
+    const [toggle, setToggle] = useState(false)
 
     return (
       <div>
@@ -43,8 +45,10 @@ export default function HomeHero() {
                   </div>
               </div>
           </div>
-          <UploadHeroImage page="1" />
+
         </header>
+        {is_admin && toggle && <UploadHeroImage page="1" />}
+        {is_admin && <div class="add-hero-image" onClick={() => setToggle(!toggle)}><button> Update Hero Image</button></div>}
       </div>
     );
   }
