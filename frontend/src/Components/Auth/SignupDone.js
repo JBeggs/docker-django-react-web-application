@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class SignupDone extends Component {
     render() {
@@ -21,6 +22,7 @@ export default class SignupDone extends Component {
                                                 <h3 className="mx-5">
                                                     Thanks for your registration, <br />please follow the link sent to your provided email to confirm your email. <br /><br /> your account has been activated.
                                                 </h3>
+                                                <Link  className="link" to="/login">Login?</Link>
                                             </div>
                                         </div>
                                     </div>

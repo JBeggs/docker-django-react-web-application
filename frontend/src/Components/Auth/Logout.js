@@ -13,7 +13,9 @@ class Logout extends Component {
     UNSAFE_componentWillMount() {
         this.props.logoutUser();
     }
-
+    componentDidMount() {
+        window.location.reload();
+    }
     render() {
         return (
             <h2>Sorry to see you go...</h2>

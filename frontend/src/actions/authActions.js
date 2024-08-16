@@ -61,6 +61,8 @@ export function loginUser(formValues, dispatch) {
 export function logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("refresh");
+    localStorage.removeItem("is_admin");
+    localStorage.clear();
     history.push("/")
     return {
         type: AuthTypes.LOGOUT
@@ -96,6 +98,8 @@ export function signupUser(formValues) { //no-unused-vars
         .catch((error) => {
             // If request is bad...
             // Show an error to the user
+            console.log("-------------------------");
+            console.log(JSON.stringify(error))
             const processedError = processServerError(error.response.data);
             throw new SubmissionError(processedError);
         });
@@ -172,12 +176,17 @@ export function resetPassword(formValues) {
             // redirect to reset done page
             console.log(response)
             history.push("/reset_password_done");
+            window.location.refresh();
         }).catch((error) => {
             // If request is bad...
             // Show an error to the user
-            alert(error.response.data);
-            const processedError = processServerError(error.response.data);
-            throw new SubmissionError(processedError);
+            console.log("-------------------------");
+            console.log(JSON.stringify(error))
+            if ("response" in error){
+                const processedError = processServerError(error.response.data);
+                throw new SubmissionError(processedError);
+            }
+
         });
 }
 
@@ -260,6 +269,7 @@ export function updateUserProfile(formValues, dispatch) {
         }).catch((error) => {
             // If request is bad...
             // Show an error to the user
+
             const processedError = processServerError(error.response.data);
             throw new SubmissionError(processedError);
         });
