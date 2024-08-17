@@ -267,3 +267,8 @@
 	--bs-text-opacity: 1;
 	color: rgb(58, 56, 56) !important;
 }
+@media (min-width: 992px) {
+  .container, .container-lg, .container-md, .container-sm {
+      max-width: 1088px;
+  }
+}

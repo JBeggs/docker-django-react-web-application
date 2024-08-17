@@ -7,6 +7,7 @@ import HomePage from "../Pages/Home";
 import ArticlesPage from "../Pages/Articles/ArticlesPage.js";
 import ArticleDetailPage from "../Pages/Articles/ArticleDetailPage.js";
 
+
 import Control from "./Auth/Control";
 import Logout from "./Auth/Logout";
 import Signup from "./Auth/Signup";
@@ -15,6 +16,7 @@ import AccountActivation from "./Auth/AccountActivation";
 import UserProfile from "./Auth/UserProfile";
 import UserProfileEdit from "./Auth/UserProfileEdit";
 import PasswordChange from "./Auth/PasswordChange";
+import { AcceptTerms } from "./Auth/AcceptTerms.js";
 import PasswordReset from "./Auth/PasswordReset";
 import PasswordResetDone from "./Auth/PasswordResetDone";
 import PasswordResetConfirm from "./Auth/PasswordResetConfirm";
@@ -33,6 +35,7 @@ function MainContent(){
                 <Route path="/articles" element={<ArticlesPage/>}/>
                 <Route path="/article/:slug" element={<ArticleDetailPage />} />
 
+                <Route path="/accept_terms" element={<AcceptTerms />}/>
                 <Route path="/login" element={<Control />}/>
                 <Route path="/logout" element={<Logout />}/>
                 <Route path="/signup" element={<Signup />}/>

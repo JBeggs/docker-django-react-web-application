@@ -4,6 +4,8 @@ import { reduxForm, Field, propTypes } from "redux-form";
 import { required } from "redux-form-validators"
 import { renderField, renderError } from "../../utils/renderUtils";
 import { signupUser } from "../../actions/authActions";
+import { handleLogin } from "./Login.js";
+
 
 class Signup extends Component {
 
@@ -15,25 +17,57 @@ class Signup extends Component {
     render() {
         const { handleSubmit, error } = this.props;
     
-        const customStyles = {
-          content: {
-            top: '50%',
-            left: '50%',
-            inset : "50% 50px 30px 50%;",
-            //right: 'auto',
-            // bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            background: "none",
-            overflow: 'none',
-          },
-        };
         return (
             <form
                 className=""
                 onSubmit={handleSubmit}
             >
-                <div className="section text-center">
+
+                <div class="text-center signup" style={{padding:"50px 0"}}>
+                    <div class="logo">register</div>
+
+                    <div class="login-form-1">
+
+                            <div class="login-form-main-message"></div>
+                            <div class="main-login-form">
+                                <div class="login-group">
+                                    <div class="form-group">
+                                        <Field name="username" placeholder="Username" component={renderField}
+                                            type="text" validate={[required({message: "This field is required."})]}
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <Field name="password1" placeholder="Password" component={renderField}
+                                            type="password" validate={[required({message: "This field is required."})]}
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <Field name="password2" placeholder="Confirm Password" component={renderField}
+                                            type="password" validate={[required({message: "This field is required."})]}
+                                        />
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <Field name="email" placeholder="Email" component={renderField}
+                                            type="text" validate={[required({message: "This field is required."})]}/>
+                                    </div>
+
+                                    <div class="form-group login-group-checkbox">
+                                        <input type="checkbox" class="" id="reg_agree" name="reg_agree" />
+                                        <label for="reg_agree">i agree with <a href="#">terms</a></label>
+                                    </div>
+                                </div>
+                                { renderError(error) }
+                                <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+                            </div>
+                            <div class="etc-login-form">
+                                <p>already have an account? <br /><a href="#" onClick={handleLogin}>login here</a></p>
+                            </div>
+
+                    </div>
+
+                </div>
+                {/* <div className="section text-center">
                     <h4 className="">Sign Up</h4>
                     <div className="form-group">
                         <fieldset className="form-group">
@@ -72,7 +106,7 @@ class Signup extends Component {
                     <fieldset className="form-group">
                         <button action="submit" className="btn mt-4">Sign Up</button>
                     </fieldset>
-                </div>
+                </div> */}
             </form>
         );
     }

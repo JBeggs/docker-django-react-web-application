@@ -30,6 +30,15 @@ export default function loadContent(page=null, field=null, image=null) {
           },
     }
 
+    const accepted = localStorage.getItem("terms_acctepted");
+
+    if(!accepted && window.location.href.search("accept_terms") ==-1){
+        history.push("/accept_terms");
+        window.location.reload();
+    }
+    
+
+
     return axios.post(loadURL, contentValues, config).then((response) => {
 
 

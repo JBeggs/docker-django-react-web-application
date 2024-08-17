@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', event => {
             return;
         }
         if (window.scrollY === 0) {
-            navbarCollapsible.classList.remove('navbar-shrink')
+            //navbarCollapsible.classList.remove('navbar-shrink')
         } else {
             navbarCollapsible.classList.add('navbar-shrink')
         }
@@ -22,19 +22,38 @@ window.addEventListener('DOMContentLoaded', event => {
     document.addEventListener('scroll', navbarShrink);
 
     // Activate Bootstrap scrollspy on the main nav element
-    const mainNav = document.body.querySelector('#mainNav');
-    if (mainNav) {
-        new bootstrap.ScrollSpy(document.body, {
-            target: '#mainNav',
-            rootMargin: '0px 0px -40%',
-        });
-    };
+    // const mainNav = document.body.querySelector('#mainNav');
+    // if (mainNav) {
+    //     new bootstrap.ScrollSpy(document.body, {
+    //         target: '#mainNav',
+    //         rootMargin: '0px 0px -40%',
+    //     });
+    // };
 
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
     const responsiveNavItems = [].slice.call(
         document.querySelectorAll('#navbarResponsive .nav-link')
     );
+    
+    var lastScroll = 0;
+    window.onscroll = function(e) {
+        
+        let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        let nav = document.getElementById("mainNav");
+        if(nav){
+            if (currentScroll > 0 && lastScroll <= currentScroll){
+                lastScroll = currentScroll;
+                nav.style.display = "none";
+            } else {
+                lastScroll = currentScroll;
+                nav.style.display = "block";
+            }
+        }
+
+        this.oldScroll = this.scrollY;
+    }
+
     responsiveNavItems.map(function (responsiveNavItem) {
         responsiveNavItem.addEventListener('click', () => {
             if (window.getComputedStyle(navbarToggler).display !== 'none') {

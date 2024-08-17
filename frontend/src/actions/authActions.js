@@ -21,8 +21,7 @@ export function authLogin(token) {
 
 export function loginUser(formValues, dispatch) {
         const loginUrl = AuthUrls.LOGIN;
-        // var bodyFormData = new FormData();
-        // bodyFormData.append('data', JSON.stringify(formValues));
+
         const config = {
             xsrfCookieName: "csrftoken",
             xsrfHeaderName: "X-CSRFTOKEN",
@@ -40,6 +39,7 @@ export function loginUser(formValues, dispatch) {
             const token = response.data.access;
             const refresh = response.data.refresh;
             dispatch(authLogin(token));
+            localStorage.setItem("remember", formValues.remember);
             localStorage.setItem("username", formValues.username);
             localStorage.setItem("token", token);
             localStorage.setItem("refresh", refresh);
@@ -161,6 +161,7 @@ export function changePassword(formValues, dispatch) {
 }
 
 export function resetPassword(formValues) {
+
     const resetPasswordUrl = AuthUrls.RESET_PASSWORD;
     const config = {
         xsrfCookieName: "csrftoken",
@@ -175,8 +176,8 @@ export function resetPassword(formValues) {
         .then(response => {
             // redirect to reset done page
             console.log(response)
-            history.push("/reset_password_done");
-            window.location.refresh();
+            history.push("/");
+            window.location.reload();
         }).catch((error) => {
             // If request is bad...
             // Show an error to the user
@@ -187,8 +188,9 @@ export function resetPassword(formValues) {
                 throw new SubmissionError(processedError);
             }
 
-        });
+    });
 }
+
 
 export function confirmPasswordChange(formValues, dispatch, props) {
     const { uid, token } = props.match.params;
