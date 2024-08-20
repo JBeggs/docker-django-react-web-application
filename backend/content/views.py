@@ -34,7 +34,7 @@ class PageGalleryViewSet(viewsets.ModelViewSet):
 
 
 class ArticlesViewSet(viewsets.ModelViewSet):
-    search_fields = ["id", "creator__name", 'title', "name", "title_description"]
+    search_fields = ["id", "creator__username", 'title', "name", "title_description"]
     queryset = Articles.objects.all()
     serializer_class = ArticleSerializer
     parser_classes = (MultiPartParser, FormParser, JSONParser)

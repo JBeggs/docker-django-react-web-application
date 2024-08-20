@@ -8,14 +8,13 @@ import { UploadHeroImage } from "../../Components/FileUploads";
 export default function HomeHero() {
 
     const is_admin = localStorage.getItem("is_admin");
-    const [toggle, setToggle] = useState(false)
 
     return (
       <div>
         <header className="masthead" style={{backgroundImage:"url(" + localStorage.getItem("home_hero_image") + ")"}} >
           <Navigation />
           <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center" style={{backgroundColor: "rgba(105,105,105, 0.4)", paddingTop:"20px"}}>
                   <div className="text-center">
                       <h1 
                         onClick={handleEdit}
@@ -47,8 +46,7 @@ export default function HomeHero() {
           </div>
 
         </header>
-        {is_admin && toggle && <UploadHeroImage page="1" />}
-        {is_admin && <div class="add-hero-image" onClick={() => setToggle(!toggle)}><button> Update Hero Image</button></div>}
+        {is_admin && <UploadHeroImage page="1" />}
       </div>
     );
   }

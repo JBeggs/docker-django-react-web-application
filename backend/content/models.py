@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.template.defaultfilters import truncatechars
+from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
@@ -23,7 +24,7 @@ class PageContent(models.Model):
     ]
     name = models.CharField(max_length=200, blank=True, null=True)
     page = models.CharField(max_length=200, choices=PAGE_CHOICES, blank=True)
-    title = models.CharField(max_length=200, blank=True)
+    title = models.CharField(max_length=500, blank=True, null=True)
     title_description = models.TextField(_('Title Description'), blank=True)
     hero_image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
     
@@ -49,7 +50,7 @@ class PageContent(models.Model):
 class PageGallery(models.Model):
     page = models.ForeignKey(
         PageContent, related_name="page_gallery", on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, blank=True, null=True)
     image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
     description = models.CharField(max_length=200, blank=True)
     thumbnail = models.ImageField(upload_to=image_thumbnail_path, blank=True)
@@ -87,41 +88,50 @@ class Articles(models.Model):
         User, related_name="article_creator", on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200, blank=True, null=True)
-    title = models.CharField(max_length=200, blank=True)
+    title = models.CharField(max_length=500, blank=True, null=True)
     slug = models.SlugField(default="", null=False)
-    title_description = models.TextField(_('Title Description'), blank=True)
+    title_description = models.TextField(_('Title Description'), blank=True, null=True)
     hero_image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
 
-    header_1 = models.CharField(max_length=200, blank=True)
-    paragraph_1 = models.TextField(_('paragraph'), blank=True)
-    header_2 = models.CharField(max_length=200, blank=True)
-    paragraph_2 = models.TextField(_('paragraph'), blank=True)
-    header_3 = models.CharField(max_length=200, blank=True)
-    paragraph_3 = models.TextField(_('paragraph'), blank=True)
-    header_4 = models.CharField(max_length=200, blank=True)
-    paragraph_4 = models.TextField(_('paragraph'), blank=True)
-    header_5 = models.CharField(max_length=200, blank=True)
-    paragraph_5 = models.TextField(_('paragraph'), blank=True)
-    paragraph_6 = models.TextField(_('paragraph'), blank=True)
-    paragraph_7 = models.TextField(_('paragraph'), blank=True)
+    header_1 = models.CharField(max_length=200, blank=True, null=True)
+    paragraph_1 = models.TextField(_('paragraph'), blank=True, null=True)
+    header_2 = models.CharField(max_length=200, blank=True, null=True)
+    paragraph_2 = models.TextField(_('paragraph'), blank=True, null=True)
+    header_3 = models.CharField(max_length=200, blank=True, null=True)
+    paragraph_3 = models.TextField(_('paragraph'), blank=True, null=True)
+    header_4 = models.CharField(max_length=200, blank=True, null=True)
+    paragraph_4 = models.TextField(_('paragraph'), blank=True, null=True)
+    header_5 = models.CharField(max_length=200, blank=True, null=True)
+    paragraph_5 = models.TextField(_('paragraph'), blank=True, null=True)
+    paragraph_6 = models.TextField(_('paragraph'), blank=True, null=True)
+    paragraph_7 = models.TextField(_('paragraph'), blank=True, null=True)
     
     file = models.FileField(upload_to=page_file_path, blank=True, null=True)
-    active     = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
+    active     = models.BooleanField(default=False, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    def creator_username(self):
+        return f"{self.creator.username}"
+
     class Meta:
         ordering = ('-created_at', )
 
     def __str__(self):
         return f"{self.name}"
+    
+    def save(self):
+        if not self.title:
+            self.title = "Blank"
+        self.slug = slugify(self.title[:33])
+        super(Articles, self).save()
 
 
 class ArticleGallery(models.Model):
     article = models.ForeignKey(
         Articles, related_name="article_gallery", on_delete=models.CASCADE)
     
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, blank=True, null=True)
     image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
     description = models.CharField(max_length=200, blank=True)
     thumbnail = models.ImageField(upload_to=image_thumbnail_path, blank=True)

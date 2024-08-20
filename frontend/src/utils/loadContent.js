@@ -5,6 +5,7 @@ import { getUserToken } from "../utils/authUtils";
 import history from "../utils/historyUtils";
 import { actions as notifActions } from "redux-notifications";
 import { SubmissionError } from "redux-form";
+import Cookies from "js-cookie";
 
 const { notifSend } = notifActions;
 
@@ -32,21 +33,18 @@ export default function loadContent(page=null, field=null, image=null) {
 
     const accepted = localStorage.getItem("terms_acctepted");
 
-    if(!accepted && window.location.href.search("accept_terms") ==-1){
+    function accept_terms(){
         history.push("/accept_terms");
         window.location.reload();
     }
-    
 
+    if(!accepted && window.location.href.search("accept_terms") ==-1){
+        setTimeout(accept_terms, 10000)
+    }
 
     return axios.post(loadURL, contentValues, config).then((response) => {
+        console.log("Starting to save data")
 
-
-        if(window.location.pathname === "/"){
-            localStorage.setItem("page_name", response.data.home[0].name);
-        } else {
-            localStorage.setItem("page_name", response.data.articlepage[0].name);
-        };
         if(response.data.home != ""){
             const home_data = response.data.home[0];
             localStorage.setItem("home_id", home_data.id);
@@ -58,8 +56,9 @@ export default function loadContent(page=null, field=null, image=null) {
             localStorage.setItem("home_paragraph_3", home_data.paragraph_3);
             localStorage.setItem("home_paragraph_4", home_data.paragraph_4);
             localStorage.setItem("home_paragraph_5", home_data.paragraph_5);
+            localStorage.setItem("page_name", home_data.name);
             if (home_data.hero_image == ""){
-                localStorage.setItem("home_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/home/hero.jpg");
+                localStorage.setItem("home_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/background1.jpg");
             } else {
                 localStorage.setItem("home_hero_image", process.env.REACT_APP_BACKEND_URL + "/media/" + home_data.hero_image);
             }
@@ -77,14 +76,15 @@ export default function loadContent(page=null, field=null, image=null) {
             localStorage.setItem("about_paragraph_4", about_data.paragraph_4);
             localStorage.setItem("about_paragraph_5", about_data.paragraph_5);
             if (about_data.hero_image == ""){
-                localStorage.setItem("about_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/home/hero.jpg");
+                localStorage.setItem("about_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/background1.jpg");
             } else {
                 localStorage.setItem("about_hero_image", process.env.REACT_APP_BACKEND_URL + "/media/" + about_data.hero_image);
             }
         };
 
-        if(response.data.articlepage != ""){
-            const article_data = response.data.articlepage[0];
+
+        response.data.articlepage.map(function(article_data){
+
             localStorage.setItem("article_id", article_data.id);
             localStorage.setItem("article_name", article_data.name);
             localStorage.setItem("article_title", article_data.title);
@@ -100,16 +100,50 @@ export default function loadContent(page=null, field=null, image=null) {
             localStorage.setItem("article_paragraph_3", article_data.paragraph_3);
             localStorage.setItem("article_paragraph_4", article_data.paragraph_4);
             localStorage.setItem("article_paragraph_5", article_data.paragraph_5);
+            localStorage.setItem("article_name", article_data.name);
+
             if (article_data.hero_image == ""){
-                localStorage.setItem("article_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/home/hero.jpg");
+                localStorage.setItem("article_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/background1.jpg");
             } else {
                 localStorage.setItem("article_hero_image", process.env.REACT_APP_BACKEND_URL + "/media/" + article_data.hero_image);
             }
+        })
+
+        if(response.data.articlepage){
+            
+
         };
+
         localStorage.setItem("csrf_token", response.data.csrf_token);
         localStorage.setItem("articles", JSON.stringify(response.data.articles));
         localStorage.setItem("articles_gallery", JSON.stringify(response.data.articles_gallery));
+ 
+    }).catch(error => {
+        //alert(error);
+    });
+}
 
+
+export async function loadUserContent() {
+
+    const loadURL = AuthUrls.UPDATE_ARTICLE + "?search=" + localStorage.getItem("username");
+
+    const config = {
+        withCredentials: true,
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer: Token " +  localStorage.getItem("token"),
+            "X-CSRFTOKEN": Cookies.get("csrftoken")
+          },
+    }
+
+    return await axios.get(loadURL, config).then((response) => {
+
+        localStorage.setItem("csrf_token", response.data.csrf_token);
+        localStorage.setItem("user_articles", JSON.stringify(response.data));
+        console.log("----------------------------")
+        console.log(localStorage.getItem("user_articles"))
     }).catch(error => {
         //alert(error);
     });

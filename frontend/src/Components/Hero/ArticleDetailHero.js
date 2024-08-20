@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navigation from '../Navigation';
 import {handleEdit, handleSave} from "../../utils/saveContent";
-import { UploadHeroImage } from "../../Components/FileUploads";
+import { UploadArticleHeroImage } from "../FileUploads";
+import { useParams } from "react-router-dom";
 
 
-export default function ArticleHero() {
+export default function ArticleDetailHero(props) {
 
     const is_admin = localStorage.getItem("is_admin");
+    
+    const { slug } = useParams();
+    const articles = JSON.parse(localStorage.getItem("user_articles"));
+
+    function filterBySlug() {
+      return articles.filter(article => article.slug === slug)[0];
+    }
+    const article = filterBySlug();
+    // alert(JSON.stringify(article));
+    // alert(JSON.stringify(articles));
+    const hero_image = article.hero_image ? article.hero_image : localStorage.getItem("article_hero_image")
+    const is_owner = article.creator ===  localStorage.getItem("username")
 
     return (
       <div>
-        <header className="masthead" style={{backgroundImage:"url(" + localStorage.getItem("article_hero_image") + ")"}} >
+        <header className="masthead" style={{backgroundImage:"url(" + hero_image + ")"}} >
           <Navigation />
           <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
               <div className="d-flex justify-content-center" style={{backgroundColor: "rgba(105,105,105, 0.4)", paddingTop:"20px"}}>
@@ -23,7 +36,7 @@ export default function ArticleHero() {
                         suppressContentEditableWarning={is_admin}
                         field={"title"}
                         id={localStorage.getItem("article_id")}
-                        page={"article"}
+                        page={"home"}
                       >
                         {localStorage.getItem("article_title")}
                       </h1>
@@ -36,7 +49,7 @@ export default function ArticleHero() {
                         suppressContentEditableWarning={is_admin}
                         field={"title_description"}
                         id={localStorage.getItem("article_id")}
-                        page={"article"}
+                        page={"home"}
                       > 
                         {localStorage.getItem("article_description")}
                       </h2>
@@ -44,7 +57,7 @@ export default function ArticleHero() {
               </div>
           </div>
         </header>
-        {is_admin && <UploadHeroImage page="3" />}
+        {is_owner && <UploadArticleHeroImage article_id={article.id} />}
       </div>
     );
   }

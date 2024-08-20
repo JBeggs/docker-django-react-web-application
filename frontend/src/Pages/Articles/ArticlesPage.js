@@ -4,7 +4,7 @@ import About from "../../Components/About";
 import Contact from "../../Components/Contact";
 import Articles from "../../Components/Articles/Articles.js";
 import ArticleHero from "../../Components/Hero/ArticleHero";
-
+import { CreateNewArticle } from "../../Components/Articles/CreateArticle.js";
 
 class ArticlesPage extends Component {
 
@@ -13,6 +13,7 @@ class ArticlesPage extends Component {
       <div>
         <ArticleHero />
         <Articles />
+        <CreateNewArticle />
         <Contact />
       </div>
       

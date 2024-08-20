@@ -23,7 +23,7 @@ function About() {
                             suppressContentEditableWarning={is_admin}
                             field={"paragraph_1"}
                             id={localStorage.getItem("home_id")}
-                            page={"home"}
+                            page={"about"}
                             >
                               {localStorage.getItem("home_paragraph_1")}
                             </h2>
@@ -35,7 +35,7 @@ function About() {
                               suppressContentEditableWarning={is_admin}
                               field={"paragraph_2"}
                               id={localStorage.getItem("home_id")}
-                              page={"home"}
+                              page={"about"}
                             >
                                 {localStorage.getItem("home_paragraph_2")}
                             </p>
@@ -47,11 +47,6 @@ function About() {
                       alt={localStorage.getItem("about_name")}
                     />
                     {is_admin && <UploadHeroImage page="2" />}
-                    {/* <Upload 
-                      id={localStorage.setItem("about_id")} 
-                      field={"hero_image"}
-                      page={"about"}
-                    /> */}
                 </div>
             </section>
       </div>

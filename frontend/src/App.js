@@ -1,15 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'redux-notifications/lib/styles.css';
 
-import React from "react";
+import React, { useEffect } from "react";
 import store from "./store";
 import MainContent from "./Components/MainContent";
-import loadContent from "./utils/loadContent";
+import loadContent, {loadUserContent} from "./utils/loadContent";
 
 
 export default function App (){
 
-    loadContent("", "", dispatchEvent)
+    loadContent("", "", dispatchEvent);
+    loadUserContent(dispatchEvent);
+
     return (
         <div>
             <MainContent store={store} />

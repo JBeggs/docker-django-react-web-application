@@ -80,11 +80,12 @@ class PageGallerySerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     
     creator = serializers.SlugRelatedField("username", queryset=User.objects.all())
+    creator_username = serializers.ReadOnlyField(source='my_field')
     
     class Meta:
         model = Articles
         fields = [
-            "id", "creator", "name", "title", "title_description", "hero_image",
+            "id", "creator","creator_username", "name", "title", "title_description", "hero_image", "slug",
             "paragraph_1", "paragraph_2", "paragraph_3", "paragraph_4", "paragraph_5", "paragraph_6", "paragraph_7",
             "header_1", "header_2", "header_3", "header_4", "header_5",
             "file", "created_at", "updated_at", "active", "hero_image"
