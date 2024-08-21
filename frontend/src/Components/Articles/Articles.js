@@ -1,5 +1,5 @@
 import "./Articles.css";
-import React, {useEffect} from 'react';
+import React from 'react';
 import { format } from "date-fns";
 import {handleEdit, handleSave} from "../../utils/saveContent";
 import { CreateArticle } from "./CreateArticle";

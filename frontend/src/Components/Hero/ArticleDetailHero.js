@@ -11,13 +11,17 @@ export default function ArticleDetailHero(props) {
     
     const { slug } = useParams();
     const articles = JSON.parse(localStorage.getItem("user_articles"));
-
+    alert("teting 123")
     function filterBySlug() {
-      return articles.filter(article => article.slug === slug)[0];
+        if(!articles){
+            return [Object(
+                {creator:"admin"}
+            )]
+        }
+        return articles.filter(article => article.slug === slug)[0];
     }
     const article = filterBySlug();
-    // alert(JSON.stringify(article));
-    // alert(JSON.stringify(articles));
+
     const hero_image = article.hero_image ? article.hero_image : localStorage.getItem("article_hero_image")
     const is_owner = article.creator ===  localStorage.getItem("username")
 

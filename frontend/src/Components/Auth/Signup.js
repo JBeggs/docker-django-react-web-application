@@ -23,44 +23,44 @@ class Signup extends Component {
                 onSubmit={handleSubmit}
             >
 
-                <div class="text-center signup" style={{padding:"50px 0"}}>
-                    <div class="logo">register</div>
+                <div className="text-center signup" style={{padding:"50px 0"}}>
+                    <div className="logo">register</div>
 
-                    <div class="login-form-1">
+                    <div className="login-form-1">
 
-                            <div class="login-form-main-message"></div>
-                            <div class="main-login-form">
-                                <div class="login-group">
-                                    <div class="form-group">
+                            <div className="login-form-main-message"></div>
+                            <div className="main-login-form">
+                                <div className="login-group">
+                                    <div className="form-group">
                                         <Field name="username" placeholder="Username" component={renderField}
                                             type="text" validate={[required({message: "This field is required."})]}
                                         />
                                     </div>
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <Field name="password1" placeholder="Password" component={renderField}
                                             type="password" validate={[required({message: "This field is required."})]}
                                         />
                                     </div>
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <Field name="password2" placeholder="Confirm Password" component={renderField}
                                             type="password" validate={[required({message: "This field is required."})]}
                                         />
                                     </div>
                                     
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <Field name="email" placeholder="Email" component={renderField}
                                             type="text" validate={[required({message: "This field is required."})]}/>
                                     </div>
 
-                                    <div class="form-group login-group-checkbox">
-                                        <input type="checkbox" class="" id="reg_agree" name="reg_agree" />
+                                    <div className="form-group login-group-checkbox">
+                                        <input type="checkbox" className="" id="reg_agree" name="reg_agree" />
                                         <label for="reg_agree">i agree with <a href="#">terms</a></label>
                                     </div>
                                 </div>
                                 { renderError(error) }
-                                <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+                                <button type="submit" className="login-button"><i className="fa fa-chevron-right"></i></button>
                             </div>
-                            <div class="etc-login-form">
+                            <div className="etc-login-form">
                                 <p>already have an account? <br /><a href="#" onClick={handleLogin}>login here</a></p>
                             </div>
 

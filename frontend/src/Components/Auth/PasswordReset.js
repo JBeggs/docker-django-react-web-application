@@ -22,18 +22,18 @@ class PasswordReset extends Component {
                 onSubmit={handleSubmit}
             >
 
-                <div class="text-center forgot-password" style={{padding:"50px 0"}}>
-                    <div class="logo">forgot password</div>
+                <div className="text-center forgot-password" style={{padding:"50px 0"}}>
+                    <div className="logo">forgot password</div>
 
-                    <div class="login-form-1">
+                    <div className="login-form-1">
 
-                        <div class="etc-login-form">
+                        <div className="etc-login-form">
                             <p>When you fill in your registered email address, you will be sent instructions on how to reset your password.</p>
                         </div>
-                        <div class="login-form-main-message"></div>
-                        <div class="main-login-form">
-                            <div class="login-group">
-                                <div class="form-group">
+                        <div className="login-form-main-message"></div>
+                        <div className="main-login-form">
+                            <div className="login-group">
+                                <div className="form-group">
                                     <Field 
                                         name="email" 
                                         placeholder="Please enter your email" 
@@ -45,9 +45,9 @@ class PasswordReset extends Component {
                                 </div>
                                 { renderError(error) }
                             </div>
-                            <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+                            <button type="submit" className="login-button"><i className="fa fa-chevron-right"></i></button>
                         </div>
-                        <div class="etc-login-form">
+                        <div className="etc-login-form">
                             <p>already have an account? <br /><a href="#" onClick={handleLogin}>login here</a></p>
                             <p>new user? <br /><a href="#" onClick={handleShowSignup}>create new account</a></p>
                         </div>

@@ -7,7 +7,6 @@ import HomePage from "../Pages/Home";
 import ArticlesPage from "../Pages/Articles/ArticlesPage.js";
 import ArticleDetailPage from "../Pages/Articles/ArticleDetailPage.js";
 
-
 import Control from "./Auth/Control";
 import Logout from "./Auth/Logout";
 import Signup from "./Auth/Signup";
@@ -44,7 +43,7 @@ function MainContent(){
                 <Route path="/reset_password" element={<PasswordReset />}/>
                 <Route path="/reset_password_done" element={<PasswordResetDone />}/>
                 <Route path="/reset/:uid/:token/" element={<PasswordResetConfirm />}/>
-                <Route path="/profile" element={RequireAuth(<UserProfile />)}/>
+                <Route path="/profile" element={RequireAuth({UserProfile})}/>
                 <Route path="/profile_edit" element={RequireAuth(<UserProfileEdit />)}/>
                 <Route path="/change_password" element={RequireAuth(<PasswordChange />)}/>
                 {/* <Route element={NoMatch}/> */}

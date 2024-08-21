@@ -1,5 +1,5 @@
 import "./Home.css";
-import React, { useState } from 'react';
+import React from 'react';
 
 import Navigation from '../Navigation';
 import {handleEdit, handleSave} from "../../utils/saveContent";
@@ -11,7 +11,10 @@ export default function HomeHero() {
 
     return (
       <div>
-        <header className="masthead" style={{backgroundImage:"url(" + localStorage.getItem("home_hero_image") + ")"}} >
+        <header 
+          className="masthead" 
+          style={{backgroundImage:"url(" + localStorage.getItem("home_hero_image") + ")"}} 
+        >
           <Navigation />
           <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
               <div className="d-flex justify-content-center" style={{backgroundColor: "rgba(105,105,105, 0.4)", paddingTop:"20px"}}>
@@ -46,7 +49,7 @@ export default function HomeHero() {
           </div>
 
         </header>
-        {is_admin && <UploadHeroImage page="1" />}
+        {is_admin && <UploadHeroImage page={localStorage.getItem("home_id")} />}
       </div>
     );
   }

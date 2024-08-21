@@ -15,7 +15,7 @@ class Control extends Component {
     render() {
 
         return (
-            <div class="form-container">
+            <div className="form-container">
                 <Login />
                 <Signup />
                 <PasswordReset />

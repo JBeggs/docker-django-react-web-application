@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import history from "../../utils/historyUtils";
 import axios from 'axios';
 import { AuthUrls } from "../../constants/urls";
+import $ from "jquery";
 
 
 export function UploadGalleryImage(props) {
@@ -201,6 +202,78 @@ export function UploadArticleHeroImage(props) {
                     <button type="submit">Upload</button><br />
                     <progress value={uploadProgress} max="100"></progress>
                 </form>}
+        </div>
+ 
+    );
+};
+
+
+export function UploadContentFile(props) {
+
+    const [toggle, setToggle] = useState(localStorage.getItem("article_id"))
+    const {page} = props
+    const [file, setFile] = useState()
+    const [uploadProgress, setUploadProgress] = useState(0);
+
+    function handleChange(event) {
+        setFile(event.target.files[0])
+    }
+    
+    function handleSubmit(event) {
+
+        event.preventDefault()
+        if(file){
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('fileName', file.name);
+            formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
+            formData.append('page', page);
+            formData.append('creator', localStorage.getItem("username"));
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+                onUploadProgress: function(progressEvent) {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadProgress(percentCompleted);
+            }
+            };
+    
+            let url = AuthUrls.UPDATE_CONTENT;
+            axios.post(url, formData, config).then((response) => {
+                history.push({page});
+                window.location.reload(true);
+            });
+        } else {
+            $("#upload_error").html("Please select a file")
+        }
+    }
+
+    return (
+        <div className="container"><br />
+
+        {!toggle && <div id="wrapper" className="fade-in">
+            <div className="px-4 py-5 my-5 text-center">
+                <h1 className="display-5 fw-bold">Update Site Content...</h1>
+                <div className="col-lg-6 mx-auto">
+                <p className="lead mb-4"></p>
+                <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <form onSubmit={handleSubmit} encType="multipart/form-data">
+                        <h4>File Upload</h4>
+                        <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
+                        <div className="">
+                                <input type="file" onChange={handleChange} />
+                        </div>
+
+                        <button type="submit">Upload</button><br />
+                        <progress value={uploadProgress} max="100"></progress>
+                        <div classNAme="alert alert-info" id="upload_error"></div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>}
+
         </div>
  
     );

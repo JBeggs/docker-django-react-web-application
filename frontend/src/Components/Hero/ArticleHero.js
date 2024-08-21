@@ -10,7 +10,10 @@ export default function ArticleHero() {
 
     return (
       <div>
-        <header className="masthead" style={{backgroundImage:"url(" + localStorage.getItem("article_hero_image") + ")"}} >
+        <header 
+            className="masthead"
+            style={{backgroundImage:"url(" + localStorage.getItem("article_hero_image") + ")"}} 
+          >
           <Navigation />
           <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
               <div className="d-flex justify-content-center" style={{backgroundColor: "rgba(105,105,105, 0.4)", paddingTop:"20px"}}>
@@ -44,7 +47,7 @@ export default function ArticleHero() {
               </div>
           </div>
         </header>
-        {is_admin && <UploadHeroImage page="3" />}
+        {is_admin && <UploadHeroImage page={localStorage.getItem("article_id")} />}
       </div>
     );
-  }
+}

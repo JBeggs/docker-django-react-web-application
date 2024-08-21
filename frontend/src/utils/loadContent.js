@@ -140,10 +140,13 @@ export async function loadUserContent() {
 
     return await axios.get(loadURL, config).then((response) => {
 
-        localStorage.setItem("csrf_token", response.data.csrf_token);
-        localStorage.setItem("user_articles", JSON.stringify(response.data));
-        console.log("----------------------------")
-        console.log(localStorage.getItem("user_articles"))
+
+
+        if(response.data != ""){
+            localStorage.setItem("csrf_token", response.data.csrf_token);
+            localStorage.setItem("user_articles", JSON.stringify(response.data));
+        }
+
     }).catch(error => {
         //alert(error);
     });
