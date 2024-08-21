@@ -6,8 +6,65 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from .utils import create_thumbnail, image_thumbnail_path, page_file_path, page_image_path
+import pandas as pd
+
 
 User = get_user_model()
+
+
+def process_content_file(file):
+    if file:
+        df = pd.read_csv(file, engine='python')
+
+        current_articles = Articles.objects.all()
+        for article in current_articles:
+            article.delete()
+
+
+
+        data = dict(df.to_dict())
+
+        content = Articles()
+        
+        content.name = data['name'][0]
+        content.title = data['name'][0]
+        content.title_description = data['name'][0]
+
+        content.header_1 = data['header_1'][0]
+
+        content.header_2 = data['header_2'][0]
+        content.header_3 = data['header_3'][0]
+        content.header_4 = data['header_4'][0]
+        content.header_5 = data['header_5'][0]
+
+        content.paragraph_1 = data['paragraph_1'][0]
+        content.paragraph_2 = data['paragraph_2'][0]
+        content.paragraph_3 = data['paragraph_3'][0]
+        content.paragraph_4 = data['paragraph_4'][0]
+        content.paragraph_5 = data['paragraph_5'][0]
+        content.paragraph_6 = data['paragraph_6'][0]
+        content.paragraph_7 = data['paragraph_7'][0]
+        
+        content.active = data['active'][0]
+
+        content.link = data['name'][0]
+        
+        user = User()
+        user = User.objects.filter(username=data['username'][0])
+        if not user:
+            user = User()
+            user.username = data['username'][0]
+
+            user.first_name = data['first_name'][0]
+            user.last_name = data['last_name'][0]
+            user.set_password("Defcon12")
+            user.save()
+
+        else:
+            user = user[0]
+            
+        content.creator = user
+        content.save()
 
 
 class PageContent(models.Model):
@@ -45,6 +102,11 @@ class PageContent(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self):
+        if bool(self.file.name) and self.file.storage.exists(self.file.name):
+            process_content_file(self.file.path)
+        super(PageContent, self).save()
 
 
 class PageGallery(models.Model):
@@ -106,6 +168,7 @@ class Articles(models.Model):
     paragraph_6 = models.TextField(_('paragraph'), blank=True, null=True)
     paragraph_7 = models.TextField(_('paragraph'), blank=True, null=True)
     
+    link = models.CharField(max_length=500, blank=True, null=True)
     file = models.FileField(upload_to=page_file_path, blank=True, null=True)
     active     = models.BooleanField(default=False, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -151,3 +214,30 @@ class ArticleGallery(models.Model):
     @property
     def short_description(self):
         return truncatechars(self.description, 60)
+
+
+class Message(models.Model):
+    user = models.ForeignKey(
+        User, related_name="user_message", on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        Articles, related_name="article_message", on_delete=models.CASCADE)
+
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.message}"
+    
+    
+
+class ContactMessage(models.Model):
+    first_name = models.CharField(max_length=128, blank=True, null=True)
+    last_name = models.CharField(max_length=128, blank=True, null=True)
+    email_address = models.EmailField(max_length=200, blank=True, null=True)
+    contact_number = models.CharField(max_length=128, blank=True, null=True)
+
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.message}"

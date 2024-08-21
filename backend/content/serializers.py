@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.views.decorators.csrf import csrf_exempt
 
 from content.utils import create_thumbnail
-from content.models import PageContent, PageGallery, Articles, ArticleGallery
+from content.models import PageContent, PageGallery, Articles, ArticleGallery, Message, ContactMessage
 
 
 User = get_user_model()
@@ -88,7 +88,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             "id", "creator","creator_username", "name", "title", "title_description", "hero_image", "slug",
             "paragraph_1", "paragraph_2", "paragraph_3", "paragraph_4", "paragraph_5", "paragraph_6", "paragraph_7",
             "header_1", "header_2", "header_3", "header_4", "header_5",
-            "file", "created_at", "updated_at", "active", "hero_image"
+            "link", "file", "created_at", "updated_at", "active", "hero_image"
             ]
 
     def create(self, validated_data):
@@ -112,7 +112,9 @@ class ArticleSerializer(serializers.ModelSerializer):
         content.header_5 = validated_data.get("header_5")
         
         content.hero_image = validated_data.get("hero_image")
+        content.link = validated_data.get("link")
         content.active = validated_data.get("active")
+        #content.file = validated_data.get("file")
         content.save()
         
         content.file = validated_data.get("file")
@@ -151,4 +153,38 @@ class ArticleGallerySerializer(serializers.ModelSerializer):
         image = validated_data.get("image", instance.image)
         thumbnail = validated_data.get("thumbnail", instance.thumbnail)
         create_thumbnail(image, thumbnail, 400, 400)
+        return super().update(instance, validated_data)
+    
+    
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ["id", "user", "article", "message"]
+
+    def create(self, validated_data):
+        message = Message()
+        message.user = validated_data.get("user")
+        message.article = validated_data.get("article")
+        message.message = validated_data.get("message")
+        return message
+    
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
+        fields = ["id", "user", "article", "message"]
+
+    def create(self, validated_data):
+        message = ContactMessage()
+        message.first_name = validated_data.get("first_name")
+        message.last_name = validated_data.get("last_name")
+        message.email_address = validated_data.get("email_address")
+        message.contact_number = validated_data.get("contact_number")
+        message.message = validated_data.get("message")
+        return message
+    
+    def update(self, instance, validated_data):
         return super().update(instance, validated_data)

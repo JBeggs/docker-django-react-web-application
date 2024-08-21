@@ -2,6 +2,7 @@ from io import BytesIO
 
 from django.core.files.base import ContentFile
 from PIL import Image
+import pandas as pd
 
 
 def create_thumbnail(img, thumb, w, h):

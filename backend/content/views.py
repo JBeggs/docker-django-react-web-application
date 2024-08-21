@@ -1,5 +1,5 @@
-from .models import PageContent, PageGallery, Articles, ArticleGallery
-from .serializers import PageContentSerializer, PageGallerySerializer, ArticleSerializer, ArticleGallerySerializer
+from .models import PageContent, PageGallery, Articles, ArticleGallery, Message, ContactMessage
+from .serializers import PageContentSerializer, PageGallerySerializer, ArticleSerializer, ArticleGallerySerializer, MessageSerializer, ContactMessageSerializer
 
 from rest_framework import permissions, viewsets, filters
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
@@ -58,4 +58,32 @@ class ArticleGalleryViewSet(viewsets.ModelViewSet):
         filter = filters.SearchFilter()
         queryset = filter.filter_queryset(request, ArticleGallery.objects.all(), self) 
         serializer = ArticleGallerySerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+    
+    
+class MessageViewSet(viewsets.ModelViewSet):
+    search_fields = ["message"]
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    parser_classes = (MultiPartParser, FormParser, JSONParser)
+    permission_classes = []
+
+    def list(self, request):
+        filter = filters.SearchFilter()
+        queryset = filter.filter_queryset(request, Message.objects.all(), self) 
+        serializer = MessageSerializer(queryset, many=True, context={'request': request})
+        return Response(serializer.data)
+    
+    
+class ContactMessageViewSet(viewsets.ModelViewSet):
+    search_fields = ["message"]
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+    parser_classes = (MultiPartParser, FormParser, JSONParser)
+    permission_classes = []
+
+    def list(self, request):
+        filter = filters.SearchFilter()
+        queryset = filter.filter_queryset(request, ContactMessage.objects.all(), self) 
+        serializer = ContactMessageSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
