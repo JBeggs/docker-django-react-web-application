@@ -25,13 +25,13 @@ class PasswordReset extends Component {
                 <div className="text-center forgot-password" style={{padding:"50px 0"}}>
                     <div className="logo">forgot password</div>
 
-                    <div className="login-form-1">
+                    <div className="main-form-1">
 
                         <div className="etc-login-form">
                             <p>When you fill in your registered email address, you will be sent instructions on how to reset your password.</p>
                         </div>
                         <div className="login-form-main-message"></div>
-                        <div className="main-login-form">
+                        <div className="main-all-forms-1">
                             <div className="login-group">
                                 <div className="form-group">
                                     <Field 

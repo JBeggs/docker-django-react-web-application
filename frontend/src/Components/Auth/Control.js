@@ -20,8 +20,6 @@ class Control extends Component {
                 <Signup />
                 <PasswordReset />
             </div>
-
-
         )
     }
 }

@@ -8,8 +8,31 @@ export default function Contact(){
 
 
     return (
+
         <div>
-                <section id="comment-form" className="comment-form section">
+
+            <div className="">
+
+
+            <div className="text-center" style={{padding:"50px 0"}}>
+                   
+                   <div className="main-form-1">
+  
+                           <div className="main-all-forms-1">
+                               <div className="comments">
+                                    <textarea name="comment" className="form-control" placeholder="Your Comment*"></textarea>
+                               </div>
+                               <button type="submit" className="login-button">
+                                <i className="fa fa-chevron-right"></i>
+                                </button>
+                           </div>
+               
+                   </div>
+               
+               </div>
+
+
+                {/* <section id="comment-form" className="comment-form section">
                     <div className="container">
         
                         <form action="">
@@ -28,7 +51,11 @@ export default function Contact(){
                         </form>
         
                     </div>
-                </section>
+
+
+
+                </section> */}
+                </div>
             <footer className="footer bg-black small text-center text-white-50"><div className="container px-4 px-lg-5">Copyright &copy; Python Solutions 2024</div></footer>
         </div>
     )

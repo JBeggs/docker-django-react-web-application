@@ -43,10 +43,10 @@ class Login extends Component {
                 <div className="text-center login" style={{padding:"50px 0"}}>
                     <div className="logo">login</div>
 
-                    <div className="login-form-1">
+                    <div className="main-form-1">
                         {/* <form id="login-form" className="text-left"> */}
                             <div className="login-form-main-message"></div>
-                            <div className="main-login-form">
+                            <div className="main-all-forms-1">
                                 <div className="login-group">
                                     <div className="form-group">
                                         <label for="lg_username" className="sr-only">Username</label>

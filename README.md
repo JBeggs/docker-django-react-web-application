@@ -8,6 +8,10 @@ Why it works well in this trio:
 - Microservices: It facilitates a microservices architecture where each service (e.g., web server, database) can run in its container, enhancing scalability and reliability.
 - DevOps: Integrates smoothly with DevOps workflows, supporting continuous integration and continuous deployment (CI/CD), making updates and scaling more manageable.
 
+At the end of this going to use AWS to host the application and a seperate database.
+
+The postgres database is nice  to have but AWS hosts them yoo.
+
 ## React
 
 React is a declarative, efficient, and flexible JavaScript library for building user interfaces, primarily for web applications.
@@ -17,6 +21,9 @@ Why it works well in this trio:
 - Component-Based Architecture: Encourages building UIs in encapsulated components that manage their state, leading to more manageable and reusable code.
 - Performance: Implements a virtual DOM to minimize costly DOM manipulations, enhancing performance especially in dynamic applications.
 - Ecosystem: Benefits from a vast ecosystem and strong community support, providing a wealth of libraries and tools that can be integrated easily within a Dockerized environment.
+
+React is fast, I've been running into a two issues with legacy content Types and Notifs and my error messaging
+
 
 ## PostgreSQL
 
@@ -51,14 +58,20 @@ By leveraging these technologies together, developers can enjoy a streamlined wo
 - Setup a basic django application running in docker. Commit the changes.
 - Setup Django using React serving the front end
 - Start the Development.
+- integrate user managmement system
+- add functonality to the backend content and article management
+- Stitch the front end together
+- hope and pray(lol)
+
+## First time react application on this scale
+
+teething issues with upgrading the codebase and then route authentication not working
+
 
 There are a few tasks that need to get out the way.
 
-local developemnt env and production.
+local developemnt env and production (Production on hold).
 
-Almost the same
-
-React has it's own docker file 
 
 ### Adding django backend framework
 
@@ -83,7 +96,7 @@ run in the root of the project
 - docker-compose build
 - docker-compose up -d
 
-to setp the basic application
+to setup the basic application
 
 
 ### Some Docker commands I need to remember
@@ -94,8 +107,20 @@ docker-compose up -d
 docker ps
 docker image ls
 
+docker exec -it docker-django-react-web-application-backend-1 bash
 
-docker exec -it ff724a0c294e bash
+Once in the bash
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py add_content_from_csv
+
+This will add the basic content to the site and make it look better.
+
+We need a home page and an article page to store titles and descrition.
+
+These are added to the meta data (some how)
+
 
 ### Getting there
 
@@ -104,6 +129,44 @@ docker exec -it ff724a0c294e bash
 - Choose a frame work, bootstrap or tailwind? Not lookning good for tailwind if I need to buy it.
 - Add some models in the backend to store page content
 - Add Models for Blog content
+
+
+## Well that was a hectic week.
+
+Breakdown of the applicatrion.
+
+Register is working, not suure about login style
+Terms and condistions is added
+Home page displays active articles not owned by admin, admin is for editing homepage and article page content.
+
+Admin frontend. Can edit home page title and descrition 
+and upload images for gallery? and hero image
+
+Logged in user
+
+Can create articles, click of a button, article created with ... that are point and click editable
+Delete article to do
+Time line is built on the users article page, a break down of what was added.
+If they choose activating it sends it to the home page feed
+
+Each article can have a unique hero image
+
+Working on comments and messages fron contact form. (might not be able to finish)
+
+My articles are going to be added via a spreadsheet and then upload the images manually
+
+
+## Wednesday power failure
+
+First time in a while no juice but its been good I can think more about what's going on.
+
+Feels like I've been putting out fire and chasing bugs but I think it's getting thee
+
+User flow is better adding and edting content working smoothly
+
+Still that design?
+
+ 
 
 
 

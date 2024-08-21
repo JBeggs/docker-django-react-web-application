@@ -26,10 +26,10 @@ class Signup extends Component {
                 <div className="text-center signup" style={{padding:"50px 0"}}>
                     <div className="logo">register</div>
 
-                    <div className="login-form-1">
+                    <div className="main-form-1">
 
                             <div className="login-form-main-message"></div>
-                            <div className="main-login-form">
+                            <div className="main-all-forms-1">
                                 <div className="login-group">
                                     <div className="form-group">
                                         <Field name="username" placeholder="Username" component={renderField}
