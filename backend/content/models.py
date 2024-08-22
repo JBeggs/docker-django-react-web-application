@@ -151,6 +151,7 @@ class Articles(models.Model):
     creator = models.ForeignKey(
         User, related_name="article_creator", on_delete=models.CASCADE)
 
+    category = models.CharField(max_length=200, blank=True, null=True)
     name = models.CharField(max_length=200, blank=True, null=True)
     title = models.CharField(max_length=500, blank=True, null=True)
     slug = models.SlugField(default="", null=False)
@@ -186,9 +187,9 @@ class Articles(models.Model):
         return f"{self.name}"
     
     def save(self):
-        if not self.title:
-            self.title = "Blank"
-        self.slug = slugify(self.title[:33])
+        if not self.name:
+            self.name = "Blank"
+        self.slug = slugify(self.name[:33])
         super(Articles, self).save()
 
 

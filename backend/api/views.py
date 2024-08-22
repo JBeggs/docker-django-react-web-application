@@ -15,7 +15,7 @@ def site_info(request, *args, **kwargs):
     article_gallery = list(PageGallery.objects.filter(page__page="article").values())
     
     articles = list(Articles.objects.filter(active=True).values(
-        "id", "creator", "name", "title", "title_description", "hero_image", "slug",
+        "id", "creator", "name", "title", "title_description", "hero_image", "slug", "link", "category",
         "paragraph_1", "paragraph_2", "paragraph_3", "paragraph_4", "paragraph_5", "paragraph_6", "paragraph_7",
         "header_1", "header_2", "header_3", "header_4", "header_5",
         "file", "created_at", "updated_at", "active", "hero_image",

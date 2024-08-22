@@ -1,6 +1,7 @@
 from io import BytesIO
 
 from django.core.files.base import ContentFile
+from django.template.defaultfilters import slugify
 from PIL import Image
 import pandas as pd
 
@@ -43,18 +44,18 @@ def image_thumbnail_path(instance, filename):
     if '/' in filename:
         filename = filename.split('/')[-1]
     ext = filename.split('.')[-1]
-    return f'page/thumb/{instance.name.replace(" ","")}/{instance.name.replace(" ","")}.{ext}'
+    return f'page/thumb/{slugify(instance.id)}/{slugify(instance.name)}.{ext}'
 
 
 def page_file_path(instance, filename):
     if '/' in filename:
         filename = filename.split('/')[-1]
     ext = filename.split('.')[-1]
-    return f'page/file/{instance.name.replace(" ","")}/{instance.name.replace(" ","")}.{ext}'
+    return f'page/file/{slugify(instance.id)}/{slugify(instance.name)}.{ext}'
 
 
 def page_image_path(instance, filename):
     if '/' in filename:
         filename = filename.split('/')[-1]
     ext = filename.split('.')[-1]
-    return f'page/image/{instance.name.replace(" ","")}/{instance.name.replace(" ","")}.{ext}'
+    return f'page/image/{slugify(instance.id)}/{slugify(instance.name)}.{ext}'

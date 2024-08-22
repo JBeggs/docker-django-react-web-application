@@ -80,14 +80,16 @@ class PageGallerySerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     
     creator = serializers.SlugRelatedField("username", queryset=User.objects.all())
-    creator_username = serializers.ReadOnlyField(source='my_field')
-    
+    creator__username = serializers.ReadOnlyField(source='user.username')
+    creator__first_name = serializers.ReadOnlyField(source='user.first_name')
+    creator__last_name = serializers.ReadOnlyField(source='user.last_name')
+
     class Meta:
         model = Articles
         fields = [
-            "id", "creator","creator_username", "name", "title", "title_description", "hero_image", "slug",
+            "id", "creator","creator__username", "name", "title", "title_description", "hero_image", "slug", "category",
             "paragraph_1", "paragraph_2", "paragraph_3", "paragraph_4", "paragraph_5", "paragraph_6", "paragraph_7",
-            "header_1", "header_2", "header_3", "header_4", "header_5",
+            "header_1", "header_2", "header_3", "header_4", "header_5", "creator__first_name", "creator__last_name"
             "link", "file", "created_at", "updated_at", "active", "hero_image"
             ]
 
@@ -164,7 +166,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ["user", "article", "message", "message_id", "first_name", "last_name"]
+        fields = ["user", "article", "message", "message_id", "first_name", "last_name", "created_at"]
 
     def create(self, validated_data):
         message = Message()
