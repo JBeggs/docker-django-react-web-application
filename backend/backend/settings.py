@@ -69,8 +69,10 @@ INSTALLED_APPS = [
     "allauth.account",
 
     "allauth.socialaccount",
-
+    "django_countries",
+    "phonenumbers",
     "content.apps.ContentConfig",
+    "users.apps.UsersConfig",
     # "allauth.socialaccount.providers.github",
     # "allauth.socialaccount.providers.google",
     # "allauth.socialaccount.providers.linkedin_oauth2",
@@ -224,3 +226,5 @@ REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'jwt-auth',
 }
+
+TOKEN_LENGTH = "500"

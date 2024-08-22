@@ -114,7 +114,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         content.hero_image = validated_data.get("hero_image")
         content.link = validated_data.get("link")
         content.active = validated_data.get("active")
-        #content.file = validated_data.get("file")
+        content.file = validated_data.get("file")
         content.save()
         
         content.file = validated_data.get("file")
@@ -157,15 +157,21 @@ class ArticleGallerySerializer(serializers.ModelSerializer):
     
     
 class MessageSerializer(serializers.ModelSerializer):
+    
+    user = serializers.SlugRelatedField("username", queryset=User.objects.all())
+    first_name = serializers.CharField(source="user.first_name", read_only=True)
+    last_name = serializers.CharField(source="user.last_name", read_only=True)
+
     class Meta:
         model = Message
-        fields = ["id", "user", "article", "message"]
+        fields = ["user", "article", "message", "message_id", "first_name", "last_name"]
 
     def create(self, validated_data):
         message = Message()
         message.user = validated_data.get("user")
         message.article = validated_data.get("article")
         message.message = validated_data.get("message")
+        message.save()
         return message
     
     def update(self, instance, validated_data):
@@ -184,6 +190,7 @@ class ContactMessageSerializer(serializers.ModelSerializer):
         message.email_address = validated_data.get("email_address")
         message.contact_number = validated_data.get("contact_number")
         message.message = validated_data.get("message")
+        message.save()
         return message
     
     def update(self, instance, validated_data):

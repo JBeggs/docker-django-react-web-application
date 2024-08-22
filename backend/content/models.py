@@ -14,57 +14,59 @@ User = get_user_model()
 
 def process_content_file(file):
     if file:
-        df = pd.read_csv(file, engine='python')
+        df = pd.read_excel(file, header=1)
 
         current_articles = Articles.objects.all()
         for article in current_articles:
             article.delete()
 
+        n = 0
+        for index, data in df.iterrows():
 
+            if type(data["name"]) != float:
 
-        data = dict(df.to_dict())
+                content = Articles()
+                content.name = data['name']
+                content.title = data['title']
+                content.title_description = data['title_description']
 
-        content = Articles()
-        
-        content.name = data['name'][0]
-        content.title = data['name'][0]
-        content.title_description = data['name'][0]
+                content.header_1 = data['header_1']
 
-        content.header_1 = data['header_1'][0]
+                content.header_2 = data['header_2']
+                content.header_3 = data['header_3']
+                content.header_4 = data['header_4']
+                content.header_5 = data['header_5']
 
-        content.header_2 = data['header_2'][0]
-        content.header_3 = data['header_3'][0]
-        content.header_4 = data['header_4'][0]
-        content.header_5 = data['header_5'][0]
+                content.paragraph_1 = data['paragraph_1']
+                content.paragraph_2 = data['paragraph_2']
+                content.paragraph_3 = data['paragraph_3']
+                content.paragraph_4 = data['paragraph_4']
+                content.paragraph_5 = data['paragraph_5']
+                content.paragraph_6 = data['paragraph_6']
+                content.paragraph_7 = data['paragraph_7']
+                
+                content.active = data['active']
 
-        content.paragraph_1 = data['paragraph_1'][0]
-        content.paragraph_2 = data['paragraph_2'][0]
-        content.paragraph_3 = data['paragraph_3'][0]
-        content.paragraph_4 = data['paragraph_4'][0]
-        content.paragraph_5 = data['paragraph_5'][0]
-        content.paragraph_6 = data['paragraph_6'][0]
-        content.paragraph_7 = data['paragraph_7'][0]
-        
-        content.active = data['active'][0]
+                content.link = data['link']
+                
+                user = User()
+                user = User.objects.filter(username=data['username'])
+                if not user:
+                    user = User()
+                    user.username = data['username']
 
-        content.link = data['name'][0]
-        
-        user = User()
-        user = User.objects.filter(username=data['username'][0])
-        if not user:
-            user = User()
-            user.username = data['username'][0]
+                    user.first_name = data['first_name']
+                    user.last_name = data['last_name']
+                    user.set_password("Defcon12")
+                    user.save()
 
-            user.first_name = data['first_name'][0]
-            user.last_name = data['last_name'][0]
-            user.set_password("Defcon12")
-            user.save()
+                else:
+                    user = user[0]
+                    
+                content.creator = user
+                content.save()
 
-        else:
-            user = user[0]
-            
-        content.creator = user
-        content.save()
+                n += 1
 
 
 class PageContent(models.Model):
@@ -221,7 +223,8 @@ class Message(models.Model):
         User, related_name="user_message", on_delete=models.CASCADE)
     article = models.ForeignKey(
         Articles, related_name="article_message", on_delete=models.CASCADE)
-
+    message_id = models.ForeignKey(
+        'self', related_name="related_message", on_delete=models.CASCADE, blank=True, null=True)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

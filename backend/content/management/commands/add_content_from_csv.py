@@ -19,11 +19,9 @@ class Command(BaseCommand):
 
         exists = Site.objects.all()
         for site in exists:
-            site.delete()
-        site = Site()
-        site.name = "Free Article publishing"
-        site.domain = "articlesharing.com"
-        site.save()
+            site.name = "Free Article publishing"
+            site.domain = "articlesharing.com"
+            site.save()
 
         for page in pages:
             
@@ -33,8 +31,8 @@ class Command(BaseCommand):
                 content.creator = User.objects.get(username="admin")
                 content.name = page.title()
                 content.page = page
-                content.title = page
-                content.title_description = "..."
+                content.title = "Free Article publishing"
+                content.title_description = "articlesharing.com."
                 content.paragraph_1 = "This is a site that tries to be inline editatble. When you own the article or are the logged in as the Site Admin, you can edit the content."
                 content.paragraph_2 = "Please change me use ... for an empty line"
                 content.paragraph_3 = "This is your timeline, create a good one."
@@ -43,7 +41,7 @@ class Command(BaseCommand):
                 content.active = True
                 content.save()
 
-        file_path = os.path.join(settings.BASE_DIR, 'static/articles/article_database.csv')
+        file_path = os.path.join(settings.BASE_DIR, 'static/articles/article_database.xlsx')
         csv_file = open(file_path, "r")
         process_content_file(file_path)
         # csv = file.p[em]

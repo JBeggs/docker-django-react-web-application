@@ -62,7 +62,7 @@ class ArticleGalleryViewSet(viewsets.ModelViewSet):
     
     
 class MessageViewSet(viewsets.ModelViewSet):
-    search_fields = ["message"]
+    search_fields = ["article__id"]
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     parser_classes = (MultiPartParser, FormParser, JSONParser)
