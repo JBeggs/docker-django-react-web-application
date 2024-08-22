@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import Logo from "../../Pictures/logo.png";
+
 class Navigation extends Component {
 
     static propTypes = {
@@ -16,14 +18,14 @@ class Navigation extends Component {
             return (
                 [
                     <>
-                        <li className="nav-item" key="profile">
-                            <Link className="nav-link" to="/profile">Profile</Link>
-                        </li>,
-                        <li className="nav-item" key="logout">
-                            <Link className="nav-link" to="/logout">Logout</Link>
-                        </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/articles">Articles</a>
+                        </li>
+                        <li className="nav-item" key="profile">
+                            <Link className="nav-link" to="/profile">Profile</Link>
+                        </li>
+                        <li className="nav-item" key="logout">
+                            <Link className="nav-link" to="/logout">Logout</Link>
                         </li>
                     </>
                 ]
@@ -50,7 +52,8 @@ class Navigation extends Component {
             <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container px-4 px-lg-5">
                     
-                    <a className="navbar-brand" href="#page-top">{localStorage.getItem("page_name")}</a>
+                        <img src={Logo} width={80} height={80} /><a href="#1"> Opensource Solutions</a>
+                    
                     <button className="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <i className="fas fa-bars"></i>
                     </button>
