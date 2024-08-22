@@ -18,7 +18,7 @@ class Logout extends Component {
     }
     render() {
         return (
-            <h2>Sorry to see you go...</h2>
+            <h2></h2>
         );
     }
 }
