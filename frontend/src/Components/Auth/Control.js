@@ -9,6 +9,7 @@ import { loginUser } from "../../actions/authActions";
 import Login from "./Login";
 import Signup from "./Signup";
 import PasswordReset from "./PasswordReset";
+import Navigation from "../Navigation";
 
 class Control extends Component {
 
@@ -16,6 +17,7 @@ class Control extends Component {
 
         return (
             <div className="form-container">
+                <Navigation />
                 <Login />
                 <Signup />
                 <PasswordReset />

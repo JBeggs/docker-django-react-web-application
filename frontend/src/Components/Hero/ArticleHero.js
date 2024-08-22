@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import MetaTags from 'react-meta-tags';
+
 import Navigation from '../Navigation';
 import {handleEdit, handleSave} from "../../utils/saveContent";
 import { UploadHeroImage } from "../../Components/FileUploads";
@@ -8,11 +10,18 @@ export default function ArticleHero() {
 
     const is_admin = localStorage.getItem("is_admin");
 
+
+    const hero_image = localStorage.getItem("article_hero_image") ? localStorage.getItem("article_hero_image") : process.env.REACT_APP_PUBLIC_HTML + "/images/background1.jpg" ;
+  
     return (
       <div>
+        <MetaTags>
+          <title>{localStorage.getItem("article_title")}</title>
+          <meta id="meta-description" name="description" content={localStorage.getItem("article_description")} />
+        </MetaTags>
         <header 
             className="masthead"
-            style={{backgroundImage:"url(" + localStorage.getItem("article_hero_image") + ")"}} 
+            style={{backgroundImage:"url(" + hero_image+ ")"}} 
           >
           <Navigation />
           <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">

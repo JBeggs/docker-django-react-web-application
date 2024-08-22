@@ -6,11 +6,13 @@ import history from "../utils/historyUtils";
 import { actions as notifActions } from "redux-notifications";
 import { SubmissionError } from "redux-form";
 import Cookies from "js-cookie";
+import $ from "jquery";
+
 
 const { notifSend } = notifActions;
 
 
-export default function loadContent(page=null, field=null, image=null) {
+export default function loadContent(page=null, field=null, image=null, dispatch) {
 
     const loadURL = AuthUrls.LOAD_CONTENT;
 
@@ -100,6 +102,8 @@ export default function loadContent(page=null, field=null, image=null) {
             localStorage.setItem("article_paragraph_3", article_data.paragraph_3);
             localStorage.setItem("article_paragraph_4", article_data.paragraph_4);
             localStorage.setItem("article_paragraph_5", article_data.paragraph_5);
+            localStorage.setItem("article_paragraph_6", article_data.paragraph_6);
+            localStorage.setItem("article_paragraph_7", article_data.paragraph_7);
             localStorage.setItem("article_name", article_data.name);
 
             if (article_data.hero_image == ""){
@@ -119,7 +123,15 @@ export default function loadContent(page=null, field=null, image=null) {
         localStorage.setItem("articles_gallery", JSON.stringify(response.data.articles_gallery));
  
     }).catch(error => {
-        //alert(error);
+
+
+        const error_html = '<span><div class="notif notif--info"><div class="notif__icon"></div><div class="notif__content"><span class="notif__message">{message}</span></div><div class="notif__close"></div></div></span>';
+
+        if("message" in error && "code" in error){
+            const message = error.message + " with code : " + error.code;
+            $(".notif__container span").html(error_html.replace("{message}", message));
+            localStorage.setItem("user_articles", JSON.stringify([]));
+        }
     });
 }
 
@@ -148,6 +160,14 @@ export async function loadUserContent() {
         }
 
     }).catch(error => {
-        //alert(error);
+
+        const error_html = '<span><div class="notif notif--info"><div class="notif__icon"></div><div class="notif__content"><span class="notif__message">{message}</span></div><div class="notif__close"></div></div></span>';
+
+        if("message" in error && "code" in error){
+            const message = error.message + " with code : " + error.code;
+            $(".notif__container span").html(error_html.replace("{message}", message)).animate(10).hide("slow");
+            localStorage.setItem("user_articles", JSON.stringify([]));
+        }
+        //alert(JSON.stringify(error));
     });
 }

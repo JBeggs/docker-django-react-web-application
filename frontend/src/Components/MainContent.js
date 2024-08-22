@@ -33,7 +33,6 @@ function MainContent(){
 
                 <Route path="/articles" element={<ArticlesPage/>}/>
                 <Route path="/article/:slug" element={<ArticleDetailPage />} />
-
                 <Route path="/accept_terms" element={<AcceptTerms />}/>
                 <Route path="/login" element={<Control />}/>
                 <Route path="/logout" element={<Logout />}/>
@@ -43,9 +42,9 @@ function MainContent(){
                 <Route path="/reset_password" element={<PasswordReset />}/>
                 <Route path="/reset_password_done" element={<PasswordResetDone />}/>
                 <Route path="/reset/:uid/:token/" element={<PasswordResetConfirm />}/>
-                <Route path="/profile" element={RequireAuth({UserProfile})}/>
-                <Route path="/profile_edit" element={RequireAuth(<UserProfileEdit />)}/>
-                <Route path="/change_password" element={RequireAuth(<PasswordChange />)}/>
+                <Route path="/profile" element={<UserProfile />}/>
+                <Route path="/profile_edit" element={<UserProfileEdit />}/>
+                <Route path="/change_password" element={<PasswordChange />}/>
                 {/* <Route element={NoMatch}/> */}
             </Routes>
             {previousLocation && (

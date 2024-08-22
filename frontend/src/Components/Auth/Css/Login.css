@@ -83,7 +83,7 @@ a:hover {
 	padding: 5px 0;
 }
 /*=== 5. Login Button ===*/
-.main-form-1 .login-button {
+.main-form-1 .main-form-button {
 	position: absolute;
 	right: -25px;
 	top: 50%;
@@ -97,20 +97,20 @@ a:hover {
 	border-radius: 50%;
 	transition: all ease-in-out 500ms;
 }
-.main-form-1 .login-button:hover {
+.main-form-1 .main-form-button:hover {
 	color: #555555;
 	transform: rotate(450deg);
 }
-.main-form-1 .login-button.clicked {
+.main-form-1 .main-form-button.clicked {
 	color: #555555;
 }
-.main-form-1 .login-button.clicked:hover {
+.main-form-1 .main-form-button.clicked:hover {
 	transform: none;
 }
-.main-form-1 .login-button.clicked.success {
+.main-form-1 .main-form-button.clicked.success {
 	color: #2ecc71;
 }
-.main-form-1 .login-button.clicked.error {
+.main-form-1 .main-form-button.clicked.error {
 	color: #e74c3c;
 }
 /*=== 6. Form Invalid ===*/
@@ -310,10 +310,8 @@ label:hover:before {
 	height: 100%;
 	width:90%;
 	justify-content: center; /* aligns the items horizontally */
-	align-items: center; /* aligns the items vertically */
-	border: 1px solid #000;
+	align-items: center; /* aligns the items vertically */	
 	margin-top: -26px;
-	box-shadow: 10px 10px 8px #888888;
 }
 
 .form-container{
@@ -445,4 +443,80 @@ label:hover:before {
  .form-container{
 	left:48%;
  }
+}
+
+.main-message-1 {
+	max-width: 80%;
+	border-radius: 5px;
+	display: inline-block;
+}
+.main-all-forms-1 {
+	position: relative;
+}
+.main-message-1 .form-control {
+	border: 0;
+	/* box-shadow: 0 0 0; */
+	border-radius: 0;
+	background: transparent;
+	color: #555555;
+	padding: 7px 0;
+	font-weight: bold;
+	height:auto;
+}
+.main-message-1 .form-control::-webkit-input-placeholder {
+	color: #999999;
+}
+.main-message-1 .form-control:-moz-placeholder,
+.main-message-1 .form-control::-moz-placeholder,
+.main-message-1 .form-control:-ms-input-placeholder {
+	color: #999999;
+}
+.main-message-1 .form-group {
+	margin-bottom: 0;
+	border-bottom: 2px solid #efefef;
+	padding-right: 20px;
+	position: relative;
+}
+.main-message-1 .form-group:last-child {
+	border-bottom: 0;
+}
+.login-group {
+	background: #ffffff;
+	color: #999999;
+	border-radius: 8px;
+	padding: 10px 20px;
+}
+.login-group-checkbox {
+	padding: 5px 0;
+}
+/*=== 5. Login Button ===*/
+.main-message-1 .main-form-button {
+	position: absolute;
+	right: -25px;
+	top: 50%;
+	background: #ffffff;
+	color: #999999;
+	padding: 11px 0;
+	width: 50px;
+	height: 50px;
+	margin-top: -25px;
+	border: 5px solid #efefef;
+	border-radius: 50%;
+	transition: all ease-in-out 500ms;
+}
+.main-message-1 .main-form-button:hover {
+	color: #555555;
+	transform: rotate(450deg);
+}
+.main-message-1 .main-form-button.clicked {
+	color: #555555;
+}
+.main-message-1 .main-form-button.clicked:hover {
+	transform: none;
+}
+.main-message-1 .main-form-button.clicked.success {
+	color: #2ecc71;
+}
+.main-message-1 .main-form-button.clicked.error {
+	color: #e74c3c;
 }

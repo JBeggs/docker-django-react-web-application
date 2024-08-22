@@ -45,7 +45,7 @@ class PasswordReset extends Component {
                                 </div>
                                 { renderError(error) }
                             </div>
-                            <button type="submit" className="login-button"><i className="fa fa-chevron-right"></i></button>
+                            <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button>
                         </div>
                         <div className="etc-login-form">
                             <p>already have an account? <br /><a href="#" onClick={handleLogin}>login here</a></p>

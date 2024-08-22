@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserProfile } from "../../actions/authActions";
+import Navigation from "../Navigation";
+import HomeHero from "../Hero/Home";
 
 export class UserProfile extends Component {
 
@@ -17,19 +19,20 @@ export class UserProfile extends Component {
 
     renderUser() {
         const user = this.props.user;
-        
-        console.log(user);
+
         if (user) {
+            localStorage.setItem("user_id", user.id)
             return (
                 <div className="mx-2">
-                    <h4>username: {user.username}</h4>
+                    <h4>username: {localStorage.getItem("username")}</h4>
                     <h4>First Name: {user.first_name}</h4>
                     <h4>Last Name: {user.last_name}</h4>
+                    {/* <h4>Phone Number: {user.phone_number}</h4> */}
                     <h4>email: {user.email}</h4>
-                    <h4>Website: {user.website}</h4>
+
                     <hr />
-                    <h4>About Myself:</h4>
-                    <p>{user.about}</p>
+                    {/* <h4>About Myself:</h4>
+                    <p>{user.profile.bio}</p> */}
 
                 </div>
             );
@@ -40,11 +43,23 @@ export class UserProfile extends Component {
     render() {
         return (
             <div>
-                {this.renderUser()}
-                {" "}
-                <hr />
-                <Link className="btn btn-primary mr-2" to="/profile_edit">Update Profile</Link>
-                <Link className="btn btn-primary" to="/change_password">Change Password</Link>
+                <Navigation />
+                <HomeHero />
+                <div className="center">
+                <div className="main-form-1">
+                    <div className="text-center login" style={{padding:"50px 0"}}>
+                        <div className="logo">User</div>
+                        <div className="main-all-forms-1">
+                            {this.renderUser()}
+                            {" "}
+                            <hr />
+                            <Link className="btn" to="/profile_edit"> Update Details</Link>
+                            {/* <Link className="btn btn-primary" to="/change_password">Change Password</Link> */}
+                            {/* <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button> */}
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
         );
     }

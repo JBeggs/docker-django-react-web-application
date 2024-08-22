@@ -1,6 +1,8 @@
 import React from 'react';
 import Navigation from '../Navigation';
-import {handleEdit, handleSave} from "../../utils/saveContent";
+import MetaTags from 'react-meta-tags';
+
+import {handleEdit, handleArticleSave} from "../../utils/saveContent";
 import { UploadArticleHeroImage } from "../FileUploads";
 import { useParams } from "react-router-dom";
 
@@ -10,8 +12,8 @@ export default function ArticleDetailHero(props) {
     const is_admin = localStorage.getItem("is_admin");
     
     const { slug } = useParams();
-    const articles = JSON.parse(localStorage.getItem("user_articles"));
-    alert("teting 123")
+    const articles = JSON.parse(localStorage.getItem("articles"));
+
     function filterBySlug() {
         if(!articles){
             return [Object(
@@ -22,11 +24,17 @@ export default function ArticleDetailHero(props) {
     }
     const article = filterBySlug();
 
-    const hero_image = article.hero_image ? article.hero_image : localStorage.getItem("article_hero_image")
-    const is_owner = article.creator ===  localStorage.getItem("username")
+    const hero_image = article.hero_image ? article.hero_image : localStorage.getItem("article_hero_image");
+    const is_owner = article.creator ===  localStorage.getItem("username");
+    const title = article.title ? article.title : localStorage.getItem("article_title");
+    const description = article.title_description ? article.title_description : localStorage.getItem("article_description");
 
     return (
       <div>
+        <MetaTags>
+          <title>{title}</title>
+          <meta id="meta-description" name="description" content={description} />
+        </MetaTags>
         <header className="masthead" style={{backgroundImage:"url(" + hero_image + ")"}} >
           <Navigation />
           <div className="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
@@ -34,28 +42,26 @@ export default function ArticleDetailHero(props) {
                   <div className="text-center">
                       <h1 
                         onClick={handleEdit}
-                        onBlur={handleSave}
+                        onBlur={handleArticleSave}
                         className="mx-auto my-0 text-uppercase"
-                        contentEditable={is_admin}
-                        suppressContentEditableWarning={is_admin}
+                        contentEditable={is_owner}
+                        suppressContentEditableWarning={is_owner}
                         field={"title"}
-                        id={localStorage.getItem("article_id")}
-                        page={"home"}
+                        id={article ? article.id : 0}
                       >
-                        {localStorage.getItem("article_title")}
+                        {title}
                       </h1>
                       
                       <h2 
                         onClick={handleEdit}
-                        onBlur={handleSave}
+                        onBlur={handleArticleSave}
                         className="text-white-50 mx-auto mt-2 mb-5"
-                        contentEditable={is_admin}
-                        suppressContentEditableWarning={is_admin}
+                        contentEditable={is_owner}
+                        suppressContentEditableWarning={is_owner}
                         field={"title_description"}
-                        id={localStorage.getItem("article_id")}
-                        page={"home"}
+                        id={article ? article.id : 0}
                       > 
-                        {localStorage.getItem("article_description")}
+                        {description}
                       </h2>
                   </div>
               </div>

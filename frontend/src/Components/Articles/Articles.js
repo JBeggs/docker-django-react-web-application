@@ -15,7 +15,7 @@ export default function Articles() {
     }
 
     const is_admin = localStorage.getItem("is_admin");
-    const articles = JSON.parse(localStorage.getItem("user_articles"));
+    const articles = JSON.parse(localStorage.getItem("user_articles")) ? JSON.parse(localStorage.getItem("user_articles")) : [];
 
     return (
         <div className="container">

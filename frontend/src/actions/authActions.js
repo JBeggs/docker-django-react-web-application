@@ -48,11 +48,14 @@ export function loginUser(formValues, dispatch) {
             window.location.reload();
 
         }).catch(error => {
-            dispatch(notifSend({
-                message: error.response.data.detail,
-                kind: "info",
-                dismissAfter: 5000
-            }));
+
+            if("message" in error && "code" in error){
+                dispatch(notifSend({
+                    message: error.message + " with code : " + error.code,
+                    kind: "info",
+                    dismissAfter: 5000
+                }));
+            }
             const processedError = processServerError(error);
             throw new SubmissionError(processedError);
         });
@@ -100,7 +103,7 @@ export function signupUser(formValues) { //no-unused-vars
             // Show an error to the user
             console.log("-------------------------");
             console.log(JSON.stringify(error))
-            const processedError = processServerError(error.response.data);
+            const processedError = processServerError(error);
             throw new SubmissionError(processedError);
         });
 }
@@ -113,15 +116,16 @@ function setUserProfile(payload) {
 }
 
 export function getUserProfile() {
+
     return function(dispatch) {
         const token = getUserToken(store.getState());
         if (token) {
-            axios.get(AuthUrls.USER_PROFILE, {
+            axios.get(AuthUrls.USER_PROFILE + "?search=" + localStorage.getItem("username"), {
                 headers: {
-                    authorization: "Token " + token
+                    authorization: "Bearer: " + token
                 }
             }).then(response => {
-                dispatch(setUserProfile(response.data))
+                dispatch(setUserProfile(response.data[0]))
             }).catch((error) => {
                 // If request is bad...
                 // Show an error to the user
@@ -255,9 +259,9 @@ export function activateUserAccount(formValues, dispatch, props) {
 export function updateUserProfile(formValues, dispatch) {
     const token = getUserToken(store.getState());
 
-    return axios.patch(AuthUrls.USER_PROFILE, formValues, {
+    return axios.patch(AuthUrls.USER_PROFILE + localStorage.getItem("user_id") + "/", formValues, {
         headers: {
-            authorization: "Token " + token
+            authorization: "Bearer: " + token
         }
     })
         .then(response => {
@@ -266,8 +270,8 @@ export function updateUserProfile(formValues, dispatch) {
                 kind: "info",
                 dismissAfter: 5000
             }));
-            console.log(response)
             history.push("/profile");
+            window.location.reload();
         }).catch((error) => {
             // If request is bad...
             // Show an error to the user

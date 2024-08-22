@@ -75,7 +75,8 @@ class Login extends Component {
                                         <label for="remember">remember</label>
                                     </div>
                                 </div>
-                                <button type="submit" className="login-button"><i className="fa fa-chevron-right"></i></button>
+                                { renderError(error) }
+                                <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button>
                             </div>
                             <div className="etc-login-form">
                                 <p>forgot your password? <br /><a href="#" onClick={handleForgotPassword}>click here</a></p>

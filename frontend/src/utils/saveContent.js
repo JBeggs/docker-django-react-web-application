@@ -153,7 +153,7 @@ export function newArticle(value=null, field=null) {
     }
 
     return axios.post(updateURL, contentValues, config).then((response) => {
-        history.push("articles");
+        history.push("article/default-title");
         window.location.reload();
 
     }).catch(error => {

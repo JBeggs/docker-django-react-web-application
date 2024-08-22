@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 import {handleEdit, handleArticleSave} from "../../utils/saveContent";
 import { UploadGalleryImage }  from "../../Components/FileUploads";
 import { UpdateArticle } from "./CreateArticle";
-
+import { Messages } from "../../Components/Contact";
 export default function ArticleDetail() {
 
     const { slug } = useParams();
-    const articles = JSON.parse(localStorage.getItem("user_articles"));
+    const articles = JSON.parse(localStorage.getItem("articles"));
     const article_gallery = JSON.parse(localStorage.getItem("articles_gallery"));
     const is_admin = localStorage.getItem("is_admin");
     const article = filterBySlug();
@@ -79,7 +79,7 @@ export default function ArticleDetail() {
                         >
                             {article.header_1 ? article.header_1 : "Default header"}
                         </h2>
-                        <h5 
+                        {/* <h5 
                             className="title"
                             onClick={handleEdit}
                             onBlur={handleArticleSave}
@@ -89,7 +89,7 @@ export default function ArticleDetail() {
                             id={article.id}
                         >
                             {article.title ? article.title : "Default title"}
-                        </h5>
+                        </h5> */}
                         <div className="meta-top">
                             <ul>
                             <li className="d-flex align-items-center"><i className="bi bi-person"></i> {article.creator__first_name ? article.creator__first_name : article.creator__username} </li>
@@ -191,6 +191,17 @@ export default function ArticleDetail() {
                             >
                                 {article.paragraph_6 ? article.paragraph_6 : "..."}
                             </p>
+
+                            <h3
+                                onClick={handleEdit}
+                                onBlur={handleArticleSave}
+                                contentEditable={can_edit}
+                                suppressContentEditableWarning={can_edit}
+                                field={"header_4"}
+                                id={article.id}
+                            >
+                                {article.header_4 ? article.header_4 : "..."}
+                            </h3>
                             <p
                                 onClick={handleEdit}
                                 onBlur={handleArticleSave}
@@ -201,15 +212,25 @@ export default function ArticleDetail() {
                             >
                                 {article.paragraph_7 ? article.paragraph_7 : "..."}
                             </p>
-        
+                            <h3
+                                onClick={handleEdit}
+                                onBlur={handleArticleSave}
+                                contentEditable={can_edit}
+                                suppressContentEditableWarning={can_edit}
+                                field={"header_5"}
+                                id={article.id}
+                            >
+                                {article.header_5 ? article.header_5 : "..."}
+                            </h3>
+
                         </div>
         
                         </article>
-        
+                        <Messages article={article} />
                     </div>
                     </section>
-        
-                    <UpdateArticle article_id={article_id} />
+                    
+                    <UpdateArticle article={article} />
         
                 </div>
     

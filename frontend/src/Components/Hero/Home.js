@@ -1,5 +1,6 @@
 import "./Home.css";
 import React from 'react';
+import MetaTags from 'react-meta-tags';
 
 import Navigation from '../Navigation';
 import {handleEdit, handleSave} from "../../utils/saveContent";
@@ -11,6 +12,10 @@ export default function HomeHero() {
 
     return (
       <div>
+        <MetaTags>
+          <title>{localStorage.getItem("home_title")}</title>
+          <meta id="meta-description" name="description" content={localStorage.getItem("home_description")} />
+        </MetaTags>
         <header 
           className="masthead" 
           style={{backgroundImage:"url(" + localStorage.getItem("home_hero_image") + ")"}} 

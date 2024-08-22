@@ -210,7 +210,7 @@ export function UploadArticleHeroImage(props) {
 
 export function UploadContentFile(props) {
 
-    const [toggle, setToggle] = useState(localStorage.getItem("article_id"))
+    const [toggle, setToggle] = useState(localStorage.getItem("is_admin"));
     const {page} = props
     const [file, setFile] = useState()
     const [uploadProgress, setUploadProgress] = useState(0);
@@ -227,8 +227,18 @@ export function UploadContentFile(props) {
             formData.append('file', file);
             formData.append('fileName', file.name);
             formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
-            formData.append('page', page);
+            // formData.append('page', page);
             formData.append('creator', localStorage.getItem("username"));
+            // formData.append('title', page);
+            // formData.append('name', page);
+            // formData.append('title_description', page);
+            // formData.append('paragraph_1', page);
+            // formData.append('paragraph_2', page);
+            // formData.append('paragraph_3', page);
+            // formData.append('paragraph_4', page);
+            // formData.append('paragraph_5', page);
+            // formData.append('paragraph_6', page);
+            // formData.append('paragraph_7', page);
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data',
@@ -239,8 +249,8 @@ export function UploadContentFile(props) {
             }
             };
     
-            let url = AuthUrls.UPDATE_CONTENT;
-            axios.post(url, formData, config).then((response) => {
+            let url = AuthUrls.UPDATE_CONTENT + "1/";
+            axios.put(url, formData, config).then((response) => {
                 history.push({page});
                 window.location.reload(true);
             });
@@ -252,11 +262,14 @@ export function UploadContentFile(props) {
     return (
         <div className="container"><br />
 
-        {!toggle && <div id="wrapper" className="fade-in">
+        {toggle && <div id="wrapper" className="fade-in">
             <div className="px-4 py-5 my-5 text-center">
                 <h1 className="display-5 fw-bold">Update Site Content...</h1>
                 <div className="col-lg-6 mx-auto">
                 <p className="lead mb-4"></p>
+                <div className="main-form-1">
+  
+                <div className="main-all-forms-1">
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <h4>File Upload</h4>
@@ -265,11 +278,12 @@ export function UploadContentFile(props) {
                                 <input type="file" onChange={handleChange} />
                         </div>
 
-                        <button type="submit">Upload</button><br />
+                        <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br />
                         <progress value={uploadProgress} max="100"></progress>
-                        <div classNAme="alert alert-info" id="upload_error"></div>
+                        <div className="alert alert-info" id="upload_error"></div>
                     </form>
                 </div>
+                </div></div>
                 </div>
             </div>
         </div>}
