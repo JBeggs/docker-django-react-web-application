@@ -5,8 +5,6 @@ import { newArticle, saveArticle, deleteArticle } from "../../utils/saveContent.
 
 export function CreateArticle() {
 
-    const user = localStorage.getItem("username");
-
     return (
         <div id="wrapper" className="fade-in">
             <div className="px-4 py-5 my-5 text-center">
@@ -30,8 +28,7 @@ export function CreateArticle() {
 
 export function UpdateArticle(props) {
 
-    const is_owner = props.article.creator__username ===  localStorage.getItem("username")
-    const is_admin = localStorage.getItem("is_admin");
+    const is_owner = props.article.creator__username ===  localStorage.getItem("username") || props.article.creator ===  localStorage.getItem("username")
 
     return (
         <section>

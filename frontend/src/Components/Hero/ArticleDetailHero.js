@@ -13,19 +13,23 @@ export default function ArticleDetailHero(props) {
     
     const { slug } = useParams();
     const articles = JSON.parse(localStorage.getItem("articles"));
+    const user_articles = JSON.parse(localStorage.getItem("user_articles"));
+    const article = filterBySlug() ? filterBySlug() : filterUserArticlesBySlug();
 
     function filterBySlug() {
-        if(!articles){
-            return [Object(
-                {creator:"admin"}
-            )]
-        }
         return articles.filter(article => article.slug === slug)[0];
     }
-    const article = filterBySlug();
+
+    function filterUserArticlesBySlug() {
+        if(!user_articles){
+            return [];
+        }
+        return user_articles.filter(article => article.slug === slug)[0];
+    }
 
     const hero_image = article && article.hero_image ? process.env.REACT_APP_BACKEND_URL + "/media/" + article.hero_image : localStorage.getItem("article_hero_image");
-    const is_owner = article && article.creator__username ===  localStorage.getItem("username") || is_admin;
+    const is_owner = article && ((article.creator__username) ===  (localStorage.getItem("username")) || is_admin || (article.creator ===  localStorage.getItem("username")));
+
     const title = article && article.title ? article.title : localStorage.getItem("article_title");
     const description = article && article.title_description ? article.title_description : localStorage.getItem("article_description");
 

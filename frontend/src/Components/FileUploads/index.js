@@ -107,29 +107,32 @@ export function UploadHeroImage(props) {
     function handleSubmit(event) {
         event.preventDefault()
 
+        if(file){
+            const formData = new FormData();
+            formData.append('hero_image', file);
+            formData.append('fileName', file.name);
+            formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
+            // formData.append('name', event.target.name.value);
+            formData.append('creator', localStorage.getItem("username"));
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+                onUploadProgress: function(progressEvent) {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadProgress(percentCompleted);
+            }
+            };
 
-        const formData = new FormData();
-        formData.append('hero_image', file);
-        formData.append('fileName', file.name);
-        formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
-        // formData.append('name', event.target.name.value);
-        formData.append('creator', localStorage.getItem("username"));
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-            onUploadProgress: function(progressEvent) {
-                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                setUploadProgress(percentCompleted);
+            let url = AuthUrls.UPDATE_CONTENT + page + "/";
+            axios.put(url, formData, config).then((response) => {
+                history.push({page});
+                window.location.reload(true);
+            });
+        } else {
+            $("#upload_error").show();
+            $("#upload_error").html("Please select a file!")
         }
-        };
-
-        let url = AuthUrls.UPDATE_CONTENT + page + "/";
-        axios.put(url, formData, config).then((response) => {
-            history.push({page});
-            window.location.reload(true);
-        });
-        
     }
 
     return (
@@ -144,11 +147,11 @@ export function UploadHeroImage(props) {
                         <div className="">
                                 <input type="file" onChange={handleChange} />
                         </div>
-                        <div className="">
+                        {/* <div className="">
                                 <label for="name">Image Name:</label>
                                 <input type="text" className="form-control" id="name" />
-                        </div>
-
+                        </div> */}
+                        <div className="alert alert-info" id="upload_error" style={{display:"none"}}></div>
                         <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br />
                         <progress value={uploadProgress} max="100"></progress>
                     </div>
@@ -174,30 +177,34 @@ export function UploadArticleHeroImage(props) {
     function handleSubmit(event) {
         event.preventDefault()
 
+        if(file && event.target.name.value){
+            const formData = new FormData();
+            formData.append('hero_image', file);
+            formData.append('fileName', file.name);
+            formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
+            formData.append('name', event.target.name.value);
+            formData.append('creator', localStorage.getItem("username"));
+            formData.append('active', true);
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+                onUploadProgress: function(progressEvent) {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadProgress(percentCompleted);
+            }
+            };
 
-        const formData = new FormData();
-        formData.append('hero_image', file);
-        formData.append('fileName', file.name);
-        formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
-        //formData.append('name', event.target.name.value);
-        formData.append('creator', localStorage.getItem("username"));
-        formData.append('active', true);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-            onUploadProgress: function(progressEvent) {
-                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                setUploadProgress(percentCompleted);
+            let url = AuthUrls.UPDATE_ARTICLE + article.id + "/";
+            axios.put(url, formData, config).then((response) => {
+                alert(response.data.slug)
+                history.push("/article/" + response.data.slug);
+                window.location.reload();
+            });
+        } else {
+            $("#upload_error").show();
+            $("#upload_error").html("Please select a file!")
         }
-        };
-
-        let url = AuthUrls.UPDATE_ARTICLE + article.id + "/";
-        axios.put(url, formData, config).then((response) => {
-            history.push("/article/" + response.data.slug);
-            window.location.reload(true);
-        });
-        
     }
 
     return (
@@ -216,7 +223,7 @@ export function UploadArticleHeroImage(props) {
                                 <label for="name">Image Name:</label>
                                 <input type="text" className="form-control" id="name" />
                         </div>
-
+                        <div className="alert alert-info" id="upload_error" style={{display:"none"}}></div>
                         <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br /><br />
                         <progress value={uploadProgress} max="100"></progress>
                     </div>
@@ -230,7 +237,7 @@ export function UploadArticleHeroImage(props) {
 
 export function UploadContentFile(props) {
 
-    const [toggle, setToggle] = useState(localStorage.getItem("is_admin"));
+    const [toggle] = useState(localStorage.getItem("is_admin"));
     const {page} = props
     const [file, setFile] = useState()
     const [uploadProgress, setUploadProgress] = useState(0);
@@ -247,18 +254,7 @@ export function UploadContentFile(props) {
             formData.append('file', file);
             formData.append('fileName', file.name);
             formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
-            // formData.append('page', page);
             formData.append('creator', localStorage.getItem("username"));
-            // formData.append('title', page);
-            // formData.append('name', page);
-            // formData.append('title_description', page);
-            // formData.append('paragraph_1', page);
-            // formData.append('paragraph_2', page);
-            // formData.append('paragraph_3', page);
-            // formData.append('paragraph_4', page);
-            // formData.append('paragraph_5', page);
-            // formData.append('paragraph_6', page);
-            // formData.append('paragraph_7', page);
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data',

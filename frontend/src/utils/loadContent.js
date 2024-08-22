@@ -1,15 +1,9 @@
 import axios from "axios";
-import { AuthUrls } from "../constants/urls";
-import store from "../store";
-import { getUserToken } from "../utils/authUtils";
-import history from "../utils/historyUtils";
-import { actions as notifActions } from "redux-notifications";
-import { SubmissionError } from "redux-form";
 import Cookies from "js-cookie";
 import $ from "jquery";
 
-
-const { notifSend } = notifActions;
+import { AuthUrls } from "../constants/urls";
+import history from "../utils/historyUtils";
 
 
 export default function loadContent(page=null, field=null, image=null, dispatch) {
@@ -40,14 +34,14 @@ export default function loadContent(page=null, field=null, image=null, dispatch)
         window.location.reload();
     }
 
-    if(!accepted && window.location.href.search("accept_terms") ==-1){
+    if(!accepted && window.location.href.search("accept_terms") === -1){
         setTimeout(accept_terms, 10000)
     }
 
     return axios.post(loadURL, contentValues, config).then((response) => {
         console.log("Starting to save data")
 
-        if(response.data.home != ""){
+        if(response.data.home !== ""){
             const home_data = response.data.home[0];
             localStorage.setItem("home_id", home_data.id);
             localStorage.setItem("home_name", home_data.name);
@@ -59,14 +53,14 @@ export default function loadContent(page=null, field=null, image=null, dispatch)
             localStorage.setItem("home_paragraph_4", home_data.paragraph_4);
             localStorage.setItem("home_paragraph_5", home_data.paragraph_5);
             localStorage.setItem("page_name", home_data.name);
-            if (home_data.hero_image == ""){
+            if (home_data.hero_image === ""){
                 localStorage.setItem("home_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/background1.jpg");
             } else {
                 localStorage.setItem("home_hero_image", process.env.REACT_APP_BACKEND_URL + "/media/" + home_data.hero_image);
             }
         };
 
-        if(response.data.about != ""){
+        if(response.data.about !== ""){
             const about_data = response.data.about[0];
             localStorage.setItem("about_id", about_data.id);
             localStorage.setItem("about_name", about_data.name);
@@ -77,7 +71,7 @@ export default function loadContent(page=null, field=null, image=null, dispatch)
             localStorage.setItem("about_paragraph_3", about_data.paragraph_3);
             localStorage.setItem("about_paragraph_4", about_data.paragraph_4);
             localStorage.setItem("about_paragraph_5", about_data.paragraph_5);
-            if (about_data.hero_image == ""){
+            if (about_data.hero_image === ""){
                 localStorage.setItem("about_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/background1.jpg");
             } else {
                 localStorage.setItem("about_hero_image", process.env.REACT_APP_BACKEND_URL + "/media/" + about_data.hero_image);
@@ -106,11 +100,12 @@ export default function loadContent(page=null, field=null, image=null, dispatch)
             localStorage.setItem("article_paragraph_7", article_data.paragraph_7);
             localStorage.setItem("article_name", article_data.name);
 
-            if (article_data.hero_image == ""){
+            if (article_data.hero_image === ""){
                 localStorage.setItem("article_hero_image", process.env.REACT_APP_PUBLIC_HTML + "/images/background1.jpg");
             } else {
                 localStorage.setItem("article_hero_image", process.env.REACT_APP_BACKEND_URL + "/media/" + article_data.hero_image);
             }
+            return []
         })
 
         if(response.data.articlepage){
@@ -158,7 +153,7 @@ export async function loadUserContent() {
 
 
 
-        if(response.data != ""){
+        if(response.data !== ""){
             localStorage.setItem("csrf_token", response.data.csrf_token);
             localStorage.setItem("user_articles", JSON.stringify(response.data));
         }

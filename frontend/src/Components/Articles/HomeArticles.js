@@ -8,27 +8,20 @@ import { CreateArticle } from "./CreateArticle";
 export default function ArticlesHome() {
 
     const articles = JSON.parse(localStorage.getItem("articles"));
-    const is_admin = localStorage.getItem("is_admin");
 
     function excludeAdmin() {
         if(!articles){
             return [];
         }
 
-        return articles.filter(article => article.creator__username != "admin");
+        return articles.filter(article => article.creator__username !== "admin");
     }
-    function get_users_articles() {
-        if(!articles){
-            return [];
-        }
-        return articles.filter(article => article.creator__username == localStorage.getItem("username"));
-    }
+
     const main_article = excludeAdmin()[0]
     const article_list = excludeAdmin().slice(1);
-    const users_articles = get_users_articles();
 
-    function format_date(date) {
-        var date = new Date(date);
+    function format_date(mewdate) {
+        var date = new Date(mewdate);
         var formattedDate = format(date, "MMMM do, yyyy H:mma");
         
         return formattedDate;
@@ -44,11 +37,11 @@ export default function ArticlesHome() {
                     <h3>{format_date(main_article.created_at)}</h3><br />
                     <h3>{main_article.category}</h3>
                     <span>Updated by {main_article.creator__first_name } {main_article.creator__last_name}</span>
-                        <h2><a href={"/article/" + main_article.slug}>{main_article.title}</a></h2>
+                        <h2><a rel="noreferrer" href={"/article/" + main_article.slug}>{main_article.title}</a></h2>
                         <p>{main_article.paragraph_1}</p>
                     </header>
-                    <span>Full article found at <a href={main_article.link} target="_blank">Here</a></span>
-                    <a href={"/article/" + main_article.slug}  className="image main"><img src={main_article.hero_image !== "" ? process.env.REACT_APP_BACKEND_URL + "/media/" + main_article.hero_image : process.env.REACT_APP_PUBLIC_HTML + '/images/background1.jpg'} alt={main_article.tile} /></a>
+                    <span>Full article found at <a href={main_article.link} target="_blank" rel="noreferrer">Here</a></span>
+                    <a rel="noreferrer" href={"/article/" + main_article.slug}  className="image main"><img src={main_article.hero_image !== "" ? process.env.REACT_APP_BACKEND_URL + "/media/" + main_article.hero_image : process.env.REACT_APP_PUBLIC_HTML + '/images/background1.jpg'} alt={main_article.tile} /></a>
                     <ul className="">
                         <li><a href={"/article/" + main_article.slug}  className="button">Full Story</a></li>
                     </ul>
@@ -78,7 +71,7 @@ export default function ArticlesHome() {
                                 </ul>
                                 <span>Updated by { article.creator__first_name } { article.creator__last_name }</span>
                                 <br />
-                                <span>Full article found at <a href={article.link} target="_blank">Here</a></span>
+                                <span>Full article found at <a href={article.link} target="_blank" rel="noreferrer">Here</a></span>
                             </article>
 
                         ))}
