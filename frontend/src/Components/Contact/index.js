@@ -1,12 +1,11 @@
 import "./Contact.css";
 import React, {useState, useEffect} from "react";
-
+import { format } from "date-fns";
 import axios from "axios";
-import history from "../../utils/historyUtils";
-import { AuthUrls } from "../../constants/urls";
 import $ from "jquery";
-import Image from "../../Pictures/logo.jpg";
 
+import { AuthUrls } from "../../constants/urls";
+import Avatar from "../../Pictures/avatar.png";
 
 export default function Contact(){
 
@@ -15,7 +14,7 @@ export default function Contact(){
     return (
 
         <div>
-            <footer className="footer bg-black small text-center text-white-50"><div className="container px-4 px-lg-5"><image src={Image} />Copyright &copy; Python Solutions 2024</div></footer>
+            <footer className="footer bg-black small text-center text-white-50"><div className="container px-4 px-lg-5">Copyright &copy; Python Solutions 2024</div></footer>
         </div>
     )
 
@@ -23,7 +22,7 @@ export default function Contact(){
 
 export function Messages(props){
 
-    const [toggle, setToggle] = useState(localStorage.getItem("username"))
+    const [toggle, setToggle] = useState(localStorage.getItem("token"))
     const [messages, setMessages] = useState([])
     const {article} = props; 
     const updateURL = AuthUrls.ADD_MESSAGE;
@@ -36,6 +35,13 @@ export function Messages(props){
             "Content-Type": "application/json",
             Authorization: "Bearer: " +  localStorage.getItem("token"),
           },
+    }
+
+    function format_date(date) {
+        var date = new Date(date);
+        var formattedDate = format(date, "MMMM do, yyyy H:mma");
+        
+        return formattedDate;
     }
 
     $("#message_error").hide();
@@ -71,15 +77,12 @@ export function Messages(props){
     }, []);
     
     return (
-
         <div>
-
             {toggle &&<div className="">
-                <center><h3>Comments</h3></center>
+                
                 <div className="text-center" style={{padding:"50px 0"}}>
                 <div className="alert alert-info" id="message_error"></div>
                     <div className="main-message-1">
-    
                             <div className="main-all-forms-1">
                                 <div className="comments">
                                         <textarea name="message" id="message" className="form-control" placeholder="Your Comment*" style={{width:"310px"}}></textarea>
@@ -87,24 +90,49 @@ export function Messages(props){
                                 <button type="button" className="main-form-button" onClick={SaveMessage}>
                                     <i className="fa fa-chevron-right"></i>
                                 </button>
-                                
                             </div>
-                
+                        </div>
                     </div>
                     <br /><br /><br />
-                    {messages.map(message => (
 
-                        <message key={message.id}>
-                            <header>
-                                <span>{message.first_name} {message.last_name}</span>
-                            </header>
-                            <p>{message.message} </p>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-12 col-lg-10">
+                            <div class="card text-body">
+                            <div class="card-body p-4">
+                                <h4 class="mb-0">Recent comments</h4>
+                                <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
 
-                        </message>
+                                    {messages.map(message => (
 
-                    ))}
+                                        <message key={message.id}>
+
+                                                <div class="d-flex flex-start">
+                                                    <img class="rounded-circle shadow-1-strong me-3" src={Avatar} alt="avatar" width={"60"} height={"60"} />
+                                                    <div>
+                                                    <h6 class="fw-bold mb-1">{message.first_name} {message.last_name}</h6>
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <p class="mb-0">
+                                                        {format_date(message.created_at)}
+                                                        {/* <span class="badge bg-primary">Pending</span> */}
+                                                        </p>
+                                                        <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                                                        <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                                                        <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                                                    </div>
+                                                        <p class="mb-0">
+                                                            { message.message }
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <hr class="my-0" style={{height: "1px"}} />
+                                        </message>
+                                    ))}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                </div>}
+            </div>}
         </div>
     )
 
