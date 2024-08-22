@@ -112,11 +112,12 @@ body, input, select, textarea {
 	/* line-height: 2.375; */
 }
 
-/* .notif__container {
-	display: block;
+.notif__container {
+	display: block;	
 	height: 40px;
-	width: 10%;
+	width: 50%;
 	left:34%;
-	top:20%;
-	position: absolute;
-} */
+	bottom:20px;
+	position: fixed;
+
+}

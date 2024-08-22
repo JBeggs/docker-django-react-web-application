@@ -309,7 +309,7 @@
   }
   
   .blog-details .meta-top ul {
-    display: flex;
+    display: ruby-text;
     flex-wrap: wrap;
     list-style: none;
     align-items: center;
