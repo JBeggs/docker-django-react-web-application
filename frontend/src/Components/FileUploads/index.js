@@ -7,7 +7,8 @@ import $ from "jquery";
 
 export function UploadGalleryImage(props) {
     const [toggle, setToggle] = useState(false)
-    const {article_id, gallery_id} =  props;
+    const {article, gallery_id} =  props;
+
     const [file, setFile] = useState()
     const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -17,40 +18,46 @@ export function UploadGalleryImage(props) {
     
     function handleSubmit(event) {
         event.preventDefault()
+        const name = event.target.name.value;
+        const description = event.target.description.value;
 
-
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('fileName', file.name);
-        formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
-        formData.append('name', event.target.name.value);
-        formData.append('description', event.target.description.value);
-        formData.append("article_id", article_id);
-        formData.append("article", article_id);
-
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-            onUploadProgress: function(progressEvent) {
-                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                setUploadProgress(percentCompleted);
-        }
-        };
-
-        if(gallery_id){
-                let url = AuthUrls.UPDATE_GALLERY + gallery_id + "/";
-                axios.put(url, formData, config).then((response) => {
-                        console.log(response.data);
-                });
+        if(name && description && file){
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('fileName', file.name);
+            formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
+            formData.append('name', name);
+            formData.append('description', description);
+            formData.append("article_id", article.id);
+            formData.append("article", article.id);
+    
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+                onUploadProgress: function(progressEvent) {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadProgress(percentCompleted);
+            }
+            };
+    
+            if(gallery_id){
+                    let url = AuthUrls.UPDATE_GALLERY + gallery_id + "/";
+                    axios.put(url, formData, config).then((response) => {
+                            console.log(response.data);
+                    });
+            } else {
+                    let url = AuthUrls.UPDATE_GALLERY;
+                    axios.post(url, formData, config).then((response) => {
+                            console.log(response.data);
+                    });
+            }
+            window.location.reload(true);
+    
         } else {
-                let url = AuthUrls.UPDATE_GALLERY;
-                axios.post(url, formData, config).then((response) => {
-                        console.log(response.data);
-                });
+            $("#upload_error").show();
+            $("#upload_error").html("Please give the file a name, description and file")
         }
-        window.location.reload(true);
-
     }
 
     return (
@@ -58,23 +65,27 @@ export function UploadGalleryImage(props) {
                 <button onClick={() => setToggle(!toggle)} type="submit">Upload Image</button>
                 {toggle && <div className="row mb-4">
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
-                        <h4>File Upload</h4>
-                        <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
-                        <input type="hidden" name="article" id="article" value={article_id}/>
-                        <div className="form-group">
-                                <input type="file" onChange={handleChange} />
+                        <div className="main-form-1">
+                        <div className="main-all-forms-1">
+                            <h4>File Upload</h4>
+                            <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
+                            <input type="hidden" name="article" id="article" value={article.id} />
+                            <div className="form-group">
+                                    <input type="file" onChange={handleChange} />
+                            </div>
+                            <div className="form-group">
+                                    <label for="name">Image Name:</label>
+                                    <input type="text" className="form-control" id="name" />
+                            </div>
+                            <div className="form-group">
+                                    <label for="description">Description:</label>
+                                    <input type="text" className="form-control" id="description" />
+                            </div>
+                            <div className="alert alert-info" id="upload_error" style={{display:"none"}}></div>
+                            <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br />
+                            <progress value={uploadProgress} max="100"></progress>
                         </div>
-                        <div className="form-group">
-                                <label for="name">Image Name:</label>
-                                <input type="text" className="form-control" id="name" />
                         </div>
-                        <div className="form-group">
-                                <label for="description">Description:</label>
-                                <input type="text" className="form-control" id="description" />
-                        </div>
-
-                        <button type="submit">Upload</button><br />
-                        <progress value={uploadProgress} max="100"></progress>
                     </form>
                 </div>}
         </div>
@@ -126,18 +137,22 @@ export function UploadHeroImage(props) {
             <button onClick={() => setToggle(!toggle)} type="submit">Upload Image</button>
             {toggle && 
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
-                    <h4>File Upload</h4>
-                    <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
-                    <div className="">
-                            <input type="file" onChange={handleChange} />
-                    </div>
-                    <div className="">
-                            <label for="name">Image Name:</label>
-                            <input type="text" className="form-control" id="name" />
-                    </div>
+                    <div className="main-form-1">
+                    <div className="main-all-forms-1">
+                        <h4>File Upload</h4>
+                        <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
+                        <div className="">
+                                <input type="file" onChange={handleChange} />
+                        </div>
+                        <div className="">
+                                <label for="name">Image Name:</label>
+                                <input type="text" className="form-control" id="name" />
+                        </div>
 
-                    <button type="submit">Upload</button><br />
-                    <progress value={uploadProgress} max="100"></progress>
+                        <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br />
+                        <progress value={uploadProgress} max="100"></progress>
+                    </div>
+                    </div>
                 </form>}
         </div>
  
@@ -148,7 +163,7 @@ export function UploadHeroImage(props) {
 export function UploadArticleHeroImage(props) {
 
     const [toggle, setToggle] = useState(false)
-    const {article_id} = props
+    const {article} = props
     const [file, setFile] = useState()
     const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -164,8 +179,9 @@ export function UploadArticleHeroImage(props) {
         formData.append('hero_image', file);
         formData.append('fileName', file.name);
         formData.append('csrfmiddlewaretoken', localStorage.getItem("csrf_token"));
-        formData.append('name', event.target.name.value);
+        //formData.append('name', event.target.name.value);
         formData.append('creator', localStorage.getItem("username"));
+        formData.append('active', true);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -176,7 +192,7 @@ export function UploadArticleHeroImage(props) {
         }
         };
 
-        let url = AuthUrls.UPDATE_ARTICLE + article_id + "/";
+        let url = AuthUrls.UPDATE_ARTICLE + article.id + "/";
         axios.put(url, formData, config).then((response) => {
             history.push("/article/" + response.data.slug);
             window.location.reload(true);
@@ -189,18 +205,22 @@ export function UploadArticleHeroImage(props) {
             <button onClick={() => setToggle(!toggle)} type="submit">Upload Article Hero Image</button>
             {toggle && 
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
-                    <h4>File Upload</h4>
-                    <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
-                    <div className="">
-                            <input type="file" onChange={handleChange} />
-                    </div>
-                    <div className="">
-                            <label for="name">Image Name:</label>
-                            <input type="text" className="form-control" id="name" />
-                    </div>
+                    <div className="main-form-1">
+                    <div className="main-all-forms-1">
+                        <h4>File Upload</h4>
+                        <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
+                        <div className="">
+                                <input type="file" onChange={handleChange} />
+                        </div>
+                        <div className="">
+                                <label for="name">Image Name:</label>
+                                <input type="text" className="form-control" id="name" />
+                        </div>
 
-                    <button type="submit">Upload</button><br />
-                    <progress value={uploadProgress} max="100"></progress>
+                        <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br /><br />
+                        <progress value={uploadProgress} max="100"></progress>
+                    </div>
+                    </div>
                 </form>}
         </div>
  
@@ -255,6 +275,7 @@ export function UploadContentFile(props) {
                 window.location.reload(true);
             });
         } else {
+            $("#upload_error").show();
             $("#upload_error").html("Please select a file")
         }
     }
@@ -280,7 +301,7 @@ export function UploadContentFile(props) {
 
                         <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br />
                         <progress value={uploadProgress} max="100"></progress>
-                        <div className="alert alert-info" id="upload_error"></div>
+                        <div className="alert alert-info" id="upload_error" style={{display:"none"}}></div>
                     </form>
                 </div>
                 </div></div>

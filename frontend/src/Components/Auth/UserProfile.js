@@ -44,8 +44,7 @@ export class UserProfile extends Component {
         return (
             <div>
                 <Navigation />
-                <HomeHero />
-                <div className="center">
+                <div className="form-container">
                 <div className="main-form-1">
                     <div className="text-center login" style={{padding:"50px 0"}}>
                         <div className="logo">User</div>

@@ -42,10 +42,12 @@ export default function ArticlesHome() {
                 <article className="post featured">
                     <header className="major">
                     <h3>{format_date(main_article.created_at)}</h3><br />
-                    <span >Wriiten by {main_article.creator__first_name } {main_article.creator__last_name}</span>
+                    <h3>{main_article.category}</h3>
+                    <span>Updated by {main_article.creator__first_name } {main_article.creator__last_name}</span>
                         <h2><a href={"/article/" + main_article.slug}>{main_article.title}</a></h2>
                         <p>{main_article.paragraph_1}</p>
                     </header>
+                    <span>Full article found at <a href={main_article.link} target="_blank">Here</a></span>
                     <a href={"/article/" + main_article.slug}  className="image main"><img src={main_article.hero_image !== "" ? process.env.REACT_APP_BACKEND_URL + "/media/" + main_article.hero_image : process.env.REACT_APP_PUBLIC_HTML + '/images/background1.jpg'} alt={main_article.tile} /></a>
                     <ul className="">
                         <li><a href={"/article/" + main_article.slug}  className="button">Full Story</a></li>
@@ -63,6 +65,7 @@ export default function ArticlesHome() {
                                 <header>
                                     <span className="date">{format_date(article.created_at)}</span>
                                     <h2><a href={"/article/" + article.slug}>{article.title}</a></h2>
+                                    <h3>{article.category}</h3>
                                 </header>
                                 <a href={"/article/" + article.slug}  className="image fit">
                                     <img 
@@ -73,7 +76,9 @@ export default function ArticlesHome() {
                                 <ul className="actions">
                                     <li><a href={"/article/" + article.slug} className="button">Full Story</a></li>
                                 </ul>
-                                <span >Wriiten by {article.creator__first_name } {article.creator__last_name}</span>
+                                <span>Updated by { article.creator__first_name } { article.creator__last_name }</span>
+                                <br />
+                                <span>Full article found at <a href={article.link} target="_blank">Here</a></span>
                             </article>
 
                         ))}

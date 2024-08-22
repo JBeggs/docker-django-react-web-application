@@ -24,10 +24,10 @@ export default function ArticleDetailHero(props) {
     }
     const article = filterBySlug();
 
-    const hero_image = article.hero_image ? article.hero_image : localStorage.getItem("article_hero_image");
-    const is_owner = article.creator ===  localStorage.getItem("username");
-    const title = article.title ? article.title : localStorage.getItem("article_title");
-    const description = article.title_description ? article.title_description : localStorage.getItem("article_description");
+    const hero_image = article && article.hero_image ? process.env.REACT_APP_BACKEND_URL + "/media/" + article.hero_image : localStorage.getItem("article_hero_image");
+    const is_owner = article && article.creator__username ===  localStorage.getItem("username") || is_admin;
+    const title = article && article.title ? article.title : localStorage.getItem("article_title");
+    const description = article && article.title_description ? article.title_description : localStorage.getItem("article_description");
 
     return (
       <div>
@@ -67,7 +67,7 @@ export default function ArticleDetailHero(props) {
               </div>
           </div>
         </header>
-        {is_owner && <UploadArticleHeroImage article_id={article.id} />}
+        {is_owner && <UploadArticleHeroImage article={article} />}
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import "./HomeArticles.css";
 import React from 'react';
-import { newArticle, saveArticle } from "../../utils/saveContent.js"
+import { newArticle, saveArticle, deleteArticle } from "../../utils/saveContent.js"
+
 
 export function CreateArticle() {
 
@@ -29,11 +30,12 @@ export function CreateArticle() {
 
 export function UpdateArticle(props) {
 
-    const is_owner = props.article.creator ===  localStorage.getItem("username")
+    const is_owner = props.article.creator__username ===  localStorage.getItem("username")
+    const is_admin = localStorage.getItem("is_admin");
 
     return (
         <section>
-            {is_owner && 
+            {is_owner &&
             
             <div id="" className="fade-in">
                 <div className="px-4 py-5 my-5 text-center">
@@ -48,7 +50,10 @@ export function UpdateArticle(props) {
                         }>
                             Publish Article
                         </button>
-                        <button type="button" className="btn">Delete Article</button>
+                        <button type="button" className="btn" onClick={() => 
+                            {deleteArticle(props.article.id, true, "active"); }
+                            
+                        } >Delete Article</button>
                     </div>
                     </div>
                 </div>
@@ -61,10 +66,11 @@ export function UpdateArticle(props) {
 export function CreateNewArticle() {
 
     const user = localStorage.getItem("username");
+    const is_admin = localStorage.getItem("is_admin");
 
     return (
         <section>
-            {user && <div id="wrapper" className="fade-in">
+            { user && !is_admin && <div id="wrapper" className="fade-in">
                 <div className="px-4 py-5 my-5 text-center">
                     <h1 className="display-5 fw-bold">Want add a new article, please login or signup...</h1>
                     <div className="col-lg-6 mx-auto">
