@@ -2,12 +2,12 @@ import axios from "axios";
 import { SubmissionError } from "redux-form";
 import history from "../utils/historyUtils";
 import { actions as notifActions } from "redux-notifications";
+
 import { AuthTypes } from "../constants/actionTypes";
 import { AuthUrls } from "../constants/urls";
 import store from "../store";
 import { getUserToken } from "../utils/authUtils";
 import Cookies from "js-cookie";
-
 
 const { notifSend } = notifActions;
 axios.defaults.withCredentials = true;
@@ -72,7 +72,7 @@ export function logoutUser() {
     };
 }
 
-export function signupUser(formValues) { //no-unused-vars
+export function signupUser(formValues, dispatch) { //no-unused-vars
     const signupUrl = AuthUrls.SIGNUP;
 
     const config = {
@@ -99,12 +99,21 @@ export function signupUser(formValues) { //no-unused-vars
             window.location.reload();
         })
         .catch((error) => {
+
             // If request is bad...
             // Show an error to the user
-            console.log("-------------------------");
-            console.log(JSON.stringify(error))
-            const processedError = processServerError(error);
-            throw new SubmissionError(processedError);
+            // console.log("-------------------------");
+            // console.log(JSON.stringify(error))
+
+            if("message" in error && "code" in error){
+                dispatch(notifSend({
+                    message: "There was an error, user exists : " + error.message   ,
+                    kind: "info",
+                    dismissAfter: 5000
+                }));
+            }
+            // const processedError = processServerError(error);
+            // throw new SubmissionError(processedError);
         });
 }
 
