@@ -10,8 +10,10 @@ import { Messages } from "../../Components/Contact";
 export default function ArticleDetail() {
 
     const { slug } = useParams();
+
     const articles = JSON.parse(localStorage.getItem("articles"));
     const user_articles = JSON.parse(localStorage.getItem("user_articles"));
+
     const article_gallery = JSON.parse(localStorage.getItem("articles_gallery"));
     const is_admin = localStorage.getItem("is_admin");
     const article = filterBySlug() ? filterBySlug() : filterUserArticlesBySlug();
@@ -34,19 +36,12 @@ export default function ArticleDetail() {
             return [];
         }
         return article_gallery.filter(
-            gallery => gallery.article_id == article.id
+            gallery => gallery.article_id === article.id
         );
     }
 
-    function filterImageByIndex(index) {
-        if(!gallery){
-            return [];
-        }
-        return gallery.slice(index);
-    }
-
-    function format_date(date) {
-        var date = new Date(date);
+    function format_date(newdate) {
+        var date = new Date(newdate);
         var formattedDate = format(date, "MMMM do, yyyy H:mma");
         return formattedDate;
     }
@@ -54,9 +49,9 @@ export default function ArticleDetail() {
     const image_1 = filterGalleryByID().slice(-1)[0];
     const image_2 = gallery.length >1 ? filterGalleryByID().slice(-2)[0] : [];
 
-    const is_owner = article.creator__username ===  localStorage.getItem("username")
+    const is_owner = article.creator__username ===  localStorage.getItem("username") || article.creator ===  localStorage.getItem("username");
     const can_edit = is_owner || is_admin;
-
+    console.log(article);
     return (
         <div className="container">
             <div className="row">
@@ -68,7 +63,7 @@ export default function ArticleDetail() {
                             <ul>
                             <li className="d-flex align-items-center"><i className="bi bi-person"></i>Updated by {article.creator__first_name ? article.creator__first_name + " " + article.creator__last_name : article.creator__username} </li>
                             <li className="d-flex align-items-center"><i className="bi bi-clock"></i> <time dateTime={format_date(article.created_at)}>{format_date(article.created_at)}</time></li>
-                            <li className="d-flex align-items-center"><i className="bi bi-clock"></i> <span>Full article found at <a href={article.link} target="_blank">Here</a></span></li>
+                            <li className="d-flex align-items-center"><i className="bi bi-clock"></i> <span>Full article found at <a href={article.link} target="_blank" rel="noreferrer">Here</a></span></li>
                             </ul>
                         </div>
                         <div className="container">
