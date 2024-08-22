@@ -153,10 +153,37 @@ export function newArticle(value=null, field=null) {
     }
 
     return axios.post(updateURL, contentValues, config).then((response) => {
-        history.push("article/default-title");
+        history.push("article/new-article");
         window.location.reload();
 
     }).catch(error => {
         //alert(error);
     });
 }
+
+
+export function deleteArticle(id) {
+    
+    const updateURL = AuthUrls.UPDATE_ARTICLE + id + "/";
+
+    const contentValues = {
+        id : id,
+        creator: localStorage.getItem("username"),
+    }
+
+    const config = {
+        withCredentials: true,
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer: " +  localStorage.getItem("token"),
+          },
+    }
+
+    return axios.delete(updateURL, contentValues, config).then((response) => {
+        history.push("/articles");
+        window.location.reload();
+
+    }).catch(error => {
+        //alert(error);
+    })}

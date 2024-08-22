@@ -121,7 +121,10 @@ export default function loadContent(page=null, field=null, image=null, dispatch)
         localStorage.setItem("csrf_token", response.data.csrf_token);
         localStorage.setItem("articles", JSON.stringify(response.data.articles));
         localStorage.setItem("articles_gallery", JSON.stringify(response.data.articles_gallery));
- 
+        if(!localStorage.getItem("username")){
+            localStorage.setItem("username", "anonymous");
+            window.location.reload();
+        }
     }).catch(error => {
 
 
@@ -133,6 +136,7 @@ export default function loadContent(page=null, field=null, image=null, dispatch)
             localStorage.setItem("user_articles", JSON.stringify([]));
         }
     });
+
 }
 
 
