@@ -219,7 +219,7 @@ export function UploadArticleHeroImage(props) {
                                 <input type="file" onChange={handleChange} />
                         </div>
                         <div className="">
-                                <label for="name">Image Name:</label>
+                                <label for="name">Page name:</label>
                                 <input type="text" className="form-control" id="name" />
                         </div>
                         <div className="alert alert-info" id="upload_error" style={{display:"none"}}></div>

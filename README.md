@@ -1,3 +1,211 @@
+# Installation
+
+### Software
+
+#### This was developed on a Mac using VSCODE
+Requirements
+
+1. Node 10.8.2 installed locally
+2. Python 3.10 atleast with virualebv installed (for development)
+3. Docker using Docker Compose
+
+Checkout the repository
+
+
+```
+git clone https://github.com/JBeggs/docker-django-react-web-application.git
+```
+
+And then change into the directory
+
+```
+cd docker-django-react-web-application
+```
+
+Before we can deploy the docker images and run the application we need to 
+
+1. Check env variable files
+2. Build Python app to test and manage locally
+3. npm install node packages
+4. run docker commands
+
+Open .env.dev in your favourite editor and change the following lines
+
+```
+
+DEBUG=1
+SECRET_KEY=lazypasswordsaretheshortestthestrongestseemtobealongstringmorethan256charctors!
+DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] localhost:3000 192.168.50.106
+SQL_ENGINE=django.db.backends.postgresql
+SQL_DATABASE=backend_dev
+SQL_USER=backend
+SQL_PASSWORD=backend
+SQL_HOST=db
+SQL_PORT=5432
+DATABASE=backend
+
+```
+
+Make sure 'DJANGO_ALLOWED_HOSTS' incldues your IP address
+
+Now open frontend/.env in your favourite editor and change the following lines
+
+```
+REACT_APP_BACKEND_URL=http://192.168.50.106:8000
+REACT_APP_PUBLIC_HTML=http://192.168.50.106:3000
+```
+
+Change it to your IP address
+
+In the frontend directory run
+
+```
+npm install --force
+```
+
+## There might be global packages needed for the development you might need to chase errors
+
+After the installation
+
+
+Change back into the root directory and into backend
+
+```
+cd ../
+cd backend
+```
+
+Run the commands (use your python version installed)
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r reqirements.txt
+```
+
+Wait for installation to comlpete, then we are erady for docker
+
+```
+cd ../
+```
+
+
+### Docker installation
+```
+docker compose build
+docker compose up -d
+```
+Check docker logs for any error messages, if you are on windows good luck.
+
+If the env variables we changed you should be able to go to
+
+### Frontend
+```
+http://192.168.50.106:3000/
+```
+### Backend
+```
+http://192.168.50.106:8000/
+```
+
+
+If everything is running and you can view the blank website we need to add a superuser and load default pages and some articles
+
+```
+docker exec -it docker-django-react-web-application-backend-1 bash
+python manage.py createsuperuser
+```
+
+The superuser unsername must be admin, the password can be anything just remember it.
+
+```
+python manage.py add_content
+```
+
+This creates a user 
+
+```
+username : jody
+password : Defcon12
+```
+
+And uploads 4 articles that we will need to change and update
+
+
+### NB : The Blank site is barely function abd only after the content is added can we use it...
+
+
+![After Conent is addedd](./frontend/public/images/readme/after_content_added.jpg)
+
+## login as the admin user just created
+
+
+
+![After Conent is addedd](./frontend/public/images/readme/admin_login.jpg)
+
+
+As the admin user you can do a few things to change the home page content, articles page and images.
+
+
+
+![After Conent is addedd](./frontend/public/images/readme/edit_homepage_banner.jpg)
+
+
+As admin click on the home page text and the text becomes editable, you can change the descritpion too.
+
+You change change the hero image
+
+![Upload home page hero](./frontend/public/images/readme/upload_home_page_hero.jpg)
+
+This is the default for this page
+
+Browse to any article
+
+![Browse to Article](./frontend/public/images/readme/browse_to_article.jpg)
+
+And as admin you can change the content if vulgar or unwanted
+
+But if you do change an article you claim ownership and need to change the user from admin in the backend.
+
+## User section
+
+Logon in with 
+
+
+```
+username : jody
+password : Defcon12
+```
+
+And you have full control of the articles created and can add more articles view 
+
+http://localhost:3000/articles
+
+
+## NOTE : When changing Article hero
+
+When changing the article hero the page neds to refresh and the slug for the article needs to change.
+
+The image name field updates the slug fields
+
+
+![Changing Article Hero](frontend/public/images/readme/article_hero_page.jpg)
+
+
+## Features
+
+Although not being used django-allauth allows for soclai media registration and login
+
+Conetnt is managed by django and it's built in admin panel
+
+DRF has api endpoints to manage page contnt, article content nad user details
+
+
+## After uploading some images
+
+![Site after uploading images](<frontend/public/images/readme/after_uploading images.png>)
+
+
+# About the system and development
 ## Docker
 
 Docker is a platform for developing, shipping, and running applications inside lightweight, portable containers.
@@ -59,7 +267,7 @@ By leveraging these technologies together, developers can enjoy a streamlined wo
 - Setup Django using React serving the front end
 - Start the Development.
 - integrate user managmement system
-- add functonality to the backend content and article management
+- add functonality to the backend content and management
 - Stitch the front end together
 - hope and pray(lol)
 
