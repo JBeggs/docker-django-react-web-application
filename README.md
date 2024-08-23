@@ -202,6 +202,8 @@ Conetnt is managed by django and it's built in admin panel
 
 DRF has api endpoints to manage page content, article content nad user details
 
+Starting adding a basic messaging system o the articles, logged in user can leave a message
+
 
 ## After uploading some images
 
