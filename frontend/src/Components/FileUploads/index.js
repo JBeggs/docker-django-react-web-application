@@ -66,25 +66,25 @@ export function UploadGalleryImage(props) {
                 {toggle && <div className="row mb-4">
                     <form onSubmit={handleSubmit} encType="multipart/form-data">
                         <div className="main-form-1">
-                        <div className="main-all-forms-1">
-                            <h4>File Upload</h4>
-                            <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
-                            <input type="hidden" name="article" id="article" value={article.id} />
-                            <div className="form-group">
-                                    <input type="file" onChange={handleChange} />
+                            <div className="main-all-forms-1">
+                                <h4>File Upload</h4>
+                                <input type="hidden" name="csrftoken" id="csrftoken" value={localStorage.getItem("csrf_token")}/>
+                                <input type="hidden" name="article" id="article" value={article.id} />
+                                <div className="form-group">
+                                        <input type="file" onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                        <label for="name">Image Name:</label>
+                                        <input type="text" className="form-control" id="name" />
+                                </div>
+                                <div className="form-group">
+                                        <label for="description">Description:</label>
+                                        <input type="text" className="form-control" id="description" />
+                                </div>
+                                <div className="alert alert-info" id="upload_error" style={{display:"none"}}></div>
+                                <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br />
+                                <progress value={uploadProgress} max="100"></progress>
                             </div>
-                            <div className="form-group">
-                                    <label for="name">Image Name:</label>
-                                    <input type="text" className="form-control" id="name" />
-                            </div>
-                            <div className="form-group">
-                                    <label for="description">Description:</label>
-                                    <input type="text" className="form-control" id="description" />
-                            </div>
-                            <div className="alert alert-info" id="upload_error" style={{display:"none"}}></div>
-                            <button type="submit" className="main-form-button"><i className="fa fa-chevron-right"></i></button><br />
-                            <progress value={uploadProgress} max="100"></progress>
-                        </div>
                         </div>
                     </form>
                 </div>}

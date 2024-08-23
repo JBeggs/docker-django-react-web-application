@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 
 class PageContentViewSet(viewsets.ModelViewSet):
-    search_fields = ["id", "creator__name", "name", 'title', "name", "desc"]
+    search_fields = ["id", "creator__name", "name", 'title', "desc"]
     queryset = PageContent.objects.all()
     serializer_class = PageContentSerializer
     parser_classes = (MultiPartParser, FormParser, JSONParser)
