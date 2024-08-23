@@ -1,8 +1,9 @@
 # Installation
 
-### Software
+## Software
 
-#### This was developed on a Mac using VSCODE
+### This was developed on a Mac using VSCODE
+-------------------
 Requirements
 
 1. Node 10.8.2 installed locally
@@ -89,6 +90,7 @@ cd ../
 
 
 ### Docker installation
+-------------------
 ```
 docker compose build
 docker compose up -d
@@ -98,10 +100,12 @@ Check docker logs for any error messages, if you are on windows good luck.
 If the env variables we changed you should be able to go to
 
 ### Frontend
+-------------------
 ```
 http://localhost:3000/
 ```
 ### Backend
+-------------------
 ```
 http://localhost:8000/
 ```
@@ -131,7 +135,7 @@ And uploads 4 articles that we will need to change and update
 
 
 ### NB : The Blank site is barely function and only after the content is added can we use it...
-
+-------------------
 
 ![After Conent is addedd](./frontend/public/images/readme/after_content_added.jpg)
 
@@ -208,6 +212,8 @@ DRF has api endpoints to manage page content, article content nad user details
 
 
 # About the system and development
+-------------------
+
 ## Docker
 
 Docker is a platform for developing, shipping, and running applications inside lightweight, portable containers.
@@ -264,6 +270,7 @@ By leveraging these technologies together, developers can enjoy a streamlined wo
 
 
 ### The plan
+-------------------
 
 - Setup a basic django application running in docker. Commit the changes.
 - Setup Django using React serving the front end
@@ -291,10 +298,14 @@ Register is working, not suure about login style
 Terms and condistions is added
 Home page displays active articles not owned by admin, admin is for editing homepage and article page content.
 
-Admin frontend. Can edit home page title and descrition 
-and upload images for gallery? and hero image
+### Admin 
+-------------------
 
-Logged in user
+Can edit home page and article page title and descrition 
+Upload images for gallery? and hero image nut takes ownership of article and needs to change the user in the admin panel
+
+### Logged in user
+-------------------
 
 Can create articles, click of a button, article created with ... that are point and click editable
 Delete article to do
