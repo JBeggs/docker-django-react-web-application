@@ -32,7 +32,6 @@ Before we can deploy the docker images and run the application we need to
 Open .env.dev in your favourite editor and change the following lines
 
 ```
-
 DEBUG=1
 SECRET_KEY=lazypasswordsaretheshortestthestrongestseemtobealongstringmorethan256charctors!
 DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1] localhost:3000 192.168.50.106
@@ -43,7 +42,6 @@ SQL_PASSWORD=backend
 SQL_HOST=db
 SQL_PORT=5432
 DATABASE=backend
-
 ```
 
 Make sure 'DJANGO_ALLOWED_HOSTS' incldues your IP address
@@ -60,6 +58,7 @@ Change it to your IP address
 In the frontend directory run
 
 ```
+cd frontend
 npm install --force
 ```
 
