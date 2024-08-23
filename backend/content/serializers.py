@@ -20,7 +20,7 @@ class PageContentSerializer(serializers.ModelSerializer):
             "id", "creator", "name", "page", "title", "title_description", "hero_image",
             "paragraph_1", "paragraph_2", "paragraph_3", "paragraph_4", "paragraph_5",
             "file", "created_at", "updated_at", "active", "hero_image"
-            ]
+        ]
 
     def create(self, validated_data):
 
@@ -89,9 +89,9 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = [
             "id", "creator","creator__username", "name", "title", "title_description", "hero_image", "slug", "category",
             "paragraph_1", "paragraph_2", "paragraph_3", "paragraph_4", "paragraph_5", "paragraph_6", "paragraph_7",
-            "header_1", "header_2", "header_3", "header_4", "header_5", "creator__first_name", "creator__last_name"
+            "header_1", "header_2", "header_3", "header_4", "header_5", "creator__first_name", "creator__last_name",
             "link", "file", "created_at", "updated_at", "active", "hero_image"
-            ]
+        ]
 
     def create(self, validated_data):
 
