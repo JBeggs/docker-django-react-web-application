@@ -197,7 +197,6 @@ export function UploadArticleHeroImage(props) {
 
             let url = AuthUrls.UPDATE_ARTICLE + article.id + "/";
             axios.put(url, formData, config).then((response) => {
-                alert(response.data.slug)
                 history.push("/article/" + response.data.slug);
                 window.location.reload();
             });
