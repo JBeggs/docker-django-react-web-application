@@ -49,8 +49,8 @@ Make sure 'DJANGO_ALLOWED_HOSTS' incldues your IP address
 Now open frontend/.env in your favourite editor and change the following lines
 
 ```
-REACT_APP_BACKEND_URL=http://192.168.50.106:8000
-REACT_APP_PUBLIC_HTML=http://192.168.50.106:3000
+REACT_APP_BACKEND_URL=http://locahost:8000
+REACT_APP_PUBLIC_HTML=http://localhost:3000
 ```
 
 Change it to your IP address
@@ -99,11 +99,11 @@ If the env variables we changed you should be able to go to
 
 ### Frontend
 ```
-http://192.168.50.106:3000/
+http://localhost:3000/
 ```
 ### Backend
 ```
-http://192.168.50.106:8000/
+http://localhost:8000/
 ```
 
 
@@ -130,7 +130,7 @@ password : Defcon12
 And uploads 4 articles that we will need to change and update
 
 
-### NB : The Blank site is barely function abd only after the content is added can we use it...
+### NB : The Blank site is barely function and only after the content is added can we use it...
 
 
 ![After Conent is addedd](./frontend/public/images/readme/after_content_added.jpg)
@@ -196,12 +196,15 @@ Although not being used django-allauth allows for soclai media registration and 
 
 Conetnt is managed by django and it's built in admin panel
 
-DRF has api endpoints to manage page contnt, article content nad user details
+DRF has api endpoints to manage page content, article content nad user details
 
 
 ## After uploading some images
 
-![Site after uploading images](<frontend/public/images/readme/after_uploading images.png>)
+![Home Page after uploading images](<frontend/public/images/readme/after_uploading images.png>)
+
+![Article Page](frontend/public/images/readme/article_page.jpg)
+
 
 
 # About the system and development
@@ -280,67 +283,9 @@ There are a few tasks that need to get out the way.
 local developemnt env and production (Production on hold).
 
 
-### Adding django backend framework
-
-docker-compose.yml has the images needed for postgres, django and react.
-
-#### Dev Installation
-
-Django
-
-Django is completly setup using docker
-
-React application
-
-- cd frontend
-- npm install --force (the auth I'm usig uses react-redux)
-
-that's it
-
-run in the root of the project
-
-- cd ../
-- docker-compose build
-- docker-compose up -d
-
-to setup the basic application
-
-
-### Some Docker commands I need to remember
-
-docker-compose build
-docker-compose up -d
-
-docker ps
-docker image ls
-
-docker exec -it docker-django-react-web-application-backend-1 bash
-
-Once in the bash
-
-python manage.py makemigrations
-python manage.py migrate
-python manage.py add_content_from_csv
-
-This will add the basic content to the site and make it look better.
-
-We need a home page and an article page to store titles and descrition.
-
-These are added to the meta data (some how)
-
-
 ### Getting there
 
-# In this round I'm going to add content and some style for the front end.
-
-- Choose a frame work, bootstrap or tailwind? Not lookning good for tailwind if I need to buy it.
-- Add some models in the backend to store page content
-- Add Models for Blog content
-
-
-## Well that was a hectic week.
-
-Breakdown of the applicatrion.
+## Breakdown of the applicatrion.
 
 Register is working, not suure about login style
 Terms and condistions is added
@@ -362,18 +307,5 @@ Working on comments and messages fron contact form. (might not be able to finish
 
 My articles are going to be added via a spreadsheet and then upload the images manually
 
-
-## Wednesday power failure
-
-First time in a while no juice but its been good I can think more about what's going on.
-
-Feels like I've been putting out fire and chasing bugs but I think it's getting thee
-
-User flow is better adding and edting content working smoothly
-
-Still that design?
-
- 
-
-
+Comments section
 
