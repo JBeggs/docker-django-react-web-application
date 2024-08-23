@@ -44,18 +44,51 @@ def image_thumbnail_path(instance, filename):
     if '/' in filename:
         filename = filename.split('/')[-1]
     ext = filename.split('.')[-1]
-    return f'page/thumb/{slugify(instance.id)}/{slugify(instance.name)}.{ext}'
+    return f'page/thumb/{slugify(instance.page.id)}/{slugify(instance.name)}.{ext}'
+
+
+def article_gallery_image_thumbnail_path(instance, filename):
+    if '/' in filename:
+        filename = filename.split('/')[-1]
+    ext = filename.split('.')[-1]
+    return f'page/thumb/{slugify(instance.article.id)}/{slugify(instance.name)}.{ext}'
 
 
 def page_file_path(instance, filename):
     if '/' in filename:
         filename = filename.split('/')[-1]
     ext = filename.split('.')[-1]
-    return f'page/file/{slugify(instance.id)}/{slugify(instance.name)}.{ext}'
+    return f'page/file/{slugify(instance.creator.id)}/{slugify(instance.name)}.{ext}'
 
+def article_file_path(instance, filename):
+    if '/' in filename:
+        filename = filename.split('/')[-1]
+    ext = filename.split('.')[-1]
+    return f'article/file/{slugify(instance.creator.id)}/{slugify(instance.name)}.{ext}'
 
 def page_image_path(instance, filename):
     if '/' in filename:
         filename = filename.split('/')[-1]
     ext = filename.split('.')[-1]
-    return f'page/image/{slugify(instance.id)}/{slugify(instance.name)}.{ext}'
+    return f'page/image/{slugify(instance.creator.id)}/{slugify(instance.name)}.{ext}'
+
+
+def page_gallery_image_path(instance, filename):
+    if '/' in filename:
+        filename = filename.split('/')[-1]
+    ext = filename.split('.')[-1]
+    return f'page/gallery/image/{slugify(instance.page.id)}/{slugify(instance.name)}.{ext}'
+
+
+def article_image_path(instance, filename):
+    if '/' in filename:
+        filename = filename.split('/')[-1]
+    ext = filename.split('.')[-1]
+    return f'article/image/{slugify(instance.creator.id)}/{slugify(instance.name)}.{ext}'
+
+
+def article_gallery_image_path(instance, filename):
+    if '/' in filename:
+        filename = filename.split('/')[-1]
+    ext = filename.split('.')[-1]
+    return f'article/gallery/image/{slugify(instance.article.id)}/{slugify(instance.name)}.{ext}'

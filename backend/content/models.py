@@ -5,7 +5,7 @@ from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-from .utils import create_thumbnail, image_thumbnail_path, page_file_path, page_image_path
+from .utils import create_thumbnail, image_thumbnail_path, page_file_path, article_file_path, page_image_path, page_gallery_image_path, article_image_path, article_gallery_image_path, article_gallery_image_thumbnail_path
 import pandas as pd
 
 
@@ -115,7 +115,7 @@ class PageGallery(models.Model):
     page = models.ForeignKey(
         PageContent, related_name="page_gallery", on_delete=models.CASCADE)
     name = models.CharField(max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
+    image = models.ImageField(upload_to=page_gallery_image_path, blank=True, max_length=300)
     description = models.CharField(max_length=200, blank=True)
     thumbnail = models.ImageField(upload_to=image_thumbnail_path, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -156,7 +156,7 @@ class Articles(models.Model):
     title = models.CharField(max_length=500, blank=True, null=True)
     slug = models.SlugField(default="", null=False)
     title_description = models.TextField(_('Title Description'), blank=True, null=True)
-    hero_image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
+    hero_image = models.ImageField(upload_to=article_image_path, blank=True, max_length=300)
 
     header_1 = models.CharField(max_length=200, blank=True, null=True)
     paragraph_1 = models.TextField(_('paragraph'), blank=True, null=True)
@@ -172,7 +172,7 @@ class Articles(models.Model):
     paragraph_7 = models.TextField(_('paragraph'), blank=True, null=True)
     
     link = models.CharField(max_length=500, blank=True, null=True)
-    file = models.FileField(upload_to=page_file_path, blank=True, null=True)
+    file = models.FileField(upload_to=article_file_path, blank=True, null=True)
     active     = models.BooleanField(default=False, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
@@ -198,9 +198,9 @@ class ArticleGallery(models.Model):
         Articles, related_name="article_gallery", on_delete=models.CASCADE)
     
     name = models.CharField(max_length=200, blank=True, null=True)
-    image = models.ImageField(upload_to=page_image_path, blank=True, max_length=300)
+    image = models.ImageField(upload_to=article_gallery_image_path, blank=True, max_length=300)
     description = models.CharField(max_length=200, blank=True)
-    thumbnail = models.ImageField(upload_to=image_thumbnail_path, blank=True)
+    thumbnail = models.ImageField(upload_to=article_gallery_image_thumbnail_path, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

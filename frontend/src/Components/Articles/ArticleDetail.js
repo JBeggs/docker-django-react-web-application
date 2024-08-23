@@ -51,7 +51,7 @@ export default function ArticleDetail() {
 
     const is_owner = article.creator__username ===  localStorage.getItem("username") || article.creator ===  localStorage.getItem("username");
     const can_edit = is_owner || is_admin;
-    console.log(article);
+
     return (
         <div className="container">
             <div className="row">

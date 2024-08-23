@@ -183,7 +183,7 @@ class MessageSerializer(serializers.ModelSerializer):
 class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactMessage
-        fields = ["id", "user", "article", "message"]
+        fields = ["id", "first_name", "last_name", "message", "contact_number", "email_address"]
 
     def create(self, validated_data):
         message = ContactMessage()

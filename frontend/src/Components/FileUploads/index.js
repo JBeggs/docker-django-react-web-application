@@ -30,7 +30,7 @@ export function UploadGalleryImage(props) {
             formData.append('description', description);
             formData.append("article_id", article.id);
             formData.append("article", article.id);
-    
+
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data',
@@ -52,6 +52,7 @@ export function UploadGalleryImage(props) {
                             console.log(response.data);
                     });
             }
+            
             window.location.reload(true);
     
         } else {
