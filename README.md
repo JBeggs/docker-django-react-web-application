@@ -209,7 +209,7 @@ The image name field updates the slug fields
 
 Although not being used django-allauth allows for soclai media registration and login
 
-Conetnt is managed by django and it's built in admin panel
+Content is managed by django and it's built in admin panel
 
 DRF has api endpoints to manage page content, article content and user details
 
