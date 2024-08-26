@@ -126,11 +126,17 @@ The superuser unsername must be admin, the password can be anything just remembe
 python manage.py add_content
 ```
 
-This creates a user 
+This creates a user and the admin user
 
 ```
 username : jody
 password : Defcon12
+
+admin
+
+username: admin
+password: Defcon12
+
 ```
 
 And uploads 4 articles that we will need to change and update
@@ -143,7 +149,10 @@ And uploads 4 articles that we will need to change and update
 
 ## login as the admin user just created
 
-
+```
+username: admin
+password: Defcon12
+```
 
 ![After Conent is addedd](./frontend/public/images/readme/admin_login.jpg)
 
